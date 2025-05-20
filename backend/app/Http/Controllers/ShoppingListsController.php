@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\ShoppingList;
 use Illuminate\Http\Request;
+use App\Helpers\ApiResponse;
 
 class ShoppingListsController extends Controller
 {
     public function index()
     {
         $lists = auth()->user()->shoppingLists()->with('products')->get();
-        return response()->json($lists);
+        return ApiResponse::success($lists);
     }
 
     public function store(Request $request)
@@ -24,7 +25,7 @@ class ShoppingListsController extends Controller
             'archived' => false
         ]);
 
-        return response()->json($list, 201);
+        return ApiResponse::success($list, 'Lista creada correctamente.', 201);
     }
 
     public function show($id)
@@ -32,10 +33,10 @@ class ShoppingListsController extends Controller
         $list = ShoppingList::with('products')->findOrFail($id);
 
         if ($list->user_id !== auth()->id()) {
-            return response()->json(['message' => 'No autorizado'], 403);
+            return ApiResponse::error('No autorizado.', [], 403);
         }
 
-        return response()->json($list);
+        return ApiResponse::success($list);
     }
 
     public function update(Request $request, $id)
@@ -43,7 +44,7 @@ class ShoppingListsController extends Controller
         $list = ShoppingList::findOrFail($id);
 
         if ($list->user_id !== auth()->id()) {
-            return response()->json(['message' => 'No autorizado'], 403);
+            return ApiResponse::error('No autorizado.', [], 403);
         }
 
         $request->validate([
@@ -53,7 +54,7 @@ class ShoppingListsController extends Controller
 
         $list->update($request->only(['name', 'archived']));
 
-        return response()->json($list);
+        return ApiResponse::success($list, 'Lista actualizada.');
     }
 
     public function destroy($id)
@@ -61,11 +62,11 @@ class ShoppingListsController extends Controller
         $list = ShoppingList::findOrFail($id);
 
         if ($list->user_id !== auth()->id()) {
-            return response()->json(['message' => 'No autorizado'], 403);
+            return ApiResponse::error('No autorizado.', [], 403);
         }
 
         $list->delete();
 
-        return response()->json(['message' => 'Lista eliminada.']);
+        return ApiResponse::success(null, 'Lista eliminada.');
     }
 }
