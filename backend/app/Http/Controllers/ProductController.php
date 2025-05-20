@@ -6,25 +6,12 @@ use App\Models\Product;
 use App\Models\ShoppingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\HasListAccess;
+use App\Helpers\ApiResponse;
 
 class ProductController extends Controller
 {
-    /**
-     * Verifica si el usuario autenticado tiene acceso a la lista
-     */
-    private function userHasAccessToList($listId)
-    {
-        $user = Auth::user();
-
-        return ShoppingList::where('id', $listId)
-            ->where(function ($query) use ($user) {
-                $query->where('user_id', $user->id)
-                    ->orWhereHas('sharedWith', function ($q) use ($user) {
-                        $q->where('users.id', $user->id);
-                    });
-            })
-            ->exists();
-    }
+    use HasListAccess;
 
     /**
      * Crear producto en una lista
@@ -32,7 +19,7 @@ class ProductController extends Controller
     public function store(Request $request, $listId)
     {
         if (!$this->userHasAccessToList($listId)) {
-            return response()->json(['message' => 'No autorizado'], 403);
+            return ApiResponse::error('No autorizado.', [], 403);
         }
 
         $request->validate([
@@ -47,7 +34,7 @@ class ProductController extends Controller
             'purchased' => false,
         ]);
 
-        return response()->json($product, 201);
+        return ApiResponse::success($product, 'Producto creado correctamente.', 201);
     }
 
     /**
@@ -58,7 +45,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if (!$this->userHasAccessToList($product->list_id)) {
-            return response()->json(['message' => 'No autorizado'], 403);
+            return ApiResponse::error('No autorizado.', [], 403);
         }
 
         $request->validate([
@@ -69,7 +56,7 @@ class ProductController extends Controller
 
         $product->update($request->only(['name', 'quantity', 'purchased']));
 
-        return response()->json($product);
+        return ApiResponse::success($product, 'Producto actualizado correctamente.');
     }
 
     /**
@@ -80,11 +67,11 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if ($product->list->user_id !== Auth::id()) {
-            return response()->json(['message' => 'Solo el propietario puede eliminar productos.'], 403);
+            return ApiResponse::error('No autorizado para eliminar.', [], 403);
         }
 
         $product->delete();
 
-        return response()->json(['message' => 'Producto eliminado.']);
+        return ApiResponse::success(null, 'Producto eliminado.');
     }
 }
