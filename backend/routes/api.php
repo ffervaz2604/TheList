@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingListsController;
 
 /*
@@ -28,4 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/lists/{id}', [ShoppingListsController::class, 'show']);
     Route::put('/lists/{id}', [ShoppingListsController::class, 'update']);
     Route::delete('/lists/{id}', [ShoppingListsController::class, 'destroy']);
+
+    Route::post('/lists/{id}/products', [ProductController::class, 'store']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 });
