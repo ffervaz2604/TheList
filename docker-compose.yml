@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: mysql:8.0.34 # Versión fija para evitar errores por cambios de versión
+    image: mysql:8.0.34
     container_name: mysql-tfg
     restart: unless-stopped
     environment:
