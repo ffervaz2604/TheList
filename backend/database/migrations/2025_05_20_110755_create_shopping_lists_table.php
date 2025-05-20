@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('shopping_lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('archived')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('archived')->default(false);
             $table->timestamps();
         });
     }
