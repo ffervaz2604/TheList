@@ -1,23 +1,23 @@
-version: '3.8'
-
 services:
   mysql:
-    image: mysql:8
+    image: mysql:8.0.34 # Versión fija para evitar errores por cambios de versión
     container_name: mysql-tfg
+    restart: unless-stopped
     environment:
       MYSQL_DATABASE: listtcg
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: laravel
       MYSQL_PASSWORD: secret
+      TZ: Europe/Madrid
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - thelist_mysql_data:/var/lib/mysql
     networks:
       - tcg-network
 
 volumes:
-  mysql_data:
+  thelist_mysql_data:
 
 networks:
   tcg-network:
