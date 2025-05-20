@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8.0.34
+    container_name: mysql-tfg
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: listtcg
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+      TZ: Europe/Madrid
+    ports:
+      - "3306:3306"
+    volumes:
+      - thelist_mysql_data:/var/lib/mysql
+    networks:
+      - tcg-network
+
+volumes:
+  thelist_mysql_data:
+
+networks:
+  tcg-network:
