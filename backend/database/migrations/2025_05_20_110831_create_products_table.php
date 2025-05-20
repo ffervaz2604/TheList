@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('shopping_list_id')->constrained('shopping_lists')->onDelete('cascade');
             $table->string('name');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(1);
             $table->boolean('purchased')->default(false);
-            $table->foreignId('shopping_list_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
