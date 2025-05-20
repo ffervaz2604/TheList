@@ -41,3 +41,9 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->get('/profile', function (Request $request) {
     return response()->json($request->user());
 });
+
+Route::middleware('auth:sanctum')->get('/shared-lists', function () {
+    $user = auth()->user();
+    $lists = $user->sharedLists()->with('products')->get();
+    return response()->json($lists);
+});
