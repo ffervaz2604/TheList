@@ -43,7 +43,7 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-
+  
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
@@ -52,15 +52,19 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res) => {
           this.isLoading = false;
-          localStorage.setItem('token', res.token);
-          this.router.navigate(['/dashboard']);
+          if (res.token) {
+            localStorage.setItem('token', res.token);
+            console.log('Token guardado:', res.token);
+            this.router.navigate(['/dashboard']);
+          }
         },
         error: (err) => {
           this.isLoading = false;
           this.serverError = err.status === 401
             ? 'Correo o contraseña incorrectos.'
-            : 'Error inesperado. Intenta de nuevo.';
-        },
+            : 'Ocurrió un error. Intenta de nuevo.';
+          console.error('Error en login:', err);
+        }
       });
     }
   }
