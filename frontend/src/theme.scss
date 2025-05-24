@@ -1,0 +1,68 @@
+@use '@angular/material' as mat;
+
+// Define paleta primaria manual
+$primary-palette: mat.define-palette((
+  500: #3B82F6,
+  300: #60A5FA,
+  700: #2563EB,
+  contrast: (
+    500: white,
+    300: white,
+    700: white
+  )
+));
+
+// Define tema claro
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette
+  )
+));
+
+// Define tema oscuro
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary-palette
+  )
+));
+
+// Aplicar estilos del tema según clase global
+.light-theme {
+  @include mat.all-component-colors($light-theme);
+}
+
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+// Transiciones suaves
+body,
+.mat-toolbar,
+.mat-card,
+.mat-sidenav-content {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Ajustes visuales modo oscuro
+body.dark-theme .mat-toolbar {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+body.dark-theme .mat-nav-list a.mat-list-item {
+  color: #f3f4f6;
+}
+
+body.dark-theme .mat-list-item.active {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme .mat-card {
+  background-color: #1e293b;
+  color: #f9fafb;
+}
+
+body.dark-theme .main-content {
+  background-color: #111827;
+  color: #f3f4f6;
+}
