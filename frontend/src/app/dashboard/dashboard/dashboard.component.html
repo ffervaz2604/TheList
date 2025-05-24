@@ -1,0 +1,23 @@
+<mat-sidenav-container class="dashboard-container">
+  <mat-sidenav mode="side" opened class="sidebar">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="dashboard-content">
+    <mat-toolbar color="primary" class="dashboard-toolbar">
+      <span class="app-title">Lista Compartida</span>
+      <span class="spacer"></span>
+      <button
+        mat-icon-button
+        (click)="toggleTheme()"
+        [matTooltip]="isDark ? 'Modo claro' : 'Modo oscuro'"
+      >
+        <mat-icon>{{ isDark ? "light_mode" : "dark_mode" }}</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
