@@ -1,0 +1,36 @@
+<h2>Iniciar sesión</h2>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Correo electrónico</mat-label>
+    <input matInput formControlName="email" type="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Contraseña</mat-label>
+    <input matInput formControlName="password" type="password" />
+  </mat-form-field>
+
+  <div *ngIf="serverError" class="error">
+    {{ serverError }}
+  </div>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="isLoading || loginForm.invalid"
+  >
+    <span *ngIf="!isLoading">Entrar</span>
+    <mat-progress-spinner
+      *ngIf="isLoading"
+      diameter="20"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </button>
+
+  <div class="extra-links">
+    <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+    <a routerLink="/register">Crear cuenta</a>
+  </div>
+</form>

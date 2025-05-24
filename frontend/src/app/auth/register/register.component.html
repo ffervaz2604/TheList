@@ -1,0 +1,53 @@
+<h2>Crear cuenta</h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" type="text" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Correo electrónico</mat-label>
+    <input matInput formControlName="email" type="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Contraseña</mat-label>
+    <input matInput formControlName="password" type="password" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Confirmar contraseña</mat-label>
+    <input matInput formControlName="password_confirmation" type="password" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="role">
+      <mat-option value="colaborador">Colaborador</mat-option>
+      <mat-option value="admin">Administrador</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="serverError" class="error">
+    {{ serverError }}
+  </div>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="isLoading || registerForm.invalid"
+  >
+    <span *ngIf="!isLoading">Registrarse</span>
+    <mat-progress-spinner
+      *ngIf="isLoading"
+      diameter="20"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </button>
+
+  <div class="extra-links">
+    <a routerLink="/login">¿Ya tienes cuenta? Iniciar sesión</a>
+  </div>
+</form>
