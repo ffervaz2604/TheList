@@ -18,6 +18,13 @@ export const routes: Routes = [
         path: 'reset-password',
         loadComponent: () =>
             import('./auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
+    },
+    {
+        path: 'dashboard',
+        loadComponent: () => import('./dashboard/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        children: [
+            { path: '', loadComponent: () => import('./dashboard/welcome/welcome.component').then(m => m.WelcomeComponent) },
+        ]
     }
 
 ];
