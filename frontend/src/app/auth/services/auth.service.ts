@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -41,13 +41,17 @@ export class AuthService {
     });
   }
 
-  reset(data: { token: string; email: string; password: string; password_confirmation: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/reset-password`, data, {
-      headers: {
-        Accept: 'application/json'
-      }
+  reset(payload: {
+    token: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password`, payload, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
+
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');

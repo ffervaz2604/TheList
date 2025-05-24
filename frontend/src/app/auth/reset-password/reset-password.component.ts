@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink,  } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -44,7 +44,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.token = this.route.snapshot.paramMap.get('token') || '';
+    this.token = this.route.snapshot.queryParamMap.get('token') || '';
     this.email = this.route.snapshot.queryParamMap.get('email') || '';
   }
 
