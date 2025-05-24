@@ -1,12 +1,12 @@
 <h2>Iniciar sesión</h2>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="outline" class="full-width">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mat-elevation-z2">
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Correo electrónico</mat-label>
     <input matInput formControlName="email" type="email" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Contraseña</mat-label>
     <input matInput formControlName="password" type="password" />
   </mat-form-field>
