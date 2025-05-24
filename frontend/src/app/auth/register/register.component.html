@@ -1,27 +1,31 @@
 <h2>Crear cuenta</h2>
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="outline" class="full-width">
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+  class="mat-elevation-z2"
+>
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Nombre</mat-label>
     <input matInput formControlName="name" type="text" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Correo electrónico</mat-label>
     <input matInput formControlName="email" type="email" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Contraseña</mat-label>
     <input matInput formControlName="password" type="password" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Confirmar contraseña</mat-label>
     <input matInput formControlName="password_confirmation" type="password" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width" color="accent">
     <mat-label>Rol</mat-label>
     <mat-select formControlName="role">
       <mat-option value="colaborador">Colaborador</mat-option>
