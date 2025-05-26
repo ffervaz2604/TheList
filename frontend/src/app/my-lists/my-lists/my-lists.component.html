@@ -5,9 +5,20 @@
   Nueva lista
 </button>
 
-<div *ngIf="isLoading">Cargando...</div>
+<mat-progress-spinner
+  *ngIf="isLoading"
+  diameter="40"
+  mode="indeterminate"
+></mat-progress-spinner>
 
-<div *ngIf="!isLoading && lists.length === 0">No tienes listas creadas.</div>
+<mat-card
+  *ngIf="!isLoading && lists.length === 0"
+  class="empty-card mat-elevation-z1"
+>
+  <mat-icon class="empty-icon">list_alt</mat-icon>
+  <h3>No tienes listas creadas</h3>
+  <p>Puedes empezar creando una desde el botón “Nueva lista”.</p>
+</mat-card>
 
 <ul *ngIf="lists.length > 0" class="my-lists">
   <li *ngFor="let list of lists; let i = index" class="list-item">
@@ -18,22 +29,15 @@
           <mat-icon
             *ngIf="list.archived"
             matTooltip="Lista archivada"
-            style="
-              font-size: 18px;
-              color: #9ca3af;
-              vertical-align: middle;
-              margin-left: 5px;
-            "
+            class="archived-icon"
           >
             inventory_2
           </mat-icon>
         </strong>
-
         <span
           >({{ list.products?.length || 0 }} producto{{
             list.products?.length === 1 ? "" : "s"
           }})</span
-        >
         >
       </div>
       <mat-icon>{{ expanded[i] ? "expand_less" : "expand_more" }}</mat-icon>
@@ -43,16 +47,18 @@
       <li *ngFor="let product of list.products">{{ product.name }}</li>
     </ul>
 
-    <button mat-icon-button color="warn" (click)="deleteList(list.id)">
-      <mat-icon>delete</mat-icon>
-    </button>
+    <div class="actions">
+      <button mat-icon-button color="warn" (click)="deleteList(list.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
 
-    <button mat-icon-button color="accent" (click)="editList(list)">
-      <mat-icon>edit</mat-icon>
-    </button>
+      <button mat-icon-button color="accent" (click)="editList(list)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
   </li>
 </ul>
 
-<div *ngIf="errorMessage" style="color: red">
+<div *ngIf="errorMessage" class="error-msg">
   {{ errorMessage }}
 </div>

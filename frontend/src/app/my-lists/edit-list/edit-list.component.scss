@@ -1,0 +1,19 @@
+.full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+mat-checkbox {
+    margin-top: 1rem;
+    display: block;
+}
+
+body.dark-theme {
+
+    mat-form-field,
+    input,
+    mat-label,
+    mat-checkbox {
+        color: #f9fafb;
+    }
+}

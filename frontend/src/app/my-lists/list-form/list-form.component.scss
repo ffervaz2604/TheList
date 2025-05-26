@@ -1,0 +1,16 @@
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+mat-dialog-content {
+  padding-top: 0;
+}
+
+body.dark-theme {
+  mat-form-field,
+  input,
+  mat-label {
+    color: #f9fafb;
+  }
+}

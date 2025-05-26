@@ -7,11 +7,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ListFormComponent } from '../list-form/list-form.component';
 import { ApiResponse } from '../../interfaces/api-response';
 import { EditListComponent } from '../edit-list/edit-list.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-lists',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinner, MatCard],
   templateUrl: './my-lists.component.html',
   styleUrls: ['./my-lists.component.scss']
 })
