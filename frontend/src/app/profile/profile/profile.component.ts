@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,8 @@ export class ProfileComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -51,7 +52,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  cambiarContrasena() {
-    alert('Redirigir a formulario de cambio de contraseña');
+  cambiarContrasena(): void {
+    this.router.navigate(['/profile/change-password']);
   }
+
 }

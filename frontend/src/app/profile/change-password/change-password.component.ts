@@ -39,8 +39,11 @@ export class ChangePasswordComponent {
       { headers: new HttpHeaders({ Authorization: `Bearer ${localStorage.getItem('token')}` }) }
     ).subscribe({
       next: () => {
-        this.successMessage = 'Contraseña actualizada correctamente.';
-        setTimeout(() => this.router.navigate(['/profile']), 2000);
+        this.successMessage = 'Contraseña actualizada correctamente. Redirigiendo al login...';
+        setTimeout(() => {
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: () => {
         this.errorMessage = 'Error al actualizar la contraseña.';
