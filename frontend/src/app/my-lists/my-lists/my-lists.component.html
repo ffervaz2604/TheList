@@ -13,7 +13,22 @@
   <li *ngFor="let list of lists; let i = index" class="list-item">
     <div class="list-header" (click)="toggle(i)">
       <div>
-        <strong>{{ list.name || list.title }}</strong>
+        <strong>
+          {{ list.name }}
+          <mat-icon
+            *ngIf="list.archived"
+            matTooltip="Lista archivada"
+            style="
+              font-size: 18px;
+              color: #9ca3af;
+              vertical-align: middle;
+              margin-left: 5px;
+            "
+          >
+            inventory_2
+          </mat-icon>
+        </strong>
+
         <span
           >({{ list.products?.length || 0 }} producto{{
             list.products?.length === 1 ? "" : "s"
@@ -30,6 +45,10 @@
 
     <button mat-icon-button color="warn" (click)="deleteList(list.id)">
       <mat-icon>delete</mat-icon>
+    </button>
+
+    <button mat-icon-button color="accent" (click)="editList(list)">
+      <mat-icon>edit</mat-icon>
     </button>
   </li>
 </ul>

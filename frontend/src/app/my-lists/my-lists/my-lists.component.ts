@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ListFormComponent } from '../list-form/list-form.component';
 import { ApiResponse } from '../../interfaces/api-response';
+import { EditListComponent } from '../edit-list/edit-list.component';
 
 @Component({
   selector: 'app-my-lists',
@@ -74,4 +75,36 @@ export class MyListsComponent implements OnInit {
       }
     });
   }
+
+  editList(list: any): void {
+    const dialogRef = this.dialog.open(EditListComponent, {
+      data: {
+        id: list.id,
+        name: list.name,
+        archived: list.archived ?? false
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.listService.update(result.id, {
+          name: result.name,
+          archived: result.archived
+        }).subscribe({
+          next: (response) => {
+            const index = this.lists.findIndex(l => l.id === result.id);
+            if (index !== -1) {
+              this.lists[index].name = result.name;
+              this.lists[index].archived = result.archived;
+            }
+          },
+          error: () => {
+            this.errorMessage = 'Error al actualizar la lista';
+          }
+        });
+      }
+    });
+  }
+
+
 }
