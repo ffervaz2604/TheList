@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>Gestionar productos</h2>
+
+<form [formGroup]="form" (ngSubmit)="addProduct()" mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Cantidad</mat-label>
+    <input matInput type="number" formControlName="quantity" />
+  </mat-form-field>
+
+  <mat-checkbox formControlName="purchased">Comprado</mat-checkbox>
+
+  <div class="actions">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Agregar
+    </button>
+  </div>
+</form>
+
+<mat-table
+  *ngIf="products.length > 0"
+  [dataSource]="products"
+  class="mat-elevation-z2 mt-3"
+>
+  <!-- Nombre -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+  </ng-container>
+
+  <!-- Cantidad -->
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+    <mat-cell *matCellDef="let element"> x{{ element.quantity }} </mat-cell>
+  </ng-container>
+
+  <!-- Comprado -->
+  <ng-container matColumnDef="purchased">
+    <mat-header-cell *matHeaderCellDef> Comprado </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.purchased"
+        (change)="togglePurchased(element)"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Acciones -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deleteProduct(element.id, i)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row
+    *matHeaderRowDef="['name', 'quantity', 'purchased', 'actions']"
+  ></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: ['name', 'quantity', 'purchased', 'actions']"
+  ></mat-row>
+</mat-table>
+
+<div mat-dialog-actions align="end" class="mt-4">
+  <button mat-button (click)="close()">Cerrar</button>
+</div>

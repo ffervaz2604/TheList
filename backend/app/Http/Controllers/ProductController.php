@@ -28,7 +28,7 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create([
-            'list_id' => $listId,
+            'shopping_list_id' => $listId,
             'name' => $request->name,
             'quantity' => $request->quantity ?? 1,
             'purchased' => false,
@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        if (!$this->userHasAccessToList($product->list_id)) {
+        if (!$this->userHasAccessToList($product->shopping_list_id)) {
             return ApiResponse::error('No autorizado.', [], 403);
         }
 
@@ -66,7 +66,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        if ($product->list->user_id !== Auth::id()) {
+        if ($product->shoppingList->user_id !== Auth::id()) {
             return ApiResponse::error('No autorizado para eliminar.', [], 403);
         }
 

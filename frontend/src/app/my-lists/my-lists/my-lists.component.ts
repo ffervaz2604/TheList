@@ -11,6 +11,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatCard } from '@angular/material/card';
 import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { ProductManagerComponent } from '../product-manager/product-manager.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-my-lists',
@@ -28,7 +30,8 @@ export class MyListsComponent implements OnInit {
   constructor(
     private listService: ListService,
     private dialog: MatDialog,
-    private snack: SnackService
+    private snack: SnackService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -124,4 +127,22 @@ export class MyListsComponent implements OnInit {
       }
     });
   }
+
+  openProductManager(list: any, listIndex: number): void {
+    const dialogRef = this.dialog.open(ProductManagerComponent, {
+      data: {
+        listId: list.id,
+        currentProducts: list.products
+      },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe((updatedProducts: any[]) => {
+      if (updatedProducts) {
+        this.lists[listIndex].products = updatedProducts;
+        this.snackBar.open('Productos actualizados', 'Cerrar', { duration: 2000 });
+      }
+    });
+  }
+
 }

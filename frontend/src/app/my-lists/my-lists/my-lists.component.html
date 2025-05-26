@@ -55,6 +55,15 @@
       <button mat-icon-button color="accent" (click)="editList(list)">
         <mat-icon>edit</mat-icon>
       </button>
+
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="openProductManager(list, i)"
+        matTooltip="Gestionar productos"
+      >
+        <mat-icon>inventory_2</mat-icon>
+      </button>
     </div>
   </li>
 </ul>
