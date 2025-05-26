@@ -69,4 +69,15 @@ class ShoppingListsController extends Controller
 
         return ApiResponse::success(null, 'Lista eliminada.');
     }
+
+    public function archived()
+    {
+        $lists = auth()->user()
+            ->shoppingLists()
+            ->where('archived', true)
+            ->with('products')
+            ->get();
+
+        return ApiResponse::success($lists);
+    }
 }

@@ -23,7 +23,8 @@ export class ArchivedListsComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
 
-  constructor(private listService: ListService, private snackbar: SnackService) { }
+  constructor(private listService: ListService, private snackbar: SnackService, private snackBar: SnackService,
+  ) { }
 
   ngOnInit(): void {
     this.listService.getArchived().subscribe({
@@ -38,14 +39,30 @@ export class ArchivedListsComponent implements OnInit {
     });
   }
 
+
   unarchiveList(id: number): void {
     this.listService.unarchiveList(id).subscribe({
       next: () => {
-        this.archivedLists = this.archivedLists.filter(list => list.id !== id);
         this.snackbar.show('Lista desarchivada correctamente');
+        this.loadArchivedLists();
       },
       error: () => {
         this.snackbar.show('No se pudo desarchivar la lista');
+      }
+    });
+
+  }
+
+  loadArchivedLists(): void {
+    this.isLoading = true;
+    this.listService.getArchived().subscribe({
+      next: (res) => {
+        this.archivedLists = res.data;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.errorMessage = 'No se pudieron recargar las listas.';
+        this.isLoading = false;
       }
     });
   }
