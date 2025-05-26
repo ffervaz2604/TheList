@@ -1,0 +1,37 @@
+.shared-lists {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.shared-list-item {
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f9fafb;
+}
+
+.shared-list-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #f3f4f6;
+    transition: background-color 0.2s;
+}
+
+.shared-list-header:hover {
+    background-color: #e5e7eb;
+}
+
+.shared-list-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.products-list {
+    padding: 0.75rem 1.5rem;
+    list-style: disc;
+}

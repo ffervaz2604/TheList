@@ -1,0 +1,29 @@
+<h2>Listas compartidas contigo</h2>
+
+<div *ngIf="isLoading">Cargando...</div>
+
+<div *ngIf="!isLoading && lists.length === 0">No hay listas compartidas.</div>
+
+<ul *ngIf="lists.length > 0" class="shared-lists">
+  <li *ngFor="let list of lists; let i = index" class="shared-list-item">
+    <div (click)="toggle(i)" class="shared-list-header">
+      <div class="shared-list-title">
+        <strong>{{ list.name || list.title }}</strong>
+        <span
+          >({{ list.products.length }} producto{{
+            list.products.length === 1 ? "" : "s"
+          }})</span
+        >
+      </div>
+      <mat-icon>{{ expanded[i] ? "expand_less" : "expand_more" }}</mat-icon>
+    </div>
+
+    <ul *ngIf="expanded[i]" class="products-list">
+      <li *ngFor="let product of list.products">{{ product.name }}</li>
+    </ul>
+  </li>
+</ul>
+
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</div>

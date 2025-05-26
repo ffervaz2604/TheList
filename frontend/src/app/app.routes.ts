@@ -36,6 +36,12 @@ export const routes: Routes = [
                 path: 'change-password',
                 loadComponent: () => import('./profile/change-password/change-password.component').then(m => m.ChangePasswordComponent),
             },
+            {
+                path: 'shared-lists',
+                loadComponent: () =>
+                    import('./shared-lists/shared-lists/shared-lists.component').then(m => m.SharedListsComponent),
+            }
+
         ],
     },
     {
