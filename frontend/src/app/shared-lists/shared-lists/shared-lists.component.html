@@ -1,29 +1,58 @@
 <h2>Listas compartidas contigo</h2>
 
-<div *ngIf="isLoading">Cargando...</div>
+<mat-progress-spinner
+  *ngIf="isLoading"
+  diameter="40"
+  mode="indeterminate"
+></mat-progress-spinner>
 
-<div *ngIf="!isLoading && lists.length === 0">No hay listas compartidas.</div>
+<!-- Estado vacío -->
+<mat-card
+  *ngIf="!isLoading && lists.length === 0"
+  class="empty-card mat-elevation-z1"
+>
+  <mat-icon class="empty-icon">group_off</mat-icon>
+  <h3>No tienes listas compartidas</h3>
+  <p>
+    Aún no te han compartido ninguna lista. Cuando alguien lo haga, aparecerán
+    aquí.
+  </p>
+</mat-card>
 
-<ul *ngIf="lists.length > 0" class="shared-lists">
-  <li *ngFor="let list of lists; let i = index" class="shared-list-item">
-    <div (click)="toggle(i)" class="shared-list-header">
-      <div class="shared-list-title">
+<!-- Listas -->
+<mat-accordion *ngIf="pagedLists.length > 0" multi>
+  <mat-expansion-panel
+    *ngFor="let list of pagedLists; let i = index"
+    [expanded]="isExpanded(i)"
+  >
+    <mat-expansion-panel-header (click)="toggle(i)">
+      <mat-panel-title>
         <strong>{{ list.name || list.title }}</strong>
-        <span
-          >({{ list.products.length }} producto{{
-            list.products.length === 1 ? "" : "s"
-          }})</span
-        >
-      </div>
-      <mat-icon>{{ expanded[i] ? "expand_less" : "expand_more" }}</mat-icon>
-    </div>
+      </mat-panel-title>
+      <mat-panel-description>
+        ({{ list.products.length }} producto{{
+          list.products.length === 1 ? "" : "s"
+        }})
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-    <ul *ngIf="expanded[i]" class="products-list">
+    <ul class="products-list">
       <li *ngFor="let product of list.products">{{ product.name }}</li>
     </ul>
-  </li>
-</ul>
+  </mat-expansion-panel>
+</mat-accordion>
 
-<div *ngIf="errorMessage" class="error">
+<!-- Paginador -->
+<mat-paginator
+  *ngIf="lists.length > pageSize"
+  [length]="lists.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 20]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>
+
+<!-- Error -->
+<div *ngIf="errorMessage" class="error-msg">
   {{ errorMessage }}
 </div>
