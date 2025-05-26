@@ -28,7 +28,7 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create([
-            'list_id' => $listId,
+            'shopping_list_id' => $listId,
             'name' => $request->name,
             'quantity' => $request->quantity ?? 1,
             'purchased' => false,
