@@ -1,0 +1,18 @@
+<div *ngIf="isLoading">Cargando...</div>
+
+<form *ngIf="!isLoading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>Nombre:</label>
+  <input type="text" formControlName="name" />
+
+  <label>Email:</label>
+  <input type="email" formControlName="email" />
+
+  <label>Rol:</label>
+<input type="text" formControlName="role" readonly />
+
+  <button type="submit">Guardar</button>
+  <button type="button" (click)="cambiarContrasena()">Cambiar contraseña</button>
+
+  <div *ngIf="successMessage" style="color: green">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" style="color: red">{{ errorMessage }}</div>
+</form>
