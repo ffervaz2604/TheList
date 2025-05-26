@@ -56,8 +56,13 @@
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-icon-button color="primary" (click)="addProduct(list.id, i)">
-        <mat-icon>add</mat-icon>
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="openProductManager(list, i)"
+        matTooltip="Gestionar productos"
+      >
+        <mat-icon>inventory_2</mat-icon>
       </button>
     </div>
   </li>

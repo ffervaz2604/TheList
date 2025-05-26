@@ -33,12 +33,28 @@ export class ListService {
     return this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders());
   }
 
-  addProduct(listId: number, product: { name: string; quantity: number }) {
+  addProduct(listId: number, product: { name: string; quantity: number; purchased?: boolean }) {
     return this.http.post<{ data: any }>(
       `http://localhost:8000/api/lists/${listId}/products`,
       product,
       this.getHeaders()
     );
   }
+
+  updateProduct(productId: number, data: { name?: string; quantity?: number; purchased?: boolean }) {
+    return this.http.put<{ data: any }>(
+      `http://localhost:8000/api/products/${productId}`,
+      data,
+      this.getHeaders()
+    );
+  }
+
+  deleteProduct(productId: number) {
+    return this.http.delete<{ message: string }>(
+      `http://localhost:8000/api/products/${productId}`,
+      this.getHeaders()
+    );
+  }
+
 
 }
