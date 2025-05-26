@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedListService } from '../service/service.service';
 
 @Component({
   selector: 'app-shared-lists',
@@ -16,14 +16,10 @@ export class SharedListsComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private sharedListService: SharedListService) { }
 
   ngOnInit(): void {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    });
-
-    this.http.get<any[]>('http://localhost:8000/api/shared-lists', { headers }).subscribe({
+    this.sharedListService.getSharedLists().subscribe({
       next: (data) => {
         this.lists = data;
         this.expanded = new Array(data.length).fill(false);
