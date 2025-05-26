@@ -9,6 +9,8 @@ import { ApiResponse } from '../../interfaces/api-response';
 import { EditListComponent } from '../edit-list/edit-list.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatCard } from '@angular/material/card';
+import { SnackService } from '../../services/snack.service';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-my-lists',
@@ -25,7 +27,8 @@ export class MyListsComponent implements OnInit {
 
   constructor(
     private listService: ListService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snack: SnackService
   ) { }
 
   ngOnInit(): void {
@@ -47,13 +50,27 @@ export class MyListsComponent implements OnInit {
   }
 
   deleteList(id: number): void {
-    this.listService.delete(id).subscribe({
-      next: () => {
-        this.lists = this.lists.filter(list => list.id !== id);
-        this.expanded = new Array(this.lists.length).fill(false);
-      },
-      error: () => {
-        this.errorMessage = 'No se pudo eliminar la lista.';
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirmar eliminación',
+        message: '¿Estás seguro de que deseas eliminar esta lista? Esta acción no se puede deshacer.'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.listService.delete(id).subscribe({
+          next: () => {
+            this.lists = this.lists.filter(list => list.id !== id);
+            this.expanded = new Array(this.lists.length).fill(false);
+            this.snack.show('Lista eliminada correctamente');
+          },
+          error: () => {
+            this.snack.show('Error al eliminar la lista', 'Cerrar', {
+              panelClass: 'custom-snackbar-error'
+            });
+          }
+        });
       }
     });
   }
@@ -107,6 +124,4 @@ export class MyListsComponent implements OnInit {
       }
     });
   }
-
-
 }

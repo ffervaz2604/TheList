@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackService } from '../../services/snack.service';
 
 @Component({
   selector: 'app-edit-list',
@@ -29,7 +29,7 @@ export class EditListComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditListComponent>,
-    private snackBar: MatSnackBar,
+    private snack: SnackService,
     @Inject(MAT_DIALOG_DATA)
     public data: { id: number; name: string; archived?: boolean }
   ) {
@@ -41,13 +41,8 @@ export class EditListComponent {
 
   save(): void {
     if (this.form.valid) {
-      this.snackBar.open('Lista actualizada correctamente', 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      });
+      this.snack.show('Lista actualizada correctamente');
 
-      // 🔥 SOLUCIÓN: devolver también el id
       this.dialogRef.close({ id: this.data.id, ...this.form.value });
     }
   }
