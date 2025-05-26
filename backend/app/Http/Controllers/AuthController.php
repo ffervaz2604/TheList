@@ -70,6 +70,26 @@ class AuthController extends Controller
         return response()->json(['message' => 'Perfil actualizado']);
     }
 
+    public function changePassword(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'La contraseña actual no es correcta.'], 403);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return response()->json(['message' => 'Contraseña actualizada con éxito.']);
+    }
+
     // Logout
     public function logout(Request $request)
     {
