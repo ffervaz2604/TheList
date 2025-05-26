@@ -1,0 +1,27 @@
+<h2>Historial de listas archivadas</h2>
+
+<div *ngIf="isLoading">Cargando...</div>
+
+<div *ngIf="!isLoading && archivedLists.length === 0">
+  No hay listas archivadas.
+</div>
+
+<div
+  *ngIf="!isLoading && archivedLists.length > 0"
+  class="archived-list-container"
+>
+  <mat-card *ngFor="let list of archivedLists" class="archived-list-card">
+    <mat-card-title>
+      {{ list.name }}
+      <mat-icon color="accent">inventory_2</mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+      {{ list.products.length }} producto{{
+        list.products.length === 1 ? "" : "s"
+      }}
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="unarchiveList(list.id)">Desarchivar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

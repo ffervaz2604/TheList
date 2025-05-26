@@ -45,6 +45,11 @@ export const routes: Routes = [
                 path: 'lists',
                 loadComponent: () =>
                     import('./my-lists/my-lists/my-lists.component').then(m => m.MyListsComponent),
+            },
+            {
+                path: 'archived-lists',
+                loadComponent: () =>
+                    import('./my-lists/archived-lists/archived-lists.component').then(m => m.ArchivedListsComponent),
             }
         ],
     },

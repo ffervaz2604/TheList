@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/lists', [ShoppingListsController::class, 'index']);
     Route::post('/lists', [ShoppingListsController::class, 'store']);
+    Route::get('/lists/archived', [ShoppingListsController::class, 'archived']);
     Route::get('/lists/{id}', [ShoppingListsController::class, 'show']);
     Route::put('/lists/{id}', [ShoppingListsController::class, 'update']);
     Route::delete('/lists/{id}', [ShoppingListsController::class, 'destroy']);

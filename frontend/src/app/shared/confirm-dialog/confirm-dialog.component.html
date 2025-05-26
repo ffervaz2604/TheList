@@ -2,6 +2,10 @@
 <mat-dialog-content>{{ data.message }}</mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancelar</button>
-  <button mat-raised-button color="warn" (click)="confirm()">Eliminar</button>
+  <button mat-button (click)="cancel()">
+    {{ data.cancelText || "Cancelar" }}
+  </button>
+  <button mat-raised-button color="primary" (click)="confirm()">
+    {{ data.confirmText || "Confirmar" }}
+  </button>
 </mat-dialog-actions>

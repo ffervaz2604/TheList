@@ -56,5 +56,22 @@ export class ListService {
     );
   }
 
+  getArchived(): Observable<ApiResponse<any[]>> {
+    return this.http.get<ApiResponse<any[]>>(
+      'http://localhost:8000/api/lists/archived',
+      this.getHeaders()
+    );
+  }
+
+
+
+  unarchiveList(id: number) {
+    return this.http.put<{ data: any }>(
+      `http://localhost:8000/api/lists/${id}`,
+      { archived: false },
+      this.getHeaders()
+    );
+  }
+
 
 }
