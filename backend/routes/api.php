@@ -26,6 +26,8 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
+    Route::put('/profile', [AuthController::class, 'updateProfile']);
+
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/lists', [ShoppingListsController::class, 'index']);

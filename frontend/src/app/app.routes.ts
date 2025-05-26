@@ -25,6 +25,9 @@ export const routes: Routes = [
         children: [
             { path: '', loadComponent: () => import('./dashboard/welcome/welcome.component').then(m => m.WelcomeComponent) },
         ]
-    }
-
+    },
+    {
+        path: 'profile',
+        loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+    },
 ];
