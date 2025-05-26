@@ -11,6 +11,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatCard } from '@angular/material/card';
 import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   selector: 'app-my-lists',
@@ -124,4 +125,26 @@ export class MyListsComponent implements OnInit {
       }
     });
   }
+
+  addProduct(listId: number, listIndex: number): void {
+    const dialogRef = this.dialog.open(ProductFormComponent, {
+      data: { listId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.listService.addProduct(listId, result).subscribe({
+          next: (response) => {
+            const product = response.data;
+            product.purchased = product.purchased ?? false;
+            this.lists[listIndex].products.push(product);
+          },
+          error: () => {
+            this.errorMessage = 'Error al agregar producto.';
+          }
+        });
+      }
+    });
+  }
+
 }

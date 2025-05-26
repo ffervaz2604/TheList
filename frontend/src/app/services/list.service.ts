@@ -32,4 +32,13 @@ export class ListService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders());
   }
+
+  addProduct(listId: number, product: { name: string; quantity: number }) {
+    return this.http.post<{ data: any }>(
+      `http://localhost:8000/api/lists/${listId}/products`,
+      product,
+      this.getHeaders()
+    );
+  }
+
 }
