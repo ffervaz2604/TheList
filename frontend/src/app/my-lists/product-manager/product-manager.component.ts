@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { ListService } from '../../services/list.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackService } from '../../services/snack.service';
 
 @Component({
   selector: 'app-product-manager',
@@ -36,7 +36,7 @@ export class ProductManagerComponent implements OnInit {
     private fb: FormBuilder,
     private listService: ListService,
     private dialogRef: MatDialogRef<ProductManagerComponent>,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackService,
     @Inject(MAT_DIALOG_DATA) public data: { listId: number, currentProducts: any[] }
   ) {
     this.form = this.fb.group({
@@ -58,7 +58,10 @@ export class ProductManagerComponent implements OnInit {
           this.products.push(res.data);
           this.products = [...this.products];
           this.form.reset({ quantity: 1, purchased: false });
-          this.snackBar.open('Producto agregado', 'Cerrar', { duration: 2000 });
+          this.snackBar.show('Producto agregado', 'Cerrar', { duration: 2000 });
+        },
+        error: () => {
+          this.snackBar.show('Error al agregar producto', 'Cerrar', { duration: 3000 });
         }
       });
     }
@@ -69,11 +72,14 @@ export class ProductManagerComponent implements OnInit {
     this.listService.updateProduct(product.id, updated).subscribe({
       next: () => {
         product.purchased = updated.purchased;
-        this.snackBar.open(
+        this.snackBar.show(
           product.purchased ? 'Producto marcado como comprado' : 'Producto desmarcado',
           'Cerrar',
           { duration: 2000 }
         );
+      },
+      error: () => {
+        this.snackBar.show('Error al actualizar el producto', 'Cerrar', { duration: 3000 });
       }
     });
   }
@@ -83,7 +89,10 @@ export class ProductManagerComponent implements OnInit {
       next: () => {
         this.products.splice(index, 1);
         this.products = [...this.products];
-        this.snackBar.open('Producto eliminado', 'Cerrar', { duration: 2000 });
+        this.snackBar.show('Producto eliminado', 'Cerrar', { duration: 2000 });
+      },
+      error: () => {
+        this.snackBar.show('Error al eliminar producto', 'Cerrar', { duration: 3000 });
       }
     });
   }
