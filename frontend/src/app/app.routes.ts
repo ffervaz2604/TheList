@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,18 +22,24 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
-        loadComponent: () => import('./dashboard/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        component: DashboardComponent,
         children: [
-            { path: '', loadComponent: () => import('./dashboard/welcome/welcome.component').then(m => m.WelcomeComponent) },
-        ]
+            {
+                path: '',
+                loadComponent: () => import('./dashboard/welcome/welcome.component').then(m => m.WelcomeComponent),
+            },
+            {
+                path: 'profile',
+                loadComponent: () => import('./profile/profile/profile.component').then(m => m.ProfileComponent),
+            },
+            {
+                path: 'change-password',
+                loadComponent: () => import('./profile/change-password/change-password.component').then(m => m.ChangePasswordComponent),
+            },
+        ],
     },
     {
-        path: 'profile',
-        loadComponent: () => import('./profile/profile/profile.component').then(m => m.ProfileComponent),
-    },
-    {
-        path: 'profile/change-password',
-        loadComponent: () =>
-            import('./profile/change-password/change-password.component').then(m => m.ChangePasswordComponent),
+        path: '**',
+        redirectTo: 'dashboard',
     }
 ];
