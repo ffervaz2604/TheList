@@ -44,7 +44,7 @@ export const routes: Routes = [
             {
                 path: 'lists',
                 loadComponent: () =>
-                    import('./my-lists/my-lists.component').then(m => m.MyListsComponent),
+                    import('./my-lists/my-lists/my-lists.component').then(m => m.MyListsComponent),
             }
         ],
     },
