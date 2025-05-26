@@ -40,8 +40,12 @@ export const routes: Routes = [
                 path: 'shared-lists',
                 loadComponent: () =>
                     import('./shared-lists/shared-lists/shared-lists.component').then(m => m.SharedListsComponent),
+            },
+            {
+                path: 'lists',
+                loadComponent: () =>
+                    import('./my-lists/my-lists/my-lists.component').then(m => m.MyListsComponent),
             }
-
         ],
     },
     {

@@ -1,0 +1,64 @@
+<h2>Mis listas</h2>
+
+<button mat-raised-button color="primary" (click)="createList()">
+  <mat-icon>add</mat-icon>
+  Nueva lista
+</button>
+
+<mat-progress-spinner
+  *ngIf="isLoading"
+  diameter="40"
+  mode="indeterminate"
+></mat-progress-spinner>
+
+<mat-card
+  *ngIf="!isLoading && lists.length === 0"
+  class="empty-card mat-elevation-z1"
+>
+  <mat-icon class="empty-icon">list_alt</mat-icon>
+  <h3>No tienes listas creadas</h3>
+  <p>Puedes empezar creando una desde el botón “Nueva lista”.</p>
+</mat-card>
+
+<ul *ngIf="lists.length > 0" class="my-lists">
+  <li *ngFor="let list of lists; let i = index" class="list-item">
+    <div class="list-header" (click)="toggle(i)">
+      <div>
+        <strong>
+          {{ list.name }}
+          <mat-icon
+            *ngIf="list.archived"
+            matTooltip="Lista archivada"
+            class="archived-icon"
+          >
+            inventory_2
+          </mat-icon>
+        </strong>
+        <span
+          >({{ list.products?.length || 0 }} producto{{
+            list.products?.length === 1 ? "" : "s"
+          }})</span
+        >
+      </div>
+      <mat-icon>{{ expanded[i] ? "expand_less" : "expand_more" }}</mat-icon>
+    </div>
+
+    <ul *ngIf="expanded[i]" class="products-list">
+      <li *ngFor="let product of list.products">{{ product.name }}</li>
+    </ul>
+
+    <div class="actions">
+      <button mat-icon-button color="warn" (click)="deleteList(list.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button mat-icon-button color="accent" (click)="editList(list)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </li>
+</ul>
+
+<div *ngIf="errorMessage" class="error-msg">
+  {{ errorMessage }}
+</div>
