@@ -30,4 +30,9 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () => import('./profile/profile/profile.component').then(m => m.ProfileComponent),
     },
+    {
+        path: 'profile/change-password',
+        loadComponent: () =>
+            import('./profile/change-password/change-password.component').then(m => m.ChangePasswordComponent),
+    }
 ];
