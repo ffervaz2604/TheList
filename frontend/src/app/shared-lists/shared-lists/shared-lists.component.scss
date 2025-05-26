@@ -1,37 +1,124 @@
-.shared-lists {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
-}
-
-.shared-list-item {
-    margin-bottom: 1rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    overflow: hidden;
-    background: #f9fafb;
-}
-
-.shared-list-header {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background-color: #f3f4f6;
-    transition: background-color 0.2s;
-}
-
-.shared-list-header:hover {
-    background-color: #e5e7eb;
-}
-
-.shared-list-title {
-    display: flex;
-    flex-direction: column;
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #111827;
 }
 
 .products-list {
-    padding: 0.75rem 1.5rem;
     list-style: disc;
+    margin: 0;
+    padding: 0 1.5rem 1rem;
+}
+
+mat-accordion {
+    margin-bottom: 1.5rem;
+}
+
+mat-expansion-panel {
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9fafb;
+}
+
+mat-expansion-panel-header {
+    background-color: #f3f4f6;
+    padding-left: 1rem;
+}
+
+mat-expansion-panel-header:hover {
+    background-color: #e5e7eb;
+    cursor: pointer;
+}
+
+mat-paginator {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+::ng-deep .mat-paginator-container {
+    justify-content: center;
+}
+
+.error-msg {
+    color: #ef4444;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+// Estado vacío
+.empty-card {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    background-color: #f3f4f6;
+
+    h3 {
+        margin: 1rem 0 0.5rem;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    p {
+        margin: 0;
+        color: #6b7280;
+    }
+
+    .empty-icon {
+        font-size: 48px;
+        color: #3b82f6;
+    }
+}
+
+// Modo oscuro
+body.dark-theme {
+    h2 {
+        color: #f9fafb;
+    }
+
+    .error-msg {
+        color: #f87171;
+    }
+
+    mat-expansion-panel {
+        background-color: #1e293b;
+        color: #f9fafb;
+    }
+
+    mat-expansion-panel-header {
+        background-color: #111827;
+        color: #f9fafb;
+    }
+
+    mat-expansion-panel-header:hover {
+        background-color: #1e293b;
+    }
+
+    mat-paginator {
+        background-color: transparent;
+        color: #f9fafb;
+    }
+
+    ::ng-deep .mat-paginator-container {
+        color: #f9fafb;
+    }
+
+    .empty-card {
+        background-color: #1e293b;
+
+        h3 {
+            color: #f9fafb;
+        }
+
+        p {
+            color: #94a3b8;
+        }
+
+        .empty-icon {
+            color: #60a5fa;
+        }
+    }
 }
