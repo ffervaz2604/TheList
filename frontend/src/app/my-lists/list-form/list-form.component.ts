@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditListComponent } from '../edit-list/edit-list.component';
+import { SnackService } from '../../services/snack.service';
 
 @Component({
   selector: 'app-list-form',
@@ -28,7 +29,7 @@ export class ListFormComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ListFormComponent>,
-    private snackBar: MatSnackBar,
+    private snack: SnackService,
     @Inject(MAT_DIALOG_DATA) public data: { name?: string }
   ) {
     this.form = this.fb.group({
@@ -38,16 +39,11 @@ export class ListFormComponent {
 
   save(): void {
     if (this.form.valid) {
-      this.snackBar.open('Lista creada correctamente', 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      });
+      this.snack.show('Lista creada correctamente');
+
       this.dialogRef.close(this.form.value);
     }
   }
-
-
 
   cancel(): void {
     this.dialogRef.close();
