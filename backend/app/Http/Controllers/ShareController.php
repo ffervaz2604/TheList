@@ -45,4 +45,17 @@ class ShareController extends Controller
 
         return response()->json(['data' => $list->sharedWith]);
     }
+
+    public function revoke($listId, $userId)
+    {
+        $list = ShoppingList::findOrFail($listId);
+
+        if ($list->user_id !== auth()->id()) {
+            return response()->json(['message' => 'No autorizado'], 403);
+        }
+
+        $list->sharedWith()->detach($userId);
+
+        return response()->json(['message' => 'Acceso revocado correctamente.']);
+    }
 }

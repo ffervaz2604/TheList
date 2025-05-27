@@ -79,4 +79,18 @@ export class ListService {
     );
   }
 
+  revokeShare(listId: number, userId: number) {
+    return this.http.delete<{ message: string }>(
+      `http://localhost:8000/api/lists/${listId}/shared-users/${userId}`,
+      this.getHeaders()
+    );
+  }
+
+  getSharedUsers(listId: number) {
+    return this.http.get<{ data: any[] }>(
+      `http://localhost:8000/api/lists/${listId}/shared-users`,
+      this.getHeaders()
+    );
+  }
+
 }

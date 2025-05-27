@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/lists/{id}/share', [ShareController::class, 'invite']);
     Route::get('/lists/{id}/shared-users', [ShareController::class, 'sharedUsers']);
+    Route::delete('/lists/{listId}/shared-users/{userId}', [ShareController::class, 'revoke']);
 });
 
 Route::middleware('auth:sanctum')->get('/shared-lists', function () {
