@@ -1,4 +1,4 @@
-<h2>Listas compartidas contigo</h2>
+<h2>{{ "shared-lists.title" | transloco }}</h2>
 
 <mat-progress-spinner
   *ngIf="isLoading"
@@ -11,7 +11,7 @@
 </div>
 
 <div *ngIf="!isLoading && !errorMessage && pagedLists.length === 0">
-  No tienes listas compartidas.
+  {{ "shared-lists.no_lists" | transloco }}
 </div>
 
 <mat-accordion *ngIf="pagedLists.length > 0">
@@ -21,8 +21,11 @@
   >
     <mat-expansion-panel-header (click)="toggle(i)">
       <mat-panel-title>
-        {{ list.name }} ({{ list.products.length }} producto{{
-          list.products.length !== 1 ? "s" : ""
+        {{ list.name }} ({{ list.products.length }}
+        {{
+          list.products.length === 1
+            ? ("shared-lists.product_unit" | transloco)
+            : ("shared-lists.product_plural" | transloco)
         }})
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -32,7 +35,7 @@
         <button
           mat-icon-button
           (click)="togglePurchased(product)"
-          matTooltip="Marcar como comprado"
+          [matTooltip]="'shared-lists.mark_as_purchased' | transloco"
         >
           <mat-icon [color]="product.purchased ? 'primary' : 'warn'">
             {{ product.purchased ? "check_circle" : "radio_button_unchecked" }}
@@ -43,7 +46,7 @@
     </ul>
 
     <ng-template #sinProductos>
-      <p>Esta lista no tiene productos.</p>
+      <p>{{ "shared-lists.no_products" | transloco }}</p>
     </ng-template>
   </mat-expansion-panel>
 </mat-accordion>

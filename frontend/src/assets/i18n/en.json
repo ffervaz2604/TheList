@@ -58,5 +58,13 @@
     "new_password": "New password",
     "new_password_confirmation": "Confirm new password",
     "update_password": "Update password"
+  },
+  "shared-lists": {
+    "title": "Lists shared with you",
+    "no_lists": "You have no shared lists.",
+    "no_products": "This list has no products.",
+    "mark_as_purchased": "Mark as purchased",
+    "product_unit": "product",
+    "product_plural": "products"
   }
 }

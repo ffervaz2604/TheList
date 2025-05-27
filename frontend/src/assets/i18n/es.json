@@ -59,6 +59,14 @@
     "new_password": "Nueva contraseña",
     "new_password_confirmation": "Confirmar nueva contraseña",
     "update_password": "Actualizar contraseña"
+  },
+  "shared-lists": {
+    "title": "Listas compartidas contigo",
+    "no_lists": "No tienes listas compartidas.",
+    "no_products": "Esta lista no tiene productos.",
+    "mark_as_purchased": "Marcar como comprado",
+    "product_unit": "producto",
+    "product_plural": "productos"
   }
 
 }
