@@ -30,5 +30,24 @@
     "password": "Nueva contraseña",
     "password_confirmation": "Confirmar contraseña",
     "submit": "Restablecer"
+  },
+  
+  "dashboard": {
+    "title": "Lista Compartida",
+    "theme_toggle_light": "Modo claro",
+    "theme_toggle_dark": "Modo oscuro",
+    "menu": {
+      "home": "Inicio",
+      "profile": "Mi perfil",
+      "shared_lists": "Listas compartidas",
+      "view_lists": "Ver Listas",
+      "archived_lists": "Listas Archivadas",
+      "logout": "Cerrar sesión"
+    },
+    "welcome": {
+      "title": "Bienvenido a tu lista compartida 👋",
+      "description": "Aquí podrás ver tus listas, crear nuevas y colaborar con otros usuarios."
+    }
   }
+
 }

@@ -30,5 +30,22 @@
     "password": "New password",
     "password_confirmation": "Confirm password",
     "submit": "Reset"
+  },
+  "dashboard": {
+    "title": "Shared List",
+    "theme_toggle_light": "Light mode",
+    "theme_toggle_dark": "Dark mode",
+    "menu": {
+      "home": "Home",
+      "profile": "My profile",
+      "shared_lists": "Shared lists",
+      "view_lists": "View lists",
+      "archived_lists": "Archived lists",
+      "logout": "Log out"
+    },
+    "welcome": {
+      "title": "Welcome to your shared list 👋",
+      "description": "Here you can view your lists, create new ones, and collaborate with other users."
+    }
   }
 }

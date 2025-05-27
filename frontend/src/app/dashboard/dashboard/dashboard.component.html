@@ -5,12 +5,16 @@
 
   <mat-sidenav-content class="dashboard-content">
     <mat-toolbar color="primary" class="dashboard-toolbar">
-      <span class="app-title">Lista Compartida</span>
+      <span class="app-title">{{ "dashboard.title" | transloco }}</span>
       <span class="spacer"></span>
       <button
         mat-icon-button
         (click)="toggleTheme()"
-        [matTooltip]="isDark ? 'Modo claro' : 'Modo oscuro'"
+        [matTooltip]="
+          isDark
+            ? ('dashboard.theme_toggle_light' | transloco)
+            : ('dashboard.theme_toggle_dark' | transloco)
+        "
       >
         <mat-icon>{{ isDark ? "light_mode" : "dark_mode" }}</mat-icon>
       </button>
