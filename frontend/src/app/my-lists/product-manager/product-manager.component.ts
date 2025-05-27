@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { ListService } from '../../services/list.service';
 import { SnackService } from '../../services/snack.service';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-product-manager',
@@ -23,7 +24,8 @@ import { SnackService } from '../../services/snack.service';
     MatCheckboxModule,
     MatButtonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    TranslocoModule
   ],
   templateUrl: './product-manager.component.html',
   styleUrls: ['./product-manager.component.scss']

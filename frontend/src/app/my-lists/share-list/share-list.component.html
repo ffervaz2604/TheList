@@ -1,27 +1,28 @@
-<h2 mat-dialog-title>Compartir lista</h2>
+<h2 mat-dialog-title>{{ "lists.share.title" | transloco }}</h2>
 
 <form [formGroup]="form" (ngSubmit)="share()" mat-dialog-content>
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Correo electrónico del usuario</mat-label>
+    <mat-label>{{ "lists.share.email" | transloco }}</mat-label>
     <input matInput formControlName="email" />
   </mat-form-field>
 
   <div mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="cancel()">Cancelar</button>
+    <button mat-button type="button" (click)="cancel()">
+      {{ "lists.edit.cancel" | transloco }}
+    </button>
     <button
       mat-raised-button
       color="primary"
       type="submit"
       [disabled]="form.invalid"
     >
-      Compartir
+      {{ "lists.share.submit" | transloco }}
     </button>
   </div>
 </form>
 
-<!-- Lista de usuarios compartidos -->
 <div *ngIf="sharedUsers.length > 0" class="mt-4">
-  <h3>Compartido con:</h3>
+  <h3>{{ "lists.share.shared_with" | transloco }}</h3>
   <ul>
     <li *ngFor="let user of sharedUsers">
       {{ user.name || user.email }}
@@ -29,7 +30,7 @@
         mat-icon-button
         color="warn"
         (click)="revoke(user.id)"
-        matTooltip="Eliminar acceso"
+        [matTooltip]="'lists.share.remove_access' | transloco"
       >
         <mat-icon>delete</mat-icon>
       </button>

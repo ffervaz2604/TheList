@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackService } from '../../services/snack.service';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-archived-lists',
@@ -13,7 +14,8 @@ import { SnackService } from '../../services/snack.service';
     CommonModule,
     MatIconModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslocoModule
   ],
   templateUrl: './archived-lists.component.html',
   styleUrls: ['./archived-lists.component.scss']

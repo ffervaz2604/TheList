@@ -5,9 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { EditListComponent } from '../edit-list/edit-list.component';
 import { SnackService } from '../../services/snack.service';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-list-form',
@@ -19,6 +18,7 @@ import { SnackService } from '../../services/snack.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    TranslocoModule
   ],
   templateUrl: './list-form.component.html',
   styleUrls: ['./list-form.component.scss']

@@ -66,5 +66,48 @@
     "mark_as_purchased": "Mark as purchased",
     "product_unit": "product",
     "product_plural": "products"
+  },
+  "lists": {
+    "my_lists": "My lists",
+    "new_list": "New list",
+    "no_lists": "You have no lists created",
+    "create_one": "You can start by creating one with the “New list” button.",
+    "archived": "Archived list",
+    "archived_lists": "Archived lists history",
+    "no_archived": "There are no archived lists.",
+    "loading": "Loading...",
+    "products": {
+      "title": "Manage products",
+      "name": "Name",
+      "quantity": "Quantity",
+      "purchased": "Purchased",
+      "add": "Add",
+      "actions": "Actions"
+    },
+    "edit": {
+      "title": "Edit List",
+      "name": "List name",
+      "archived": "Archived",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "create": {
+      "title": "New List"
+    },
+    "share": {
+    "title": "Share list",
+    "email": "User email address",
+    "submit": "Share",
+    "shared_with": "Shared with:",
+    "remove_access": "Remove access"
+    },
+    "buttons": {
+      "unarchive": "Unarchive",
+      "delete": "Delete",
+      "edit": "Edit",
+      "manage_products": "Manage products",
+      "share": "Share",
+      "close": "Close"
+    }
   }
 }

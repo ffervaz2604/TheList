@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ListService } from '../../services/list.service';
 import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { TranslocoModule } from '@ngneat/transloco';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-share-list',
@@ -21,7 +23,9 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    TranslocoModule,
+    MatTooltip
   ],
   templateUrl: './share-list.component.html'
 })

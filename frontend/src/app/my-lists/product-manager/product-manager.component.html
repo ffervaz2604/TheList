@@ -1,17 +1,19 @@
-<h2 mat-dialog-title>Gestionar productos</h2>
+<h2 mat-dialog-title>{{ "lists.products.title" | transloco }}</h2>
 
 <form [formGroup]="form" (ngSubmit)="addProduct()" mat-dialog-content>
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Nombre</mat-label>
+    <mat-label>{{ "lists.products.name" | transloco }}</mat-label>
     <input matInput formControlName="name" />
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Cantidad</mat-label>
+    <mat-label>{{ "lists.products.quantity" | transloco }}</mat-label>
     <input matInput type="number" formControlName="quantity" />
   </mat-form-field>
 
-  <mat-checkbox formControlName="purchased">Comprado</mat-checkbox>
+  <mat-checkbox formControlName="purchased">
+    {{ "lists.products.purchased" | transloco }}
+  </mat-checkbox>
 
   <div class="actions">
     <button
@@ -20,7 +22,7 @@
       type="submit"
       [disabled]="form.invalid"
     >
-      Agregar
+      {{ "lists.products.add" | transloco }}
     </button>
   </div>
 </form>
@@ -30,34 +32,37 @@
   [dataSource]="products"
   class="mat-elevation-z2 mt-3"
 >
-  <!-- Nombre -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{
+      "lists.products.name" | transloco
+    }}</mat-header-cell>
     <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
   </ng-container>
 
-  <!-- Cantidad -->
   <ng-container matColumnDef="quantity">
-    <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{
+      "lists.products.quantity" | transloco
+    }}</mat-header-cell>
     <mat-cell *matCellDef="let element"> x{{ element.quantity }} </mat-cell>
   </ng-container>
 
-  <!-- Comprado -->
   <ng-container matColumnDef="purchased">
-    <mat-header-cell *matHeaderCellDef> Comprado </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{
+      "lists.products.purchased" | transloco
+    }}</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <mat-checkbox
         [checked]="element.purchased"
         (change)="togglePurchased(element)"
-      >
-      </mat-checkbox>
+      ></mat-checkbox>
     </mat-cell>
   </ng-container>
 
-  <!-- Acciones -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-    <mat-cell *matCellDef="let element; let i = index">
+    <mat-header-cell *matHeaderCellDef mat-header-cell>
+      {{ "lists.products.actions" | transloco }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index" mat-cell>
       <button
         mat-icon-button
         color="warn"
@@ -77,5 +82,7 @@
 </mat-table>
 
 <div mat-dialog-actions align="end" class="mt-4">
-  <button mat-button (click)="close()">Cerrar</button>
+  <button mat-button (click)="close()">
+    {{ "lists.buttons.close" | transloco }}
+  </button>
 </div>

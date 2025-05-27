@@ -1,20 +1,22 @@
-<h2 mat-dialog-title>Nueva Lista</h2>
+<h2 mat-dialog-title>{{ "lists.create.title" | transloco }}</h2>
 
 <form [formGroup]="form" (ngSubmit)="save()" mat-dialog-content>
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Nombre de la lista</mat-label>
+    <mat-label>{{ "lists.edit.name" | transloco }}</mat-label>
     <input matInput formControlName="name" />
   </mat-form-field>
 
   <div mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="cancel()">Cancelar</button>
+    <button mat-button type="button" (click)="cancel()">
+      {{ "lists.edit.cancel" | transloco }}
+    </button>
     <button
       mat-raised-button
       color="primary"
       type="submit"
       [disabled]="form.invalid"
     >
-      Guardar
+      {{ "lists.edit.save" | transloco }}
     </button>
   </div>
 </form>

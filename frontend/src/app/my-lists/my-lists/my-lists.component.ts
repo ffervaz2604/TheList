@@ -12,13 +12,14 @@ import { MatCard } from '@angular/material/card';
 import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { ProductManagerComponent } from '../product-manager/product-manager.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShareListComponent } from '../share-list/share-list.component';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-my-lists',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinner, MatCard],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinner, MatCard, TranslocoModule, MatTooltipModule],
   templateUrl: './my-lists.component.html',
   styleUrls: ['./my-lists.component.scss']
 })
