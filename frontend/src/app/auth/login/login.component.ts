@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../services/auth.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -18,17 +15,14 @@ import { AuthService } from '../../services/auth.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink,
-    MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
+    MatFormFieldModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
   serverError: string | null = null;
@@ -36,13 +30,16 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', Validators.required]
     });
   }
+
+  ngOnInit(): void { }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
@@ -51,11 +48,22 @@ export class LoginComponent {
 
       this.authService.login(this.loginForm.value).subscribe({
         next: (res) => {
-          this.isLoading = false;
           if (res.token) {
             localStorage.setItem('token', res.token);
-            console.log('Token guardado:', res.token);
-            this.router.navigate(['/dashboard']);
+
+            this.authService.getProfile().subscribe({
+              next: (user: User) => {
+                this.userService.set(user);
+                this.router.navigate(['/dashboard']);
+              },
+              error: () => {
+                this.isLoading = false;
+                this.serverError = 'Error al cargar el perfil.';
+              }
+            });
+          } else {
+            this.isLoading = false;
+            this.serverError = 'Token no recibido del servidor.';
           }
         },
         error: (err) => {

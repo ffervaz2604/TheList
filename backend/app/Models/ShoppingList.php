@@ -28,4 +28,9 @@ class ShoppingList extends Model
     {
         return $this->hasMany(History::class);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

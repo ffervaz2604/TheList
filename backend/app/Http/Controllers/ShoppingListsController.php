@@ -10,9 +10,14 @@ class ShoppingListsController extends Controller
 {
     public function index()
     {
-        $lists = auth()->user()->shoppingLists()->with('products')->get();
+        $lists = auth()->user()
+            ->shoppingLists()
+            ->with(['products', 'owner'])
+            ->get();
+
         return ApiResponse::success($lists);
     }
+
 
     public function store(Request $request)
     {

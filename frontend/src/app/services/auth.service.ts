@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../interfaces/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -16,6 +17,13 @@ export class AuthService {
     });
   }
 
+  getProfile(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/profile`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token') || ''}`
+      }
+    });
+  }
 
   register(data: { name: string; email: string; password: string; password_confirmation: string; role: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, data, {
