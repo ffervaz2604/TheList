@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Compartir lista</h2>
+
+<form [formGroup]="form" (ngSubmit)="share()" mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Correo electrónico del usuario</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Compartir
+    </button>
+  </div>
+</form>
+
+<!-- Lista de usuarios compartidos -->
+<div *ngIf="sharedUsers.length > 0" class="mt-4">
+  <h3>Compartido con:</h3>
+  <ul>
+    <li *ngFor="let user of sharedUsers">
+      {{ user.name || user.email }}
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="revoke(user.id)"
+        matTooltip="Eliminar acceso"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </li>
+  </ul>
+</div>

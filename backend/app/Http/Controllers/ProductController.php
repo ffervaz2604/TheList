@@ -43,20 +43,22 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        $list = $product->shoppingList;
 
-        if (!$this->userHasAccessToList($product->shopping_list_id)) {
-            return ApiResponse::error('No autorizado.', [], 403);
+        $user = auth()->user();
+        $hasAccess = $list->user_id === $user->id || $list->sharedWith()->where('user_id', $user->id)->exists();
+
+        if (!$hasAccess) {
+            return response()->json(['message' => 'No autorizado.'], 403);
         }
 
         $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'quantity' => 'sometimes|integer',
-            'purchased' => 'sometimes|boolean',
+            'purchased' => 'sometimes|boolean'
         ]);
 
-        $product->update($request->only(['name', 'quantity', 'purchased']));
+        $product->update($request->only(['purchased']));
 
-        return ApiResponse::success($product, 'Producto actualizado correctamente.');
+        return response()->json(['data' => $product]);
     }
 
     /**
