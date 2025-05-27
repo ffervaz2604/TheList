@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { User } from '../../interfaces/user';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslocoModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -33,7 +35,9 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private translocoService: TranslocoService
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -42,6 +46,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void { }
+
+  setLang(lang: 'es' | 'en'): void {
+    this.translocoService.setActiveLang(lang);
+  }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
