@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
     Route::post('/lists/{id}/share', [ShareController::class, 'invite']);
+    Route::get('/lists/{id}/shared-users', [ShareController::class, 'sharedUsers']);
 });
 
 Route::middleware('auth:sanctum')->get('/shared-lists', function () {

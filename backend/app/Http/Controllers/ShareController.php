@@ -34,4 +34,15 @@ class ShareController extends Controller
 
         return response()->json(['message' => 'Lista compartida correctamente.']);
     }
+
+    public function sharedUsers($listId)
+    {
+        $list = ShoppingList::with('sharedWith')->findOrFail($listId);
+
+        if ($list->user_id !== auth()->id()) {
+            return response()->json(['message' => 'No autorizado'], 403);
+        }
+
+        return response()->json(['data' => $list->sharedWith]);
+    }
 }

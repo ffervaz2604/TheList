@@ -13,6 +13,7 @@ import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { ProductManagerComponent } from '../product-manager/product-manager.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ShareListComponent } from '../share-list/share-list.component';
 
 @Component({
   selector: 'app-my-lists',
@@ -31,7 +32,7 @@ export class MyListsComponent implements OnInit {
     private listService: ListService,
     private dialog: MatDialog,
     private snack: SnackService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackService,
   ) { }
 
   ngOnInit(): void {
@@ -140,7 +141,26 @@ export class MyListsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((updatedProducts: any[]) => {
       if (updatedProducts) {
         this.lists[listIndex].products = updatedProducts;
-        this.snackBar.open('Productos actualizados', 'Cerrar', { duration: 2000 });
+        this.snackBar.show('Productos actualizados', 'Cerrar', { duration: 2000 });
+      }
+    });
+  }
+
+  shareList(listId: number): void {
+    const dialogRef = this.dialog.open(ShareListComponent, {
+      data: { listId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.email) {
+        this.listService.shareList(listId, result.email).subscribe({
+          next: () => {
+            this.snackBar.show('Lista compartida correctamente');
+          },
+          error: () => {
+            this.snackBar.show('No se pudo compartir la lista');
+          }
+        });
       }
     });
   }
