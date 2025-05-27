@@ -48,6 +48,17 @@
       "title": "Bienvenido a tu lista compartida 👋",
       "description": "Aquí podrás ver tus listas, crear nuevas y colaborar con otros usuarios."
     }
+  },
+  "profile": {
+    "name": "Nombre",
+    "email": "Email",
+    "role": "Rol",
+    "save": "Guardar",
+    "change_password": "Cambiar contraseña",
+    "current_password": "Contraseña actual",
+    "new_password": "Nueva contraseña",
+    "new_password_confirmation": "Confirmar nueva contraseña",
+    "update_password": "Actualizar contraseña"
   }
 
 }

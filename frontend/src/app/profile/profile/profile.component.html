@@ -1,24 +1,26 @@
 <mat-card class="form-card">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Nombre</mat-label>
+      <mat-label>{{ "profile.name" | transloco }}</mat-label>
       <input matInput type="text" formControlName="name" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Email</mat-label>
+      <mat-label>{{ "profile.email" | transloco }}</mat-label>
       <input matInput type="email" formControlName="email" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Rol</mat-label>
+      <mat-label>{{ "profile.role" | transloco }}</mat-label>
       <input matInput type="text" formControlName="role" readonly />
     </mat-form-field>
 
     <div class="actions">
-      <button mat-raised-button color="primary" type="submit">Guardar</button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ "profile.save" | transloco }}
+      </button>
       <button mat-stroked-button type="button" (click)="cambiarContrasena()">
-        Cambiar contraseña
+        {{ "profile.change_password" | transloco }}
       </button>
     </div>
 
