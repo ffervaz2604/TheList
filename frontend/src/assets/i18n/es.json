@@ -6,5 +6,29 @@
     "submit": "Entrar",
     "forgot": "¿Olvidaste tu contraseña?",
     "register": "Crear cuenta"
+  },
+  "forgot-password": {
+    "title": "¿Olvidaste tu contraseña?",
+    "email": "Correo electrónico",
+    "submit": "Enviar correo",
+    "back-to-login": "Volver al login"
+  },
+  "register": {
+    "title": "Crear cuenta",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "password_confirmation": "Confirmar contraseña",
+    "role": "Rol",
+    "role_option_collaborator": "Colaborador",
+    "role_option_admin": "Administrador",
+    "submit": "Registrarse",
+    "already_have_account": "¿Ya tienes cuenta? Iniciar sesión"
+  },
+  "reset-password": {
+    "title": "Restablecer contraseña",
+    "password": "Nueva contraseña",
+    "password_confirmation": "Confirmar contraseña",
+    "submit": "Restablecer"
   }
 }

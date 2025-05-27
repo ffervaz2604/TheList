@@ -6,5 +6,29 @@
     "submit": "Sign in",
     "forgot": "Forgot your password?",
     "register": "Create account"
+  },
+  "forgot-password": {
+    "title": "Forgot your password?",
+    "email": "Email address",
+    "submit": "Send email",
+    "back-to-login": "Back to login"
+  },
+  "register": {
+    "title": "Create account",
+    "name": "Name",
+    "email": "Email address",
+    "password": "Password",
+    "password_confirmation": "Confirm password",
+    "role": "Role",
+    "role_option_collaborator": "Collaborator",
+    "role_option_admin": "Administrator",
+    "submit": "Sign up",
+    "already_have_account": "Already have an account? Log in"
+  },
+  "reset-password": {
+    "title": "Reset password",
+    "password": "New password",
+    "password_confirmation": "Confirm password",
+    "submit": "Reset"
   }
 }
