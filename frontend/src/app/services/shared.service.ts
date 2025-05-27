@@ -8,11 +8,10 @@ export class SharedListService {
 
   constructor(private http: HttpClient) { }
 
-  getSharedLists(): Observable<any[]> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    });
-
-    return this.http.get<any[]>(this.apiUrl, { headers });
+  getSharedLists(): Observable<{ data: any[] }> {
+    return this.http.get<{ data: any[] }>(
+      'http://localhost:8000/api/shared-lists'
+    );
   }
+
 }

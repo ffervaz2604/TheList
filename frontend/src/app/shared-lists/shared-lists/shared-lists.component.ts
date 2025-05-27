@@ -5,7 +5,8 @@ import { SharedListService } from '../../services/shared.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatCard } from '@angular/material/card';
+import { ListService } from '../../services/list.service';
+import { SnackService } from '../../services/snack.service';
 
 @Component({
   selector: 'app-shared-lists',
@@ -15,30 +16,33 @@ import { MatCard } from '@angular/material/card';
     MatIconModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule,MatCard
+    MatPaginatorModule
   ],
   templateUrl: './shared-lists.component.html',
   styleUrls: ['./shared-lists.component.scss']
 })
 export class SharedListsComponent implements OnInit {
-  lists: any[] = [];          // todas las listas del servidor
-  pagedLists: any[] = [];     // solo las visibles en la página actual
+  lists: any[] = [];
+  pagedLists: any[] = [];
   expanded: boolean[] = [];
 
   isLoading = true;
   errorMessage: string | null = null;
 
-  // paginación
   pageSize = 5;
   pageIndex = 0;
 
-  constructor(private sharedListService: SharedListService) { }
+  constructor(
+    private sharedListService: SharedListService,
+    private listService: ListService,
+    private snackbar: SnackService
+  ) { }
 
   ngOnInit(): void {
     this.sharedListService.getSharedLists().subscribe({
-      next: (data) => {
-        this.lists = data;
-        this.expanded = new Array(data.length).fill(false);
+      next: (res) => {
+        this.lists = res.data || [];
+        this.expanded = new Array(this.lists.length).fill(false);
         this.updatePagedLists();
         this.isLoading = false;
       },
@@ -70,4 +74,23 @@ export class SharedListsComponent implements OnInit {
     const globalIndex = this.pageIndex * this.pageSize + index;
     return this.expanded[globalIndex];
   }
+
+  togglePurchased(product: any): void {
+    const updated = { purchased: !product.purchased };
+
+    this.listService.updateProduct(product.id, updated).subscribe({
+      next: () => {
+        product.purchased = updated.purchased;
+        this.snackbar.show(
+          product.purchased
+            ? 'Producto marcado como comprado'
+            : 'Producto desmarcado'
+        );
+      },
+      error: () => {
+        this.snackbar.show('Error al actualizar el producto');
+      }
+    });
+  }
+
 }
