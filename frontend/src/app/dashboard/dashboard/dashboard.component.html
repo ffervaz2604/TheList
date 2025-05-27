@@ -18,6 +18,13 @@
       >
         <mat-icon>{{ isDark ? "light_mode" : "dark_mode" }}</mat-icon>
       </button>
+      <button
+        mat-icon-button
+        (click)="toggleLang()"
+        matTooltip="Cambiar idioma"
+      >
+        <mat-icon>language</mat-icon>
+      </button>
     </mat-toolbar>
 
     <div class="main-content">
