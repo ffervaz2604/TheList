@@ -1,0 +1,113 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Sign in",
+    "forgot": "Forgot your password?",
+    "register": "Create account"
+  },
+  "forgot-password": {
+    "title": "Forgot your password?",
+    "email": "Email address",
+    "submit": "Send email",
+    "back-to-login": "Back to login"
+  },
+  "register": {
+    "title": "Create account",
+    "name": "Name",
+    "email": "Email address",
+    "password": "Password",
+    "password_confirmation": "Confirm password",
+    "role": "Role",
+    "role_option_collaborator": "Collaborator",
+    "role_option_admin": "Administrator",
+    "submit": "Sign up",
+    "already_have_account": "Already have an account? Log in"
+  },
+  "reset-password": {
+    "title": "Reset password",
+    "password": "New password",
+    "password_confirmation": "Confirm password",
+    "submit": "Reset"
+  },
+  "dashboard": {
+    "title": "Shared List",
+    "theme_toggle_light": "Light mode",
+    "theme_toggle_dark": "Dark mode",
+    "menu": {
+      "home": "Home",
+      "profile": "My profile",
+      "shared_lists": "Shared lists",
+      "view_lists": "View lists",
+      "archived_lists": "Archived lists",
+      "logout": "Log out"
+    },
+    "welcome": {
+      "title": "Welcome to your shared list 👋",
+      "description": "Here you can view your lists, create new ones, and collaborate with other users."
+    }
+  },
+  "profile": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "save": "Save",
+    "change_password": "Change password",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "new_password_confirmation": "Confirm new password",
+    "update_password": "Update password"
+  },
+  "shared-lists": {
+    "title": "Lists shared with you",
+    "no_lists": "You have no shared lists.",
+    "no_products": "This list has no products.",
+    "mark_as_purchased": "Mark as purchased",
+    "product_unit": "product",
+    "product_plural": "products"
+  },
+  "lists": {
+    "my_lists": "My lists",
+    "new_list": "New list",
+    "no_lists": "You have no lists created",
+    "create_one": "You can start by creating one with the “New list” button.",
+    "archived": "Archived list",
+    "archived_lists": "Archived lists history",
+    "no_archived": "There are no archived lists.",
+    "loading": "Loading...",
+    "products": {
+      "title": "Manage products",
+      "name": "Name",
+      "quantity": "Quantity",
+      "purchased": "Purchased",
+      "add": "Add",
+      "actions": "Actions"
+    },
+    "edit": {
+      "title": "Edit List",
+      "name": "List name",
+      "archived": "Archived",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "create": {
+      "title": "New List"
+    },
+    "share": {
+    "title": "Share list",
+    "email": "User email address",
+    "submit": "Share",
+    "shared_with": "Shared with:",
+    "remove_access": "Remove access"
+    },
+    "buttons": {
+      "unarchive": "Unarchive",
+      "delete": "Delete",
+      "edit": "Edit",
+      "manage_products": "Manage products",
+      "share": "Share",
+      "close": "Close"
+    }
+  }
+}

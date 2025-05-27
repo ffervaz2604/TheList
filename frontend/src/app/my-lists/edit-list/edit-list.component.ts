@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackService } from '../../services/snack.service';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-edit-list',
@@ -18,7 +19,8 @@ import { SnackService } from '../../services/snack.service';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslocoModule
   ],
   templateUrl: './edit-list.component.html',
   styleUrls: ['./edit-list.component.scss']

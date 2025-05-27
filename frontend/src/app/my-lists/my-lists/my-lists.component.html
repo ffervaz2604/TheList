@@ -1,8 +1,8 @@
-<h2>Mis listas</h2>
+<h2>{{ "lists.my_lists" | transloco }}</h2>
 
 <button mat-raised-button color="primary" (click)="createList()">
   <mat-icon>add</mat-icon>
-  Nueva lista
+  {{ "lists.new_list" | transloco }}
 </button>
 
 <mat-progress-spinner
@@ -16,8 +16,8 @@
   class="empty-card mat-elevation-z1"
 >
   <mat-icon class="empty-icon">list_alt</mat-icon>
-  <h3>No tienes listas creadas</h3>
-  <p>Puedes empezar creando una desde el botón “Nueva lista”.</p>
+  <h3>{{ "lists.no_lists" | transloco }}</h3>
+  <p>{{ "lists.create_one" | transloco }}</p>
 </mat-card>
 
 <ul *ngIf="lists.length > 0" class="my-lists">
@@ -28,17 +28,20 @@
           {{ list.name }}
           <mat-icon
             *ngIf="list.archived"
-            matTooltip="Lista archivada"
+            matTooltip="{{ 'lists.archived' | transloco }}"
             class="archived-icon"
           >
             inventory_2
           </mat-icon>
         </strong>
-        <span
-          >({{ list.products?.length || 0 }} producto{{
-            list.products?.length === 1 ? "" : "s"
-          }})</span
-        >
+        <span>
+          ({{ list.products?.length || 0 }}
+          {{
+            list.products?.length === 1
+              ? ("shared-lists.product_unit" | transloco)
+              : ("shared-lists.product_plural" | transloco)
+          }})
+        </span>
       </div>
       <mat-icon>{{ expanded[i] ? "expand_less" : "expand_more" }}</mat-icon>
     </div>
@@ -49,27 +52,24 @@
 
     <div class="actions">
       <button mat-icon-button color="warn" (click)="deleteList(list.id)">
-        <mat-icon>delete</mat-icon>
+        <mat-icon>{{ "lists.buttons.delete" | transloco }}</mat-icon>
       </button>
-
       <button mat-icon-button color="accent" (click)="editList(list)">
-        <mat-icon>edit</mat-icon>
+        <mat-icon>{{ "lists.buttons.edit" | transloco }}</mat-icon>
       </button>
-
       <button
         mat-icon-button
         color="accent"
         (click)="openProductManager(list, i)"
-        matTooltip="Gestionar productos"
+        matTooltip="{{ 'lists.buttons.manage_products' | transloco }}"
       >
         <mat-icon>inventory_2</mat-icon>
       </button>
-
       <button
         mat-icon-button
         color="primary"
         (click)="shareList(list.id)"
-        matTooltip="Compartir lista"
+        matTooltip="{{ 'lists.buttons.share' | transloco }}"
       >
         <mat-icon>share</mat-icon>
       </button>

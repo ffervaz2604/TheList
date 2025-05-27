@@ -10,20 +10,43 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '../../services/theme.service';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, SidebarComponent, MatSidenavModule, MatListModule, MatCardModule, MatToolbarModule, MatIconModule, MatButtonModule, MatTooltipModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SidebarComponent,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    TranslocoModule
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   providers: [ThemeService]
 })
 export class DashboardComponent {
-  constructor(public themeService: ThemeService) { }
+  constructor(
+    public themeService: ThemeService,
+    public translocoService: TranslocoService
+  ) { }
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
+  }
+
+  toggleLang(): void {
+    const lang = this.translocoService.getActiveLang();
+    const newLang = lang === 'es' ? 'en' : 'es';
+    this.translocoService.setActiveLang(newLang);
+    localStorage.setItem('lang', newLang);
   }
 
   get isDark(): boolean {

@@ -1,0 +1,114 @@
+{
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "forgot": "¿Olvidaste tu contraseña?",
+    "register": "Crear cuenta"
+  },
+  "forgot-password": {
+    "title": "¿Olvidaste tu contraseña?",
+    "email": "Correo electrónico",
+    "submit": "Enviar correo",
+    "back-to-login": "Volver al login"
+  },
+  "register": {
+    "title": "Crear cuenta",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "password_confirmation": "Confirmar contraseña",
+    "role": "Rol",
+    "role_option_collaborator": "Colaborador",
+    "role_option_admin": "Administrador",
+    "submit": "Registrarse",
+    "already_have_account": "¿Ya tienes cuenta? Iniciar sesión"
+  },
+  "reset-password": {
+    "title": "Restablecer contraseña",
+    "password": "Nueva contraseña",
+    "password_confirmation": "Confirmar contraseña",
+    "submit": "Restablecer"
+  },
+  
+  "dashboard": {
+    "title": "Lista Compartida",
+    "theme_toggle_light": "Modo claro",
+    "theme_toggle_dark": "Modo oscuro",
+    "menu": {
+      "home": "Inicio",
+      "profile": "Mi perfil",
+      "shared_lists": "Listas compartidas",
+      "view_lists": "Ver Listas",
+      "archived_lists": "Listas Archivadas",
+      "logout": "Cerrar sesión"
+    },
+    "welcome": {
+      "title": "Bienvenido a tu lista compartida 👋",
+      "description": "Aquí podrás ver tus listas, crear nuevas y colaborar con otros usuarios."
+    }
+  },
+  "profile": {
+    "name": "Nombre",
+    "email": "Email",
+    "role": "Rol",
+    "save": "Guardar",
+    "change_password": "Cambiar contraseña",
+    "current_password": "Contraseña actual",
+    "new_password": "Nueva contraseña",
+    "new_password_confirmation": "Confirmar nueva contraseña",
+    "update_password": "Actualizar contraseña"
+  },
+  "shared-lists": {
+    "title": "Listas compartidas contigo",
+    "no_lists": "No tienes listas compartidas.",
+    "no_products": "Esta lista no tiene productos.",
+    "mark_as_purchased": "Marcar como comprado",
+    "product_unit": "producto",
+    "product_plural": "productos"
+  },
+"lists": {
+    "my_lists": "Mis listas",
+    "new_list": "Nueva lista",
+    "no_lists": "No tienes listas creadas",
+    "create_one": "Puedes empezar creando una desde el botón “Nueva lista”.",
+    "archived": "Lista archivada",
+    "archived_lists": "Historial de listas archivadas",
+    "no_archived": "No hay listas archivadas.",
+    "loading": "Cargando...",
+    "products": {
+      "title": "Gestionar productos",
+      "name": "Nombre",
+      "quantity": "Cantidad",
+      "purchased": "Comprado",
+      "add": "Agregar",
+      "actions": "Acciones"
+    },
+    "edit": {
+      "title": "Editar Lista",
+      "name": "Nombre de la lista",
+      "archived": "Archivada",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "create": {
+      "title": "Nueva Lista"
+    },
+    "share": {
+    "title": "Compartir lista",
+    "email": "Correo electrónico del usuario",
+    "submit": "Compartir",
+    "shared_with": "Compartido con:",
+    "remove_access": "Eliminar acceso"
+    },
+    "buttons": {
+      "unarchive": "Desarchivar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "manage_products": "Gestionar productos",
+      "share": "Compartir",
+      "close": "Cerrar"
+    }
+  }
+}

@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ import { AuthService } from '../../services/auth.service';
     MatSelectModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    TranslocoModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']

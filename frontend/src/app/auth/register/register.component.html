@@ -1,4 +1,4 @@
-<h2>Crear cuenta</h2>
+<h2>{{ "register.title" | transloco }}</h2>
 
 <form
   [formGroup]="registerForm"
@@ -6,30 +6,34 @@
   class="mat-elevation-z2"
 >
   <mat-form-field appearance="outline" class="full-width" color="accent">
-    <mat-label>Nombre</mat-label>
+    <mat-label>{{ "register.name" | transloco }}</mat-label>
     <input matInput formControlName="name" type="text" />
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width" color="accent">
-    <mat-label>Correo electrónico</mat-label>
+    <mat-label>{{ "register.email" | transloco }}</mat-label>
     <input matInput formControlName="email" type="email" />
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width" color="accent">
-    <mat-label>Contraseña</mat-label>
+    <mat-label>{{ "register.password" | transloco }}</mat-label>
     <input matInput formControlName="password" type="password" />
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width" color="accent">
-    <mat-label>Confirmar contraseña</mat-label>
+    <mat-label>{{ "register.password_confirmation" | transloco }}</mat-label>
     <input matInput formControlName="password_confirmation" type="password" />
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width" color="accent">
-    <mat-label>Rol</mat-label>
+    <mat-label>{{ "register.role" | transloco }}</mat-label>
     <mat-select formControlName="role">
-      <mat-option value="colaborador">Colaborador</mat-option>
-      <mat-option value="admin">Administrador</mat-option>
+      <mat-option value="colaborador">{{
+        "register.role_option_collaborator" | transloco
+      }}</mat-option>
+      <mat-option value="admin">{{
+        "register.role_option_admin" | transloco
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -43,7 +47,7 @@
     type="submit"
     [disabled]="isLoading || registerForm.invalid"
   >
-    <span *ngIf="!isLoading">Registrarse</span>
+    <span *ngIf="!isLoading">{{ "register.submit" | transloco }}</span>
     <mat-progress-spinner
       *ngIf="isLoading"
       diameter="20"
@@ -52,6 +56,6 @@
   </button>
 
   <div class="extra-links">
-    <a routerLink="/login">¿Ya tienes cuenta? Iniciar sesión</a>
+    <a routerLink="/login">{{ "register.already_have_account" | transloco }}</a>
   </div>
 </form>

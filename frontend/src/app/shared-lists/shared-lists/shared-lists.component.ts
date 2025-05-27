@@ -7,6 +7,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ListService } from '../../services/list.service';
 import { SnackService } from '../../services/snack.service';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-shared-lists',
@@ -16,7 +18,9 @@ import { SnackService } from '../../services/snack.service';
     MatIconModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TranslocoModule,
+    MatTooltipModule
   ],
   templateUrl: './shared-lists.component.html',
   styleUrls: ['./shared-lists.component.scss']
