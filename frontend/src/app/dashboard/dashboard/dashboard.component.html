@@ -1,10 +1,19 @@
 <mat-sidenav-container class="dashboard-container">
-  <mat-sidenav mode="side" opened class="sidebar">
+  <mat-sidenav
+    #drawer
+    class="sidebar"
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile"
+    (closedStart)="drawerOpened = false"
+  >
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 
   <mat-sidenav-content class="dashboard-content">
     <mat-toolbar color="primary" class="dashboard-toolbar">
+      <button *ngIf="isMobile" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <span class="app-title">{{ "dashboard.title" | transloco }}</span>
       <span class="spacer"></span>
       <button

@@ -44,8 +44,9 @@
       "logout": "Log out"
     },
     "welcome": {
-      "title": "Welcome to your shared list 👋",
-      "description": "Here you can view your lists, create new ones, and collaborate with other users."
+    "title": "Welcome to your shared list 👋",
+    "description": "Here you can view your lists, create new ones, and collaborate with other users.",
+    "cta": "Create your first list"
     }
   },
   "profile": {
