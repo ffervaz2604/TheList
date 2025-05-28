@@ -7,7 +7,7 @@ h2 {
 }
 
 .products-list {
-    list-style: disc;
+    list-style: none;
     margin: 0;
     padding: 0 1.5rem 1rem;
 }
@@ -44,10 +44,6 @@ mat-paginator {
     justify-content: center;
 }
 
-button[mat-icon-button] {
-    margin-right: 0.5rem;
-}
-
 .error {
     color: #ef4444;
     font-weight: 500;
@@ -78,7 +74,30 @@ button[mat-icon-button] {
     }
 }
 
-/* Modo oscuro */
+/* ✅ Productos tachables por nombre */
+.product-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    span {
+        transition: all 0.3s ease;
+    }
+
+    &:hover {
+        background-color: #f3f4f6;
+    }
+
+    &.clickable:hover span {
+        text-decoration: underline;
+    }
+
+    .purchased {
+        text-decoration: line-through;
+        opacity: 0.5;
+    }
+}
+
+/* 🌙 Modo oscuro */
 body.dark-theme {
     h2 {
         color: #f9fafb;
@@ -126,9 +145,13 @@ body.dark-theme {
             color: #60a5fa;
         }
     }
+
+    .product-item:hover {
+        background-color: #273549;
+    }
 }
 
-/* Responsive */
+/* 📱 Responsive */
 @media (max-width: 480px) {
     h2 {
         font-size: 1.3rem;
