@@ -77,6 +77,10 @@
     "archived_lists": "Archived lists history",
     "no_archived": "There are no archived lists.",
     "loading": "Loading...",
+    "empty": {
+        "title": "No lists created",
+        "subtitle": "You can start by clicking the “New list” button."
+    },
     "products": {
       "title": "Manage products",
       "name": "Name",

@@ -77,6 +77,10 @@
     "archived_lists": "Historial de listas archivadas",
     "no_archived": "No hay listas archivadas.",
     "loading": "Cargando...",
+    "empty": {
+          "title": "No tienes listas creadas",
+          "subtitle": "Puedes empezar creando una desde el botón “Nueva lista”."
+      },
     "products": {
       "title": "Gestionar productos",
       "name": "Nombre",

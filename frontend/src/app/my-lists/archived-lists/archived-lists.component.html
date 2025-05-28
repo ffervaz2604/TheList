@@ -1,27 +1,44 @@
-<h2>{{ 'lists.archived_lists' | transloco }}</h2>
+<h2>{{ "lists.archived_lists" | transloco }}</h2>
 
-<div *ngIf="isLoading">{{ 'lists.loading' | transloco }}</div>
-
-<div *ngIf="!isLoading && archivedLists.length === 0">
-  {{ 'lists.no_archived' | transloco }}
+<div *ngIf="isLoading">
+  {{ "lists.loading" | transloco }}
 </div>
 
-<div *ngIf="!isLoading && archivedLists.length > 0" class="archived-list-container">
+<!-- Estado vacío directamente alineado con contenido -->
+<mat-card
+  *ngIf="!isLoading && archivedLists.length === 0"
+  class="empty-card mat-elevation-z1"
+>
+  <mat-icon class="empty-icon" color="primary">crop_free</mat-icon>
+  <h3>{{ "lists.empty.title" | transloco }}</h3>
+  <p>{{ "lists.empty.subtitle" | transloco }}</p>
+</mat-card>
+
+<!-- Listas archivadas -->
+<div
+  *ngIf="!isLoading && archivedLists.length > 0"
+  class="archived-list-container"
+>
   <mat-card *ngFor="let list of archivedLists" class="archived-list-card">
     <mat-card-title>
-      {{ list.name }}
-      <mat-icon color="accent">inventory_2</mat-icon>
+      <span>{{ list.name }}</span>
+      <mat-icon color="accent" class="icon">inventory_2</mat-icon>
     </mat-card-title>
     <mat-card-content>
-      {{ list.products.length }} {{
+      {{ list.products.length }}
+      {{
         list.products.length === 1
-          ? ('shared-lists.product_unit' | transloco)
-          : ('shared-lists.product_plural' | transloco)
+          ? ("shared-lists.product_unit" | transloco)
+          : ("shared-lists.product_plural" | transloco)
       }}
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="unarchiveList(list.id)">
-        {{ 'lists.buttons.unarchive' | transloco }}
+    <mat-card-actions align="end">
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="unarchiveList(list.id)"
+      >
+        {{ "lists.buttons.unarchive" | transloco }}
       </button>
     </mat-card-actions>
   </mat-card>
