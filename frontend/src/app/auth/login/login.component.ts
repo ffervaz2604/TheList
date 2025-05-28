@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { User } from '../../interfaces/user';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
     MatButtonModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    TranslocoModule
+    TranslocoModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']

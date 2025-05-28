@@ -2,13 +2,18 @@
   display: block;
   height: 100%;
   background-color: transparent;
+  min-width: 200px;
+  max-width: 200px;
 }
 
 a.mat-list-item {
   font-weight: 500;
+  height: 48px;
+  display: flex;
+  align-items: center;
 
   &.active {
-    background-color: rgba(0, 0, 0, 0.08); // resaltado en tema claro
+    background-color: rgba(0, 0, 0, 0.08);
   }
 
   &:hover {

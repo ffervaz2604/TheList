@@ -1,12 +1,13 @@
 h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin: 2rem 0 1.5rem;
     color: #111827;
+    text-align: center;
 }
 
 .products-list {
-    list-style: disc;
+    list-style: none;
     margin: 0;
     padding: 0 1.5rem 1rem;
 }
@@ -25,6 +26,7 @@ mat-expansion-panel {
 mat-expansion-panel-header {
     background-color: #f3f4f6;
     padding-left: 1rem;
+    font-weight: 500;
 }
 
 mat-expansion-panel-header:hover {
@@ -42,14 +44,13 @@ mat-paginator {
     justify-content: center;
 }
 
-.error-msg {
+.error {
     color: #ef4444;
     font-weight: 500;
     text-align: center;
     margin-top: 1rem;
 }
 
-// Estado vacío
 .empty-card {
     text-align: center;
     padding: 2rem;
@@ -73,13 +74,36 @@ mat-paginator {
     }
 }
 
-// Modo oscuro
+/* ✅ Productos tachables por nombre */
+.product-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    span {
+        transition: all 0.3s ease;
+    }
+
+    &:hover {
+        background-color: #f3f4f6;
+    }
+
+    &.clickable:hover span {
+        text-decoration: underline;
+    }
+
+    .purchased {
+        text-decoration: line-through;
+        opacity: 0.5;
+    }
+}
+
+/* 🌙 Modo oscuro */
 body.dark-theme {
     h2 {
         color: #f9fafb;
     }
 
-    .error-msg {
+    .error {
         color: #f87171;
     }
 
@@ -120,5 +144,28 @@ body.dark-theme {
         .empty-icon {
             color: #60a5fa;
         }
+    }
+
+    .product-item:hover {
+        background-color: #273549;
+    }
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .products-list {
+        padding: 0 1rem;
+    }
+
+    mat-expansion-panel-header {
+        padding: 0.5rem 1rem;
+    }
+
+    mat-paginator {
+        margin: 1.5rem 0 0;
     }
 }

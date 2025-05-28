@@ -1,8 +1,21 @@
-h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-bottom: 1rem;
-    color: #111827;
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0;
+    }
+
+    button {
+        white-space: nowrap;
+    }
 }
 
 .my-lists {
@@ -36,6 +49,7 @@ h2 {
     display: flex;
     gap: 0.5rem;
     margin-top: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .archived-icon {
@@ -55,8 +69,9 @@ h2 {
 .empty-card {
     text-align: center;
     padding: 2rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
     background-color: #f3f4f6;
+    border-radius: 8px;
 
     h3 {
         margin: 1rem 0 0.5rem;
@@ -75,9 +90,9 @@ h2 {
     }
 }
 
-// Modo oscuro
+// 🌙 Modo oscuro
 body.dark-theme {
-    h2 {
+    .header-row h2 {
         color: #f9fafb;
     }
 
@@ -111,4 +126,8 @@ body.dark-theme {
     .error-msg {
         color: #f87171;
     }
+}
+
+::ng-deep .custom-dialog {
+    padding: 1rem;
 }

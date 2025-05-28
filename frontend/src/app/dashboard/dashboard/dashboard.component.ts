@@ -32,11 +32,23 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
   styleUrls: ['./dashboard.component.scss'],
   providers: [ThemeService]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  isMobile = false;
+  drawerOpened: boolean = false;
+
   constructor(
     public themeService: ThemeService,
     public translocoService: TranslocoService
   ) { }
+
+  ngOnInit(): void {
+    this.checkIfMobile();
+    window.addEventListener('resize', this.checkIfMobile.bind(this));
+  }
+
+  checkIfMobile(): void {
+    this.isMobile = window.innerWidth <= 768;
+  }
 
   toggleTheme(): void {
     this.themeService.toggleTheme();

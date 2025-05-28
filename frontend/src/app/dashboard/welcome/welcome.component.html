@@ -3,4 +3,9 @@
   <mat-card-content>
     <p>{{ "dashboard.welcome.description" | transloco }}</p>
   </mat-card-content>
+  <mat-card-actions class="center-actions">
+    <button mat-raised-button color="primary" routerLink="/dashboard/lists">
+      {{ "dashboard.welcome.cta" | transloco }}
+    </button>
+  </mat-card-actions>
 </mat-card>

@@ -81,7 +81,11 @@ export class MyListsComponent implements OnInit {
   }
 
   createList(): void {
-    const dialogRef = this.dialog.open(ListFormComponent);
+    const dialogRef = this.dialog.open(ListFormComponent, {
+      width: '400px',
+      maxWidth: '95vw',
+      panelClass: 'custom-dialog'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -102,6 +106,8 @@ export class MyListsComponent implements OnInit {
 
   editList(list: any): void {
     const dialogRef = this.dialog.open(EditListComponent, {
+      width: '420px', // ancho recomendado (puedes ajustar)
+      maxWidth: '95vw',
       data: {
         id: list.id,
         name: list.name,
@@ -136,7 +142,9 @@ export class MyListsComponent implements OnInit {
         listId: list.id,
         currentProducts: list.products
       },
-      width: '600px'
+      width: '600px',
+      maxWidth: '95vw',
+      panelClass: 'custom-dialog'
     });
 
     dialogRef.afterClosed().subscribe((updatedProducts: any[]) => {
@@ -147,8 +155,12 @@ export class MyListsComponent implements OnInit {
     });
   }
 
+
   shareList(listId: number): void {
     const dialogRef = this.dialog.open(ShareListComponent, {
+      width: '500px',
+      height: '275px',
+      maxWidth: '95vw',
       data: { listId }
     });
 
@@ -165,5 +177,6 @@ export class MyListsComponent implements OnInit {
       }
     });
   }
+
 
 }

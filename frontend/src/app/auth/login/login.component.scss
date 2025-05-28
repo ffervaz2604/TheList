@@ -33,7 +33,7 @@ mat-progress-spinner {
 }
 
 .error {
-    color: #ef4444; // Color error de tu paleta
+    color: #ef4444;
     margin: 0.5rem 0 1rem;
     font-weight: 500;
     text-align: center;
@@ -44,9 +44,11 @@ mat-progress-spinner {
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 
     a {
-        color: #3B82F6; // Primario
+        color: #3b82f6;
         text-decoration: none;
 
         &:hover {
@@ -55,10 +57,10 @@ mat-progress-spinner {
     }
 }
 
-/* Soporte para modo oscuro */
+/* Tema oscuro */
 .dark-theme {
     h2 {
-        color: #F9FAFB;
+        color: #f9fafb;
     }
 
     .error {
@@ -66,6 +68,33 @@ mat-progress-spinner {
     }
 
     .extra-links a {
-        color: #60A5FA;
+        color: #60a5fa;
+    }
+}
+
+/* ----------- Responsive para móviles ----------- */
+@media (max-width: 480px) {
+    :host {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .extra-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        a {
+            width: 100%;
+        }
+    }
+
+    button[mat-raised-button] {
+        font-size: 0.95rem;
+        height: 2.8rem;
     }
 }

@@ -1,0 +1,92 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+/* 📦 Formulario centrado verticalmente dentro del modal */
+.dialog-content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+}
+
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+/* ✅ Input */
+.full-width {
+    width: 100%;
+    margin-bottom: auto; // empuja los botones abajo
+    margin-top: 1.5rem;
+}
+
+/* ✅ Botones bien alineados */
+.dialog-actions {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0 1.5rem;
+
+    .left {
+        margin-right: auto;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+}
+
+
+/* 🌙 Modo oscuro */
+body.dark-theme {
+    mat-form-field {
+        color: #f9fafb;
+
+        .mat-input-element {
+            color: #f9fafb;
+        }
+
+        .mat-form-field-label {
+            color: rgba(249, 250, 251, 0.8);
+        }
+
+        .mat-form-field-underline {
+            background-color: #f9fafb;
+        }
+    }
+}
+
+/* 📱 Responsive: botones en columna */
+@media (max-width: 480px) {
+    .dialog-actions {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1rem;
+
+        .left,
+        .right {
+            flex: 1;
+        }
+
+        .left {
+            margin-right: 0;
+        }
+
+        .right {
+            margin-left: 1rem;
+        }
+
+        button {
+            width: 100%;
+        }
+    }
+}

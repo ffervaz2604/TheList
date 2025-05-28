@@ -1,16 +1,110 @@
 .full-width {
     width: 100%;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
 .actions {
     margin-top: 1rem;
-}
-
-.mt-3 {
-    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .mt-4 {
     margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Tabla scrollable */
+.product-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 6px;
+    margin-top: 2rem;
+    background-color: white;
+}
+
+/* Sticky header en escritorio */
+.sticky-table {
+    thead.mat-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: white;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        thead.mat-header-row {
+            background: #1e293b;
+        }
+    }
+}
+
+/* Compactar celdas */
+mat-header-cell,
+mat-cell {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* 🌙 Modo oscuro */
+body.dark-theme {
+    mat-form-field .mat-form-field-label {
+        color: rgba(249, 250, 251, 0.8);
+    }
+
+    mat-form-field .mat-input-element {
+        color: #f9fafb;
+    }
+
+    mat-checkbox {
+        color: #f9fafb;
+    }
+
+    .product-table-container {
+        background-color: #1e293b;
+        color: #f9fafb;
+    }
+
+    mat-header-cell,
+    mat-cell {
+        color: #f9fafb;
+    }
+}
+
+/* 📱 Responsive para móvil */
+@media (max-width: 600px) {
+    mat-dialog-container {
+        padding: 0 1rem !important;
+    }
+
+    .product-table-container {
+        overflow-x: auto;
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+
+    mat-table {
+        min-width: 600px;
+        width: 100%;
+    }
+
+    mat-header-row,
+    mat-row {
+        display: table-row;
+    }
+
+    mat-header-cell,
+    mat-cell {
+        display: table-cell;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    mat-checkbox {
+        transform: scale(0.95);
+    }
 }

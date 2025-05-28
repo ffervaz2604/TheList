@@ -31,17 +31,14 @@
     </mat-expansion-panel-header>
 
     <ul *ngIf="list.products.length > 0; else sinProductos">
-      <li *ngFor="let product of list.products">
-        <button
-          mat-icon-button
-          (click)="togglePurchased(product)"
-          [matTooltip]="'shared-lists.mark_as_purchased' | transloco"
-        >
-          <mat-icon [color]="product.purchased ? 'primary' : 'warn'">
-            {{ product.purchased ? "check_circle" : "radio_button_unchecked" }}
-          </mat-icon>
-        </button>
-        <span>{{ product.name }} (x{{ product.quantity }})</span>
+      <li
+        *ngFor="let product of list.products"
+        class="product-item clickable"
+        (click)="togglePurchased(product)"
+      >
+        <span [class.purchased]="product.purchased">
+          {{ product.name }} (x{{ product.quantity }})
+        </span>
       </li>
     </ul>
 
@@ -52,6 +49,7 @@
 </mat-accordion>
 
 <mat-paginator
+  *ngIf="lists.length > pageSize"
   [length]="lists.length"
   [pageSize]="pageSize"
   [pageIndex]="pageIndex"
