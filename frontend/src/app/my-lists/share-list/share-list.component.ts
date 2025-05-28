@@ -12,6 +12,7 @@ import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatTooltip } from '@angular/material/tooltip';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-share-list',
@@ -24,10 +25,10 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    TranslocoModule,
-    MatTooltip
-  ],
-  templateUrl: './share-list.component.html'
+    TranslocoModule],
+  templateUrl: './share-list.component.html',
+  styleUrls: ['./share-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ShareListComponent {
   form: FormGroup;

@@ -1,16 +1,21 @@
-<h2>{{ "lists.my_lists" | transloco }}</h2>
+<!-- Título + botón de nueva lista -->
+<div class="header-row">
+  <h2>{{ "lists.my_lists" | transloco }}</h2>
 
-<button mat-raised-button color="primary" (click)="createList()">
-  <mat-icon>add</mat-icon>
-  {{ "lists.new_list" | transloco }}
-</button>
+  <button mat-raised-button color="primary" (click)="createList()">
+    <mat-icon>add</mat-icon>
+    {{ "lists.new_list" | transloco }}
+  </button>
+</div>
 
+<!-- Carga -->
 <mat-progress-spinner
   *ngIf="isLoading"
   diameter="40"
   mode="indeterminate"
 ></mat-progress-spinner>
 
+<!-- Estado vacío -->
 <mat-card
   *ngIf="!isLoading && lists.length === 0"
   class="empty-card mat-elevation-z1"
@@ -20,6 +25,7 @@
   <p>{{ "lists.create_one" | transloco }}</p>
 </mat-card>
 
+<!-- Listas disponibles -->
 <ul *ngIf="lists.length > 0" class="my-lists">
   <li *ngFor="let list of lists; let i = index" class="list-item">
     <div class="list-header" (click)="toggle(i)">
@@ -52,11 +58,13 @@
 
     <div class="actions">
       <button mat-icon-button color="warn" (click)="deleteList(list.id)">
-        <mat-icon>{{ "lists.buttons.delete" | transloco }}</mat-icon>
+        <mat-icon>delete</mat-icon>
       </button>
+
       <button mat-icon-button color="accent" (click)="editList(list)">
-        <mat-icon>{{ "lists.buttons.edit" | transloco }}</mat-icon>
+        <mat-icon>edit</mat-icon>
       </button>
+
       <button
         mat-icon-button
         color="accent"
@@ -77,6 +85,7 @@
   </li>
 </ul>
 
+<!-- Error -->
 <div *ngIf="errorMessage" class="error-msg">
   {{ errorMessage }}
 </div>
