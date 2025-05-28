@@ -68,3 +68,29 @@ mat-progress-spinner {
         color: #60a5fa;
     }
 }
+
+/* ----------- Responsive para móviles ----------- */
+@media (max-width: 480px) {
+    :host {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    button[mat-raised-button] {
+        font-size: 0.95rem;
+        height: 2.8rem;
+    }
+
+    mat-form-field {
+        font-size: 0.9rem;
+    }
+
+    .extra-links {
+        font-size: 0.85rem;
+        margin-top: 1.5rem;
+    }
+}
