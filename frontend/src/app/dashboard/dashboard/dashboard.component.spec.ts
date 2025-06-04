@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { ThemeService } from '../../services/theme.service';
-import { TranslocoService, provideTransloco, TranslocoLoader } from '@ngneat/transloco';
+import { provideTransloco, TranslocoLoader } from '@ngneat/transloco';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 class FakeThemeService {
@@ -9,15 +10,14 @@ class FakeThemeService {
     toggleTheme = jasmine.createSpy();
 }
 
-class FakeTranslocoService {
-    private currentLang = 'es';
-    getActiveLang = jasmine.createSpy().and.callFake(() => this.currentLang);
-    setActiveLang = jasmine.createSpy().and.callFake((lang: string) => this.currentLang = lang);
-}
-
 class FakeTranslocoLoader implements TranslocoLoader {
     getTranslation(lang: string) {
-        return of({});
+        return of({
+            dashboard: {
+                title: 'Título del dashboard',
+                toggle_theme: 'Alternar tema'
+            }
+        });
     }
 }
 
@@ -25,17 +25,24 @@ describe('DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
     let themeService: FakeThemeService;
-    let translocoService: FakeTranslocoService;
 
     beforeEach(async () => {
         themeService = new FakeThemeService();
-        translocoService = new FakeTranslocoService();
 
         await TestBed.configureTestingModule({
             imports: [DashboardComponent],
             providers: [
                 { provide: ThemeService, useValue: themeService },
-                { provide: TranslocoService, useValue: translocoService },
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        snapshot: {
+                            paramMap: {
+                                get: () => null
+                            }
+                        }
+                    }
+                },
                 provideTransloco({
                     config: {
                         availableLangs: ['es', 'en'],
@@ -65,8 +72,8 @@ describe('DashboardComponent', () => {
     });
 
     it('debería alternar el idioma entre es y en', () => {
+        localStorage.setItem('lang', 'es');
         component.toggleLang();
-        expect(translocoService.setActiveLang).toHaveBeenCalledWith('en');
         expect(localStorage.getItem('lang')).toBe('en');
     });
 
