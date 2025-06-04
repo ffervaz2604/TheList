@@ -24,6 +24,21 @@ class FakeTranslocoLoader implements TranslocoLoader {
                     description: 'This is a test',
                     cta: 'Create your first list'
                 }
+            },
+            lists: {
+                archived_lists: 'Archived Lists',
+                loading: 'Loading...',
+                empty: {
+                    title: 'No lists found',
+                    subtitle: 'Start by creating your first one'
+                },
+                buttons: {
+                    unarchive: 'Unarchive'
+                }
+            },
+            'shared-lists': {
+                product_unit: 'product',
+                product_plural: 'products'
             }
         });
     }
@@ -37,14 +52,14 @@ class CustomMissingHandler implements TranslocoMissingHandler {
 
 class CustomFallbackStrategy implements TranslocoFallbackStrategy {
     getNextLangs() {
-        return [];
+        return ['en'];
     }
 }
 
 const translocoConfig: TranslocoConfig = {
     availableLangs: ['es', 'en'],
     defaultLang: 'es',
-    fallbackLang: 'es',
+    fallbackLang: 'en',
     reRenderOnLangChange: true,
     prodMode: true,
     flatten: { aot: false },
@@ -64,7 +79,7 @@ const translocoConfig: TranslocoConfig = {
         { provide: TRANSLOCO_LOADER, useClass: FakeTranslocoLoader },
         { provide: TRANSLOCO_TRANSPILER, useClass: DefaultTranspiler },
         { provide: TRANSLOCO_MISSING_HANDLER, useClass: CustomMissingHandler },
-        { provide: TRANSLOCO_INTERCEPTOR, useValue: null },
+        { provide: TRANSLOCO_INTERCEPTOR, useValue: { preSaveTranslation: () => { } } },
         { provide: TRANSLOCO_FALLBACK_STRATEGY, useClass: CustomFallbackStrategy }
     ]
 })
