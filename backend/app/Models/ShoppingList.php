@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShoppingList extends Model
 {
+    use HasFactory;
     protected $fillable = ['name', 'user_id', 'archived'];
 
     public function user()
