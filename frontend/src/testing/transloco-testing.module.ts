@@ -4,41 +4,68 @@ import {
     TRANSLOCO_CONFIG,
     TRANSLOCO_LOADER,
     TRANSLOCO_TRANSPILER,
+    TRANSLOCO_MISSING_HANDLER,
+    TRANSLOCO_INTERCEPTOR,
+    TRANSLOCO_FALLBACK_STRATEGY,
     TranslocoConfig,
     TranslocoLoader,
+    TranslocoMissingHandler,
+    TranslocoFallbackStrategy,
     DefaultTranspiler
 } from '@ngneat/transloco';
 import { of } from 'rxjs';
 
 class FakeTranslocoLoader implements TranslocoLoader {
     getTranslation(lang: string) {
-        return of({});
+        return of({
+            dashboard: {
+                welcome: {
+                    title: 'Welcome!',
+                    description: 'This is a test',
+                    cta: 'Create your first list'
+                }
+            }
+        });
     }
 }
 
-const translocoConfig = {
-    availableLangs: ['es'],
+class CustomMissingHandler implements TranslocoMissingHandler {
+    handle(key: string) {
+        return key;
+    }
+}
+
+class CustomFallbackStrategy implements TranslocoFallbackStrategy {
+    getNextLangs() {
+        return [];
+    }
+}
+
+const translocoConfig: TranslocoConfig = {
+    availableLangs: ['es', 'en'],
     defaultLang: 'es',
     fallbackLang: 'es',
     reRenderOnLangChange: true,
-    prodMode: true
+    prodMode: true,
+    flatten: { aot: false },
+    interpolation: ['{{', '}}'],
+    failedRetries: 0,
+    missingHandler: {
+        logMissingKey: false,
+        allowEmpty: true,
+        useFallbackTranslation: false
+    }
 };
 
 @NgModule({
     exports: [TranslocoModule],
     providers: [
-        {
-            provide: TRANSLOCO_CONFIG,
-            useValue: translocoConfig
-        },
-        {
-            provide: TRANSLOCO_LOADER,
-            useClass: FakeTranslocoLoader
-        },
-        {
-            provide: TRANSLOCO_TRANSPILER,
-            useClass: DefaultTranspiler
-        }
+        { provide: TRANSLOCO_CONFIG, useValue: translocoConfig },
+        { provide: TRANSLOCO_LOADER, useClass: FakeTranslocoLoader },
+        { provide: TRANSLOCO_TRANSPILER, useClass: DefaultTranspiler },
+        { provide: TRANSLOCO_MISSING_HANDLER, useClass: CustomMissingHandler },
+        { provide: TRANSLOCO_INTERCEPTOR, useValue: null },
+        { provide: TRANSLOCO_FALLBACK_STRATEGY, useClass: CustomFallbackStrategy }
     ]
 })
 export class TranslocoTestingModule { }
