@@ -67,8 +67,10 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+        $product->load('shoppingList');
 
-        if ($product->shoppingList->user_id !== Auth::id()) {
+        // Asegura comparación estricta (int vs int)
+        if ((int)$product->shoppingList->user_id !== (int)auth()->id()) {
             return ApiResponse::error('No autorizado para eliminar.', [], 403);
         }
 

@@ -14,9 +14,9 @@ class ShareController extends Controller
             'email' => 'required|email|exists:users,email',
         ]);
 
-        $list = ShoppingList::findOrFail($listId);
+        $list = ShoppingList::findOrFail($listId)->fresh();
 
-        if ($list->user_id !== auth()->id()) {
+        if ((int)$list->user_id !== (int)auth()->id()) {
             return response()->json(['message' => 'No autorizado'], 403);
         }
 
@@ -39,7 +39,7 @@ class ShareController extends Controller
     {
         $list = ShoppingList::with('sharedWith')->findOrFail($listId);
 
-        if ($list->user_id !== auth()->id()) {
+        if ((int)$list->user_id !== (int)auth()->id()) {
             return response()->json(['message' => 'No autorizado'], 403);
         }
 
@@ -48,9 +48,9 @@ class ShareController extends Controller
 
     public function revoke($listId, $userId)
     {
-        $list = ShoppingList::findOrFail($listId);
+        $list = ShoppingList::findOrFail($listId)->fresh();
 
-        if ($list->user_id !== auth()->id()) {
+        if ((int)$list->user_id !== (int)auth()->id()) {
             return response()->json(['message' => 'No autorizado'], 403);
         }
 

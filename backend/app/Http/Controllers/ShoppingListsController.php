@@ -36,8 +36,9 @@ class ShoppingListsController extends Controller
     public function show($id)
     {
         $list = ShoppingList::with('products')->findOrFail($id);
+        $list->refresh();
 
-        if ($list->user_id !== auth()->id()) {
+        if ((int)$list->user_id !== (int)auth()->id()) {
             return ApiResponse::error('No autorizado.', [], 403);
         }
 
@@ -47,8 +48,9 @@ class ShoppingListsController extends Controller
     public function update(Request $request, $id)
     {
         $list = ShoppingList::findOrFail($id);
-
-        if ($list->user_id !== auth()->id()) {
+        $list->refresh();
+        
+        if ((int)$list->user_id !== (int)auth()->id()) {
             return ApiResponse::error('No autorizado.', [], 403);
         }
 
@@ -65,8 +67,9 @@ class ShoppingListsController extends Controller
     public function destroy($id)
     {
         $list = ShoppingList::findOrFail($id);
+        $list->refresh();
 
-        if ($list->user_id !== auth()->id()) {
+        if ((int)$list->user_id !== (int)auth()->id()) {
             return ApiResponse::error('No autorizado.', [], 403);
         }
 
