@@ -3,7 +3,7 @@
     #drawer
     class="sidebar"
     [mode]="isMobile ? 'over' : 'side'"
-    [opened]="!isMobile"
+    [opened]="drawerOpened"
     (closedStart)="drawerOpened = false"
   >
     <app-sidebar></app-sidebar>
@@ -11,11 +11,14 @@
 
   <mat-sidenav-content class="dashboard-content">
     <mat-toolbar color="primary" class="dashboard-toolbar">
-      <button *ngIf="isMobile" mat-icon-button (click)="drawer.toggle()">
+      <button
+        mat-icon-button
+        (click)="isMobile ? drawer.toggle() : toggleDrawer()"
+      >
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="app-title">{{ "dashboard.title" | transloco }}</span>
       <span class="spacer"></span>
+      <!-- Tema claro/oscuro -->
       <button
         mat-icon-button
         (click)="toggleTheme()"
@@ -27,6 +30,7 @@
       >
         <mat-icon>{{ isDark ? "light_mode" : "dark_mode" }}</mat-icon>
       </button>
+      <!-- Cambiar idioma -->
       <button
         mat-icon-button
         (click)="toggleLang()"
@@ -34,6 +38,29 @@
       >
         <mat-icon>language</mat-icon>
       </button>
+      <!-- Menú usuario -->
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="userMenu"
+        aria-label="Usuario"
+        class="user-avatar"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/dashboard/profile">
+          <mat-icon>person</mat-icon>
+          {{ "dashboard.menu.profile" | transloco }}
+        </button>
+        <button mat-menu-item routerLink="/dashboard/change-password">
+          <mat-icon>lock</mat-icon>
+          Cambiar contraseña
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          {{ "dashboard.menu.logout" | transloco }}
+        </button>
+      </mat-menu>
     </mat-toolbar>
 
     <div class="main-content">

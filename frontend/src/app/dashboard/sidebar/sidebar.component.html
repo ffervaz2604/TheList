@@ -1,28 +1,26 @@
 <mat-nav-list>
   <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
-    {{ "dashboard.menu.home" | transloco }}
-  </a>
-  <a mat-list-item routerLink="/dashboard/profile" routerLinkActive="active">
-    {{ "dashboard.menu.profile" | transloco }}
+    <mat-icon>home</mat-icon>
+    <span>{{ "dashboard.menu.home" | transloco }}</span>
   </a>
   <a
     mat-list-item
     routerLink="/dashboard/shared-lists"
     routerLinkActive="active"
   >
-    {{ "dashboard.menu.shared_lists" | transloco }}
+    <mat-icon>group</mat-icon>
+    <span>{{ "dashboard.menu.shared_lists" | transloco }}</span>
   </a>
   <a mat-list-item routerLink="/dashboard/lists" routerLinkActive="active">
-    {{ "dashboard.menu.view_lists" | transloco }}
+    <mat-icon>list</mat-icon>
+    <span>{{ "dashboard.menu.view_lists" | transloco }}</span>
   </a>
   <a
     mat-list-item
     routerLink="/dashboard/archived-lists"
     routerLinkActive="active"
   >
-    {{ "dashboard.menu.archived_lists" | transloco }}
-  </a>
-  <a mat-list-item (click)="logout()">
-    {{ "dashboard.menu.logout" | transloco }}
+    <mat-icon>archive</mat-icon>
+    <span>{{ "dashboard.menu.archived_lists" | transloco }}</span>
   </a>
 </mat-nav-list>
