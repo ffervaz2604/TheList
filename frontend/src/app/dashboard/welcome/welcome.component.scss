@@ -54,3 +54,115 @@
     }
   }
 }
+
+.summary-cards {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin: 2.5rem auto 0 auto;
+  max-width: 900px;
+  flex-wrap: wrap;
+}
+
+.summary-card,
+.summary-card-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-width: 190px;
+  max-width: 220px;
+  padding: 1.2rem 1.2rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.04);
+  transition: box-shadow 0.2s;
+  text-align: center;
+
+  mat-icon {
+    font-size: 2.4rem;
+    color: #3b82f6;
+    background: #e0e7ff;
+    border-radius: 50%;
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .summary-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .summary-value {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #111827;
+      line-height: 1.1;
+      margin-bottom: 0.2rem;
+    }
+
+    .summary-label {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-top: 0.1rem;
+    }
+  }
+}
+
+/* Responsive: ajusta el ancho y el padding para que se vea bien en móvil */
+@media (max-width: 900px) {
+  .summary-cards {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .summary-card,
+  .summary-card-empty {
+    min-width: 140px;
+    max-width: 47vw;
+    font-size: 0.95rem;
+    padding: 0.9rem 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .summary-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.6rem;
+    max-width: 99vw;
+    margin-top: 1.5rem;
+  }
+
+  .summary-card,
+  .summary-card-empty {
+    flex: 1 1 45%;
+    min-width: 135px;
+    max-width: 48vw;
+    padding: 0.6rem 0.6rem;
+    font-size: 0.91rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .summary-cards {
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: stretch;
+    max-width: 98vw;
+  }
+
+  .summary-card,
+  .summary-card-empty {
+    max-width: 97vw;
+    min-width: unset;
+  }
+}

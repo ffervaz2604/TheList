@@ -45,9 +45,17 @@
       "logout": "Cerrar sesión"
     },
     "welcome": {
-      "title": "Bienvenido a tu lista compartida 👋",
-      "description": "Aquí podrás ver tus listas, crear nuevas y colaborar con otros usuarios.",
-      "cta": "Crea tu primera lista"}
+    "title": "Bienvenido a tu lista compartida 👋",
+    "description": "Aquí podrás ver tus listas, crear nuevas y colaborar con otros usuarios.",
+    "cta": "Crea tu primera lista",
+    "summary": {
+      "active_lists": "Listas activas",
+      "pending_products": "Productos pendientes",
+      "shared_lists": "Listas compartidas",
+      "completed_products": "Productos comprados",
+      "empty_message": "No tienes datos para mostrar aún"
+    }
+  }
   },
   "profile": {
     "name": "Nombre",
