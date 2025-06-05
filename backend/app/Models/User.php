@@ -57,4 +57,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(History::class);
     }
+
+    public function products()
+    {
+        return $this->hasManyThrough(
+            \App\Models\Product::class,
+            \App\Models\ShoppingList::class,
+            'user_id',
+            'shopping_list_id',
+            'id',
+            'id'
+        );
+    }
 }
