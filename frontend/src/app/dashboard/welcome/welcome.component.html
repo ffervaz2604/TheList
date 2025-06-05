@@ -1,11 +1,77 @@
-<mat-card class="welcome-card mat-elevation-z2">
-  <mat-card-title>{{ "dashboard.welcome.title" | transloco }}</mat-card-title>
-  <mat-card-content>
-    <p>{{ "dashboard.welcome.description" | transloco }}</p>
-  </mat-card-content>
-  <mat-card-actions class="center-actions">
-    <button mat-raised-button color="primary" routerLink="/dashboard/lists">
-      {{ "dashboard.welcome.cta" | transloco }}
-    </button>
-  </mat-card-actions>
-</mat-card>
+<div class="wellcome-wrapper">
+  <mat-card class="welcome-card mat-elevation-z2">
+    <mat-card-title>{{ "dashboard.welcome.title" | transloco }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ "dashboard.welcome.description" | transloco }}</p>
+    </mat-card-content>
+    <mat-card-actions class="center-actions">
+      <button mat-raised-button color="primary" routerLink="/dashboard/lists">
+        {{ "dashboard.welcome.cta" | transloco }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="summary-cards" *ngIf="summary && !loading">
+  <ng-container *ngIf="hasAnyData; else noData">
+    <mat-card
+      class="summary-card mat-elevation-z1"
+      *ngIf="summary.activeLists > 0"
+    >
+      <mat-icon>list_alt</mat-icon>
+      <div class="summary-info">
+        <div class="summary-value">{{ summary.activeLists }}</div>
+        <div class="summary-label">
+          {{ "dashboard.welcome.summary.active_lists" | transloco }}
+        </div>
+      </div>
+    </mat-card>
+    <mat-card
+      class="summary-card mat-elevation-z1"
+      *ngIf="summary.pendingProducts > 0"
+    >
+      <mat-icon>shopping_cart</mat-icon>
+      <div class="summary-info">
+        <div class="summary-value">{{ summary.pendingProducts }}</div>
+        <div class="summary-label">
+          {{ "dashboard.welcome.summary.pending_products" | transloco }}
+        </div>
+      </div>
+    </mat-card>
+    <mat-card
+      class="summary-card mat-elevation-z1"
+      *ngIf="summary.sharedLists > 0"
+    >
+      <mat-icon>group</mat-icon>
+      <div class="summary-info">
+        <div class="summary-value">{{ summary.sharedLists }}</div>
+        <div class="summary-label">
+          {{ "dashboard.welcome.summary.shared_lists" | transloco }}
+        </div>
+      </div>
+    </mat-card>
+    <mat-card
+      class="summary-card mat-elevation-z1"
+      *ngIf="summary.completedProducts > 0"
+    >
+      <mat-icon>check_circle</mat-icon>
+      <div class="summary-info">
+        <div class="summary-value">{{ summary.completedProducts }}</div>
+        <div class="summary-label">
+          {{ "dashboard.welcome.summary.completed_products" | transloco }}
+        </div>
+      </div>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #noData>
+    <mat-card class="summary-card-empty mat-elevation-z1">
+      <mat-icon>info</mat-icon>
+      <div class="summary-info">
+        <div class="summary-label">
+          {{ "dashboard.welcome.summary.empty_message" | transloco }}
+        </div>
+      </div>
+    </mat-card>
+  </ng-template>
+</div>
