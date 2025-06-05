@@ -1,14 +1,13 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { ThemeService } from '../../services/theme.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
@@ -20,25 +19,25 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
     RouterModule,
     SidebarComponent,
     MatSidenavModule,
-    MatListModule,
-    MatCardModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatMenuModule,
     TranslocoModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   providers: [ThemeService]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   isMobile = false;
-  drawerOpened: boolean = false;
+  drawerOpened: boolean = true;
 
   constructor(
     public themeService: ThemeService,
-    public translocoService: TranslocoService
+    public translocoService: TranslocoService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -46,8 +45,21 @@ export class DashboardComponent implements OnInit {
     window.addEventListener('resize', this.checkIfMobile.bind(this));
   }
 
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.checkIfMobile.bind(this));
+  }
+
   checkIfMobile(): void {
     this.isMobile = window.innerWidth <= 768;
+    if (this.isMobile) {
+      this.drawerOpened = false;
+    } else {
+      this.drawerOpened = true;
+    }
+  }
+
+  toggleDrawer(): void {
+    this.drawerOpened = !this.drawerOpened;
   }
 
   toggleTheme(): void {
@@ -63,5 +75,10 @@ export class DashboardComponent implements OnInit {
 
   get isDark(): boolean {
     return this.themeService.isDarkTheme;
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
