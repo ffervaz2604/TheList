@@ -45,9 +45,16 @@
     },
     "welcome": {
     "title": "Welcome to your shared list 👋",
-    "description": "Here you can view your lists, create new ones, and collaborate with other users.",
-    "cta": "Create your first list"
+    "description": "Here you can see your lists, create new ones and collaborate with other users.",
+    "cta": "Create your first list",
+    "summary": {
+      "active_lists": "Active lists",
+      "pending_products": "Pending products",
+      "shared_lists": "Shared lists",
+      "completed_products": "Purchased products",
+      "empty_message": "No data to display yet"
     }
+  }
   },
   "profile": {
     "name": "Name",
