@@ -121,5 +121,9 @@
       "share": "Share",
       "close": "Close"
     }
+  },
+  "global_search": {
+    "placeholder": "Search for lists or products...",
+    "no_results": "No results found"
   }
 }
