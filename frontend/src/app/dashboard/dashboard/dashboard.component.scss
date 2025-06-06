@@ -53,9 +53,11 @@
 }
 
 .main-content {
-  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
   background-color: #f9fafb;
-  flex: 1;
   min-height: calc(100vh - 64px);
 
   @media (max-width: 768px) {
@@ -67,6 +69,35 @@
   }
 }
 
+.welcome-card {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+.global-search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  app-global-search {
+    width: 100%;
+    max-width: 600px;
+
+    @media (max-width: 480px) {
+      max-width: 90vw;
+    }
+  }
 }
