@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostBinding, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -11,6 +11,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ThemeService } from '../../services/theme.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { GlobalSearchComponent } from '../../shared/global-search/global-search.component';
+import { MyListsComponent } from '../../my-lists/my-lists/my-lists.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +21,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     CommonModule,
     RouterModule,
     SidebarComponent,
+    GlobalSearchComponent,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
@@ -32,6 +35,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   providers: [ThemeService]
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild(MyListsComponent) myListsComponent!: MyListsComponent;
+
   isCollapsed = true;
   isDark = false;
   drawerOpened = false;
@@ -79,4 +84,17 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
+
+  handleSearchResult(result: { id: number; type: 'list' | 'product' }) {
+    setTimeout(() => {
+      if (!this.myListsComponent) return;
+
+      if (result.type === 'list') {
+        this.myListsComponent.openListDialog(result.id);
+      } else if (result.type === 'product') {
+        this.myListsComponent.openProductDialog(result.id);
+      }
+    }, 300);
+  }
+
 }

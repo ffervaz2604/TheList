@@ -1,0 +1,35 @@
+<mat-form-field class="search-field" appearance="outline">
+  <mat-icon matPrefix>search</mat-icon>
+
+  <input
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [placeholder]="'global_search.placeholder' | transloco"
+  />
+
+  <button
+    mat-icon-button
+    matSuffix
+    *ngIf="searchControl.value"
+    class="clear-button"
+    (click)="clearSearch()"
+    aria-label="Clear"
+    type="button"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    <ng-container *ngIf="results.length > 0; else noResults">
+      <mat-option *ngFor="let result of results" (click)="goTo(result)">
+        {{ result.label }} <small>({{ result.type }})</small>
+      </mat-option>
+    </ng-container>
+    <ng-template #noResults>
+      <mat-option disabled>
+        {{ "global_search.no_results" | transloco }}
+      </mat-option>
+    </ng-template>
+  </mat-autocomplete>
+</mat-form-field>

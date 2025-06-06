@@ -62,6 +62,11 @@
     </mat-toolbar>
 
     <div class="main-content">
+      <div class="global-search-wrapper">
+        <app-global-search
+          (selected)="handleSearchResult($event)"
+        ></app-global-search>
+      </div>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

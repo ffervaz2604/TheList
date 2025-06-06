@@ -122,5 +122,9 @@
       "share": "Compartir",
       "close": "Cerrar"
     }
+  },
+  "global_search": {
+    "placeholder": "Buscar listas o productos...",
+    "no_results": "No se encontraron resultados"
   }
 }

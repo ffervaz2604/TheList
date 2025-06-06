@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShareController;
 use App\Http\Controllers\ShoppingListsController;
 
@@ -27,9 +28,13 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard-summary', [DashboardController::class, 'summary']);
+    
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::put('/profile', [AuthController::class, 'updateProfile']);
     Route::put('/change-password', [AuthController::class, 'changePassword']);
+
+    Route::get('/search/lists', [SearchController::class, 'searchLists']);
+    Route::get('/search/products', [SearchController::class, 'searchProducts']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
