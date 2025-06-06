@@ -53,11 +53,9 @@
 }
 
 .main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   background-color: #f9fafb;
+  flex: 1;
   min-height: calc(100vh - 64px);
 
   @media (max-width: 768px) {
