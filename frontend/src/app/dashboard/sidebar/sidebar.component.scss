@@ -1,10 +1,16 @@
 :host {
   display: block;
   height: 100%;
-  min-width: 210px;
+  min-width: 64px;
   max-width: 210px;
-  background-color: transparent;
+  transition: width 0.3s ease;
   overflow: hidden;
+  background-color: transparent;
+
+  &.collapsed {
+    max-width: 64px;
+    min-width: 64px;
+  }
 }
 
 mat-nav-list {
@@ -15,48 +21,42 @@ mat-nav-list {
 
 a.mat-list-item {
   font-weight: 500;
-  height: 52px !important; // Un poco más alto, se ve más moderno. Pon 48px si prefieres más compacto.
+  height: 52px !important;
   padding: 0 12px !important;
   box-sizing: border-box;
-  cursor: pointer;
   border-radius: 8px;
   margin-bottom: 2px;
   display: flex !important;
   flex-direction: row !important;
-  align-items: center !important; // El centro de todo el contenido
+  align-items: center !important;
+  justify-content: flex-start;
   gap: 12px;
 
   .mat-list-item-content {
     display: flex !important;
     flex-direction: row !important;
-    align-items: center !important; // Centra icono y texto en el alto
+    align-items: center !important;
     gap: 12px;
     padding: 0 !important;
     margin: 0 !important;
     width: 100%;
-    height: 100% !important; // Ocupa todo el alto del item
+    height: 100% !important;
   }
 
   mat-icon {
     color: #3b82f6;
     font-size: 24px !important;
-    min-width: 24px !important;
-    min-height: 24px !important;
-    width: 24px !important;
-    height: 24px !important;
-    margin: 0 !important;
-    display: flex !important;
-    align-items: center !important; // Centra icono verticalmente
-    justify-content: center !important;
-    vertical-align: middle !important;
-    position: relative;
-    top: 0; // Si ves que aún está 1px más arriba, pon top: 1px;
-    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: margin-left 0.3s ease, justify-content 0.3s ease;
   }
 
   span {
     display: flex;
-    align-items: center; // Centra texto verticalmente junto al icono
+    align-items: center;
     font-size: 1rem;
     white-space: nowrap;
     overflow: hidden;
@@ -64,10 +64,11 @@ a.mat-list-item {
     min-width: 0;
     max-width: 160px;
     height: 100%;
+    transition: opacity 0.2s ease;
   }
 
   &.active {
-    background-color: rgba(59, 130, 246, 0.10);
+    background-color: rgba(59, 130, 246, 0.1);
   }
 
   &:hover {
@@ -75,8 +76,17 @@ a.mat-list-item {
   }
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  background: transparent;
+/* Centrado de iconos si está colapsado */
+:host.collapsed a.mat-list-item {
+  justify-content: center !important;
+  gap: 0 !important;
+}
+
+:host.collapsed a.mat-list-item mat-icon {
+  margin-left: 0 !important;
+  justify-content: center !important;
+}
+
+:host.collapsed a.mat-list-item span {
+  display: none !important;
 }
