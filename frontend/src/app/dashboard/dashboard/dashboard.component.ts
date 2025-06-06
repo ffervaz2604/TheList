@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { ThemeService } from '../../services/theme.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,40 +31,41 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
   styleUrls: ['./dashboard.component.scss'],
   providers: [ThemeService]
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-  isMobile = false;
-  drawerOpened: boolean = true;
+export class DashboardComponent implements OnInit {
+  isCollapsed = true;
+  isDark = false;
+  drawerOpened = false;
 
   constructor(
     public themeService: ThemeService,
-    public translocoService: TranslocoService,
+    private breakpointObserver: BreakpointObserver,
+    private translocoService: TranslocoService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.checkIfMobile();
-    window.addEventListener('resize', this.checkIfMobile.bind(this));
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall, Breakpoints.Small])
+      .subscribe(result => {
+        if (result.matches) {
+          this.isCollapsed = true;
+        }
+      });
   }
 
-  ngOnDestroy(): void {
-    window.removeEventListener('resize', this.checkIfMobile.bind(this));
-  }
-
-  checkIfMobile(): void {
-    this.isMobile = window.innerWidth <= 768;
-    if (this.isMobile) {
-      this.drawerOpened = false;
+  toggleSidebar(): void {
+    if (this.isCollapsed) {
+      this.drawerOpened = !this.drawerOpened;
     } else {
+      this.isCollapsed = true;
       this.drawerOpened = true;
     }
   }
 
-  toggleDrawer(): void {
-    this.drawerOpened = !this.drawerOpened;
-  }
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
+    this.isDark = this.themeService.isDarkTheme;
   }
 
   toggleLang(): void {
@@ -71,10 +73,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const newLang = lang === 'es' ? 'en' : 'es';
     this.translocoService.setActiveLang(newLang);
     localStorage.setItem('lang', newLang);
-  }
-
-  get isDark(): boolean {
-    return this.themeService.isDarkTheme;
   }
 
   logout(): void {
