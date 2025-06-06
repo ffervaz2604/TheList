@@ -13,13 +13,23 @@ import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { ProductManagerComponent } from '../product-manager/product-manager.component';
 import { ShareListComponent } from '../share-list/share-list.component';
-import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { TranslocoModule } from '@ngneat/transloco';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '../../interfaces/product';
 
 @Component({
   selector: 'app-my-lists',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinner, MatCard, TranslocoModule, MatTooltipModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressSpinner,
+    MatCard,
+    TranslocoModule,
+    MatTooltipModule
+  ],
   templateUrl: './my-lists.component.html',
   styleUrls: ['./my-lists.component.scss']
 })
@@ -34,6 +44,8 @@ export class MyListsComponent implements OnInit {
     private dialog: MatDialog,
     private snack: SnackService,
     private snackBar: SnackService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,11 +54,46 @@ export class MyListsComponent implements OnInit {
         this.lists = Array.isArray(response.data) ? response.data : [];
         this.expanded = new Array(this.lists.length).fill(false);
         this.isLoading = false;
+
+        this.abrirDesdeQuery();
       },
       error: () => {
         this.errorMessage = 'No se pudieron cargar tus listas.';
         this.isLoading = false;
       }
+    });
+  }
+
+  abrirDesdeQuery() {
+    this.route.queryParams.subscribe(params => {
+      const listId = +params['list'];
+      const productId = +params['product'];
+
+      if (listId) {
+        const index = this.lists.findIndex(l => l.id === listId);
+        if (index !== -1) {
+          this.openProductManager(this.lists[index], index);
+        }
+      } else if (productId) {
+        const listIndex = this.lists.findIndex(l =>
+          l.products?.some((p: Product) => p.id === productId)
+        );
+        if (listIndex !== -1) {
+          const list = this.lists[listIndex];
+          this.openProductManager(list, listIndex);
+        }
+      }
+
+      // Limpia los parámetros para permitir búsquedas repetidas
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: {
+          list: null,
+          product: null,
+          t: null
+        },
+        queryParamsHandling: 'merge'
+      });
     });
   }
 
@@ -106,7 +153,7 @@ export class MyListsComponent implements OnInit {
 
   editList(list: any): void {
     const dialogRef = this.dialog.open(EditListComponent, {
-      width: '420px', // ancho recomendado (puedes ajustar)
+      width: '420px',
       maxWidth: '95vw',
       data: {
         id: list.id,
@@ -121,7 +168,7 @@ export class MyListsComponent implements OnInit {
           name: result.name,
           archived: result.archived
         }).subscribe({
-          next: (response) => {
+          next: () => {
             const index = this.lists.findIndex(l => l.id === result.id);
             if (index !== -1) {
               this.lists[index].name = result.name;
@@ -155,7 +202,6 @@ export class MyListsComponent implements OnInit {
     });
   }
 
-
   shareList(listId: number): void {
     const dialogRef = this.dialog.open(ShareListComponent, {
       width: '500px',
@@ -178,5 +224,21 @@ export class MyListsComponent implements OnInit {
     });
   }
 
+  public openListDialog(id: number): void {
+    const listIndex = this.lists.findIndex(l => l.id === id);
+    if (listIndex !== -1) {
+      this.openProductManager(this.lists[listIndex], listIndex);
+    }
+  }
+
+  public openProductDialog(productId: number): void {
+    const listIndex = this.lists.findIndex(l =>
+      l.products?.some((p: { id: number }) => p.id === productId)
+    );
+    if (listIndex !== -1) {
+      const list = this.lists[listIndex];
+      this.openProductManager(list, listIndex);
+    }
+  }
 
 }
