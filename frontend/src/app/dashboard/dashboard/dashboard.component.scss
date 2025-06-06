@@ -2,69 +2,74 @@
   height: 100vh;
 }
 
+/* Sidebar ocupa espacio solo en modo side */
+.sidebar {
+  width: 210px;
+
+  &.mat-drawer-over {
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &.mat-drawer-side {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  &.mat-drawer-opened {
+    z-index: 1001;
+  }
+}
+
 .dashboard-toolbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
   background-color: #3b82f6;
   color: white;
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
   padding: 0.5rem 1rem;
 
-  .app-title {
-    font-weight: 600;
-    font-size: 1.2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 200px; // ancho fijo y suficiente para cualquier idioma
-    flex-shrink: 0; // evita que se comprima
-  }
+  .menu-button {
+    margin-right: 1rem;
 
+    mat-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .rotated {
+      transform: rotate(180deg);
+    }
+  }
 
   .spacer {
     flex: 1 1 auto;
   }
-
-  button[mat-icon-button] {
-    margin-left: 0.5rem;
-  }
 }
 
-.main-content {
-  padding: 2rem;
+.dashboard-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #f9fafb;
+}
+
+/* Contenido principal */
+.main-content {
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  flex: 1;
   min-height: calc(100vh - 64px);
 
   @media (max-width: 768px) {
-    padding: 1.5rem 1rem;
+    padding: 1rem;
   }
 
   @media (max-width: 480px) {
-    padding: 1rem 0.5rem;
-    margin-top: 1rem;
+    padding: 0.5rem;
   }
 }
 
-@media (max-width: 768px) {
-  .dashboard-toolbar {
-    flex-wrap: wrap;
-
-    .app-title {
-      max-width: 100%;
-      text-align: center;
-      font-size: 1rem;
-      margin: 0.5rem 0;
-    }
-
-    .spacer {
-      display: none;
-    }
-
-    button[mat-icon-button] {
-      margin-left: 0.25rem;
-    }
-  }
+/* Overlay al estar en modo over (como GitHub) */
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.35) !important;
 }
