@@ -2,9 +2,8 @@
   height: 100vh;
 }
 
-/* Sidebar ocupa espacio solo en modo side */
 .sidebar {
-  width: 210px;
+  width: 240px;
 
   &.mat-drawer-over {
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
@@ -53,7 +52,6 @@
   background-color: #f9fafb;
 }
 
-/* Contenido principal */
 .main-content {
   padding: 1rem 1.5rem;
   background-color: #f9fafb;
@@ -69,7 +67,6 @@
   }
 }
 
-/* Overlay al estar en modo over (como GitHub) */
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0, 0, 0, 0.35) !important;
 }
