@@ -2,23 +2,21 @@
   <mat-sidenav
     #drawer
     class="sidebar"
-    [mode]="isMobile ? 'over' : 'side'"
-    [opened]="drawerOpened"
+    [mode]="isCollapsed ? 'over' : 'side'"
+    [opened]="isCollapsed ? drawerOpened : true"
     (closedStart)="drawerOpened = false"
   >
-    <app-sidebar></app-sidebar>
+    <app-sidebar [collapsed]="isCollapsed && !drawerOpened"></app-sidebar>
   </mat-sidenav>
 
   <mat-sidenav-content class="dashboard-content">
     <mat-toolbar color="primary" class="dashboard-toolbar">
-      <button
-        mat-icon-button
-        (click)="isMobile ? drawer.toggle() : toggleDrawer()"
-      >
-        <mat-icon>menu</mat-icon>
+      <button mat-icon-button class="menu-button" (click)="toggleSidebar()">
+        <mat-icon [class.rotated]="!isCollapsed">menu</mat-icon>
       </button>
+
       <span class="spacer"></span>
-      <!-- Tema claro/oscuro -->
+
       <button
         mat-icon-button
         (click)="toggleTheme()"
@@ -30,7 +28,7 @@
       >
         <mat-icon>{{ isDark ? "light_mode" : "dark_mode" }}</mat-icon>
       </button>
-      <!-- Cambiar idioma -->
+
       <button
         mat-icon-button
         (click)="toggleLang()"
@@ -38,15 +36,15 @@
       >
         <mat-icon>language</mat-icon>
       </button>
-      <!-- Menú usuario -->
+
       <button
         mat-icon-button
         [matMenuTriggerFor]="userMenu"
-        aria-label="Usuario"
         class="user-avatar"
       >
         <mat-icon>account_circle</mat-icon>
       </button>
+
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item routerLink="/dashboard/profile">
           <mat-icon>person</mat-icon>

@@ -1,10 +1,16 @@
 :host {
   display: block;
   height: 100%;
-  min-width: 210px;
-  max-width: 210px;
-  background-color: transparent;
+  min-width: 64px;
+  max-width: 240px;
+  transition: width 0.3s ease;
   overflow: hidden;
+  background-color: transparent;
+
+  &.collapsed {
+    max-width: 64px;
+    min-width: 64px;
+  }
 }
 
 mat-nav-list {
@@ -13,70 +19,66 @@ mat-nav-list {
   overflow: visible;
 }
 
-a.mat-list-item {
-  font-weight: 500;
-  height: 52px !important; // Un poco más alto, se ve más moderno. Pon 48px si prefieres más compacto.
-  padding: 0 12px !important;
-  box-sizing: border-box;
-  cursor: pointer;
-  border-radius: 8px;
-  margin-bottom: 2px;
+::ng-deep a.sidebar-item {
   display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important; // El centro de todo el contenido
-  gap: 12px;
-
-  .mat-list-item-content {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important; // Centra icono y texto en el alto
-    gap: 12px;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 100%;
-    height: 100% !important; // Ocupa todo el alto del item
-  }
-
-  mat-icon {
-    color: #3b82f6;
-    font-size: 24px !important;
-    min-width: 24px !important;
-    min-height: 24px !important;
-    width: 24px !important;
-    height: 24px !important;
-    margin: 0 !important;
-    display: flex !important;
-    align-items: center !important; // Centra icono verticalmente
-    justify-content: center !important;
-    vertical-align: middle !important;
-    position: relative;
-    top: 0; // Si ves que aún está 1px más arriba, pon top: 1px;
-    flex-shrink: 0;
-  }
-
-  span {
-    display: flex;
-    align-items: center; // Centra texto verticalmente junto al icono
-    font-size: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-    max-width: 160px;
-    height: 100%;
-  }
-
-  &.active {
-    background-color: rgba(59, 130, 246, 0.10);
-  }
-
-  &:hover {
-    background-color: rgba(59, 130, 246, 0.07);
-  }
+  align-items: center !important;
+  height: 52px !important;
+  padding: 0 16px !important;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  box-sizing: border-box;
+  gap: 24px;
+  cursor: pointer;
+  color: inherit;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  background: transparent;
+::ng-deep a.sidebar-item mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep a.sidebar-item span {
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+}
+
+::ng-deep a.sidebar-item:hover {
+  background-color: rgba(59, 130, 246, 0.07);
+}
+
+::ng-deep a.sidebar-item.active {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+:host.collapsed ::ng-deep a.sidebar-item {
+  justify-content: center !important;
+  gap: 0 !important;
+}
+
+:host.collapsed ::ng-deep a.sidebar-item span {
+  display: none !important;
+}
+
+::ng-deep .mat-drawer-inner-container {
+  overflow-y: hidden !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
+  display: none !important;
 }
