@@ -48,24 +48,26 @@ h2 {
     color: #ec4899;
 }
 
-/* 🧩 Estado vacío alineado como un mat-card normal */
 .empty-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
     text-align: center;
     padding: 2rem;
-    margin: 1rem 0;
-    border-radius: 8px;
-    width: 100%;
+    margin: 2rem auto;
+    border-radius: 12px;
+    max-width: 600px;
     background-color: #f3f4f6;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+
+    .empty-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
 
     .empty-icon {
-        font-size: 48px;
-        color: #3b82f6;
-        margin-bottom: 1rem;
+        width: 40px;
+        height: 40px;
+        fill: #111827;
     }
 
     h3 {
@@ -81,7 +83,7 @@ h2 {
     }
 }
 
-/* 🌙 Modo oscuro */
+
 body.dark-theme {
     .archived-list-card {
         background-color: #1e293b;
@@ -118,7 +120,6 @@ body.dark-theme {
     }
 }
 
-/* 📱 Responsive */
 @media (max-width: 480px) {
     .archived-list-card {
         padding: 0.75rem;
@@ -157,4 +158,16 @@ body.dark-theme {
             font-size: 0.9rem;
         }
     }
+}
+
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
