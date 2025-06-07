@@ -1,20 +1,35 @@
 <h2>{{ "lists.archived_lists" | transloco }}</h2>
 
-<div *ngIf="isLoading">
-  {{ "lists.loading" | transloco }}
+<div *ngIf="isLoading" class="spinner-container">
+  <mat-progress-spinner
+    diameter="40"
+    mode="indeterminate"
+    color="primary"
+  ></mat-progress-spinner>
 </div>
 
-<!-- Estado vacío directamente alineado con contenido -->
 <mat-card
   *ngIf="!isLoading && archivedLists.length === 0"
   class="empty-card mat-elevation-z1"
 >
-  <mat-icon class="empty-icon" color="primary">crop_free</mat-icon>
+  <div class="empty-icon-container">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="empty-icon"
+      viewBox="0 0 24 24"
+      height="40"
+      width="40"
+      fill="#111827"
+    >
+      <path
+        d="M20 6V4H4v2h16Zm0 2H4v12h16V8Zm0-4q.825 0 1.413.588Q22 5.175 22 6v14q0 .825-.587 1.413Q20.825 22 20 22H4q-.825 0-1.412-.587Q2 20.825 2 20V6q0-.825.588-1.412Q3.175 4 4 4h16Z"
+      />
+    </svg>
+  </div>
   <h3>{{ "lists.empty.title" | transloco }}</h3>
   <p>{{ "lists.empty.subtitle" | transloco }}</p>
 </mat-card>
 
-<!-- Listas archivadas -->
 <div
   *ngIf="!isLoading && archivedLists.length > 0"
   class="archived-list-container"
