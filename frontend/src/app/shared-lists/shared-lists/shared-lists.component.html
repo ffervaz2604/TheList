@@ -1,17 +1,24 @@
 <h2>{{ "shared-lists.title" | transloco }}</h2>
 
-<mat-progress-spinner
-  *ngIf="isLoading"
-  mode="indeterminate"
-  diameter="40"
-></mat-progress-spinner>
+<div *ngIf="isLoading" class="spinner-container">
+  <mat-progress-spinner
+    diameter="40"
+    mode="indeterminate"
+    color="primary"
+  ></mat-progress-spinner>
+</div>
 
 <div *ngIf="!isLoading && errorMessage" class="error">
   {{ errorMessage }}
 </div>
 
-<div *ngIf="!isLoading && !errorMessage && pagedLists.length === 0">
-  {{ "shared-lists.no_lists" | transloco }}
+<div
+  *ngIf="!isLoading && !errorMessage && pagedLists.length === 0"
+  class="empty-card"
+>
+  <mat-icon class="empty-icon">supervisor_account</mat-icon>
+  <h3>{{ "shared-lists.no_lists_title" | transloco }}</h3>
+  <p>{{ "shared-lists.no_lists_subtitle" | transloco }}</p>
 </div>
 
 <mat-accordion *ngIf="pagedLists.length > 0">
