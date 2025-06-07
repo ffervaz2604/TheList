@@ -69,11 +69,11 @@
   },
   "shared-lists": {
     "title": "Lists shared with you",
-    "no_lists": "You have no shared lists.",
-    "no_products": "This list has no products.",
-    "mark_as_purchased": "Mark as purchased",
+    "no_lists_title": "You have no shared lists",
+    "no_lists_subtitle": "Ask your teammates to share a list with you 😉",
     "product_unit": "product",
-    "product_plural": "products"
+    "product_plural": "products",
+    "no_products": "This list has no products yet"
   },
   "lists": {
     "my_lists": "My lists",

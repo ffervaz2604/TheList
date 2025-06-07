@@ -12,6 +12,18 @@ h2 {
     padding: 0 1.5rem 1rem;
 }
 
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 mat-accordion {
     margin-bottom: 1.5rem;
 }
@@ -54,8 +66,11 @@ mat-paginator {
 .empty-card {
     text-align: center;
     padding: 2rem;
-    margin-top: 3rem;
+    margin: 2rem auto;
     background-color: #f3f4f6;
+    border-radius: 12px;
+    max-width: 600px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 
     h3 {
         margin: 1rem 0 0.5rem;
@@ -70,11 +85,15 @@ mat-paginator {
 
     .empty-icon {
         font-size: 48px;
-        color: #3b82f6;
+        color: #111827;
+    }
+
+    .empty-svg-icon {
+        display: block;
+        margin: 0 auto;
     }
 }
 
-/* ✅ Productos tachables por nombre */
 .product-item {
     padding: 0.5rem 1rem;
     cursor: pointer;
@@ -97,7 +116,6 @@ mat-paginator {
     }
 }
 
-/* 🌙 Modo oscuro */
 body.dark-theme {
     h2 {
         color: #f9fafb;
@@ -151,7 +169,6 @@ body.dark-theme {
     }
 }
 
-/* 📱 Responsive */
 @media (max-width: 480px) {
     h2 {
         font-size: 1.3rem;

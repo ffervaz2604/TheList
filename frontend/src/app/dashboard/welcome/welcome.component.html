@@ -12,6 +12,16 @@
   </mat-card>
 </div>
 
+<!-- Spinner de carga -->
+<div class="spinner-container" *ngIf="loading">
+  <mat-progress-spinner
+    diameter="40"
+    mode="indeterminate"
+    color="primary"
+  ></mat-progress-spinner>
+</div>
+
+<!-- Tarjetas resumen -->
 <div class="summary-cards" *ngIf="summary && !loading">
   <ng-container *ngIf="hasAnyData; else noData">
     <mat-card
@@ -26,6 +36,7 @@
         </div>
       </div>
     </mat-card>
+
     <mat-card
       class="summary-card mat-elevation-z1"
       *ngIf="summary.pendingProducts > 0"
@@ -38,6 +49,7 @@
         </div>
       </div>
     </mat-card>
+
     <mat-card
       class="summary-card mat-elevation-z1"
       *ngIf="summary.sharedLists > 0"
@@ -50,6 +62,7 @@
         </div>
       </div>
     </mat-card>
+
     <mat-card
       class="summary-card mat-elevation-z1"
       *ngIf="summary.completedProducts > 0"

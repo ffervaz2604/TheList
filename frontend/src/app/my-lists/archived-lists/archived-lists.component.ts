@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackService } from '../../services/snack.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-archived-lists',
@@ -15,7 +16,8 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    TranslocoModule
+    TranslocoModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './archived-lists.component.html',
   styleUrls: ['./archived-lists.component.scss']
