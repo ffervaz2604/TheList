@@ -7,11 +7,12 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { DashboardService, DashboardSummary } from '../../services/dashboard.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatListModule, MatCardModule, TranslocoModule, RouterModule, MatIcon],
+  imports: [CommonModule, MatSidenavModule, MatListModule, MatCardModule, TranslocoModule, RouterModule, MatIcon, MatProgressSpinner],
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
