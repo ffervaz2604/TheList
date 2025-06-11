@@ -3,5 +3,6 @@ export interface Product {
   name: string;
   quantity: number;
   purchased: boolean;
+  quantity_purchased: number;
   shopping_list_id: number;
 }
