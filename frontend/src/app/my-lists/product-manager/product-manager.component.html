@@ -63,7 +63,6 @@
       </mat-cell>
     </ng-container>
 
-    <!-- Columna: Acciones -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>
         {{ "lists.products.actions" | transloco }}
@@ -71,15 +70,24 @@
       <mat-cell *matCellDef="let element; let i = index">
         <button
           mat-icon-button
+          color="primary"
+          (click)="openPurchaseDialog(element)"
+          matTooltip="Actualizar cantidad comprada"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
           color="warn"
           (click)="deleteProduct(element.id, i)"
+          matTooltip="Eliminar producto"
         >
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
 
-    <!-- Cabeceras y filas -->
     <mat-header-row
       *matHeaderRowDef="['name', 'quantity', 'purchased', 'actions']"
       sticky
@@ -93,7 +101,6 @@
   </mat-table>
 </div>
 
-<!-- Cerrar -->
 <div mat-dialog-actions class="mt-4">
   <button mat-button (click)="close()">
     {{ "lists.buttons.close" | transloco }}
