@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>¿Cuántas unidades has comprado ahora?</h2>
+
+<form
+  [formGroup]="form"
+  (ngSubmit)="confirm()"
+  mat-dialog-content
+  class="content-wrapper"
+>
+  <p>
+    Ya has comprado <strong>{{ data.current }}</strong> de
+    <strong>{{ data.max }}</strong> unidades. Te quedan
+    <strong>{{ data.max - data.current }}</strong
+    >.
+  </p>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Unidades compradas</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="quantity"
+      min="1"
+      [max]="data.max - data.current"
+      required
+    />
+  </mat-form-field>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-button type="button" (click)="dialogRef.close()">
+      Cancelar
+    </button>
+    <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+      Confirmar
+    </button>
+  </div>
+</form>

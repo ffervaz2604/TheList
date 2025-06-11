@@ -93,6 +93,7 @@
       "title": "Gestionar productos",
       "name": "Nombre",
       "quantity": "Cantidad",
+      "quantity_purchased": "Cantidad comprada",
       "purchased": "Comprado",
       "add": "Agregar",
       "actions": "Acciones"

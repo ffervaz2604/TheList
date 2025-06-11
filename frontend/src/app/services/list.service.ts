@@ -93,4 +93,11 @@ export class ListService {
     );
   }
 
+  updateQuantityPurchased(listId: number, productId: number, quantityPurchased: number) {
+    return this.http.put<any>(
+      `${this.apiUrl}/${listId}/products/${productId}/quantity-purchased`,
+      { quantity_purchased: quantityPurchased }
+    );
+  }
+
 }

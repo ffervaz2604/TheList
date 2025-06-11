@@ -69,7 +69,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->load('shoppingList');
 
-        // Asegura comparación estricta (int vs int)
         if ((int)$product->shoppingList->user_id !== (int)auth()->id()) {
             return ApiResponse::error('No autorizado para eliminar.', [], 403);
         }
@@ -77,5 +76,26 @@ class ProductController extends Controller
         $product->delete();
 
         return ApiResponse::success(null, 'Producto eliminado.');
+    }
+
+    public function updateQuantityPurchased(Request $request, ShoppingList $list, Product $product)
+    {
+        if ($product->shopping_list_id !== $list->id) {
+            return ApiResponse::error('Producto no pertenece a la lista.', [], 403);
+        }
+
+        if ($list->user_id !== auth()->id()) {
+            return ApiResponse::error('No autorizado para modificar.', [], 403);
+        }
+
+        $validated = $request->validate([
+            'quantity_purchased' => ['required', 'integer', 'min:0', 'lte:' . $product->quantity],
+        ]);
+
+        $product->quantity_purchased = $validated['quantity_purchased'];
+        $product->purchased = $product->quantity_purchased >= $product->quantity;
+        $product->save();
+
+        return ApiResponse::success($product, 'Cantidad comprada actualizada correctamente.');
     }
 }
