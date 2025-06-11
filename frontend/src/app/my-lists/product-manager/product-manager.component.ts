@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { ListService } from '../../services/list.service';
 import { SnackService } from '../../services/snack.service';
 import { TranslocoModule } from '@ngneat/transloco';
+import { FormsModule } from '@angular/forms';
+import { PurchasedDialogComponent } from '../../my-list/purchased-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-manager',
@@ -25,7 +28,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     MatButtonModule,
     MatTableModule,
     MatIconModule,
-    TranslocoModule
+    TranslocoModule,
+    FormsModule
   ],
   templateUrl: './product-manager.component.html',
   styleUrls: ['./product-manager.component.scss']
@@ -39,6 +43,7 @@ export class ProductManagerComponent implements OnInit {
     private listService: ListService,
     private dialogRef: MatDialogRef<ProductManagerComponent>,
     private snackBar: SnackService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { listId: number, currentProducts: any[] }
   ) {
     this.form = this.fb.group({
@@ -70,15 +75,23 @@ export class ProductManagerComponent implements OnInit {
   }
 
   togglePurchased(product: any): void {
-    const updated = { ...product, purchased: !product.purchased };
+    const isNowPurchased = !product.purchased;
+    const updated = {
+      ...product,
+      purchased: isNowPurchased,
+      quantity_purchased: isNowPurchased ? product.quantity : 0
+    };
+
     this.listService.updateProduct(product.id, updated).subscribe({
       next: () => {
         product.purchased = updated.purchased;
-        this.snackBar.show(
-          product.purchased ? 'Producto marcado como comprado' : 'Producto desmarcado',
-          'Cerrar',
-          { duration: 2000 }
-        );
+        product.quantity_purchased = updated.quantity_purchased;
+
+        const message = product.purchased
+          ? 'Producto marcado como comprado'
+          : 'Producto desmarcado y reiniciado';
+
+        this.snackBar.show(message, 'Cerrar', { duration: 2000 });
       },
       error: () => {
         this.snackBar.show('Error al actualizar el producto', 'Cerrar', { duration: 3000 });
@@ -102,4 +115,59 @@ export class ProductManagerComponent implements OnInit {
   close(): void {
     this.dialogRef.close(this.products);
   }
+
+  openPurchaseDialog(product: any): void {
+    const current = product.quantity_purchased ?? 0;
+    if (current >= product.quantity) {
+      this.snackBar.show('Este producto ya está completamente comprado.', 'Cerrar', { duration: 2000 });
+      return;
+    }
+
+    const dialogRef = this.dialog.open(PurchasedDialogComponent, {
+      width: '500px',
+      height: '300px',
+      maxHeight: '90vh',
+      maxWidth: '90vw',
+      panelClass: 'no-scroll-modal',
+      data: {
+        current,
+        max: product.quantity
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((addedQuantity: number) => {
+      if (addedQuantity !== undefined && addedQuantity > 0) {
+        const total = current + addedQuantity;
+        this.updateQuantityPurchased({ ...product, quantity_purchased: total });
+      }
+    });
+  }
+
+  updateQuantityPurchased(product: any): void {
+    const quantity = product.quantity_purchased ?? 0;
+
+    this.listService.updateQuantityPurchased(this.data.listId, product.id, quantity).subscribe({
+      next: (res) => {
+        const updated = res.data;
+
+        product.quantity_purchased = updated.quantity_purchased;
+        product.purchased = updated.purchased;
+
+        const index = this.products.findIndex(p => p.id === updated.id);
+        if (index !== -1) {
+          this.products[index] = { ...this.products[index], ...updated };
+        }
+
+        const message = updated.purchased
+          ? '¡Producto completamente comprado!'
+          : `Comprado: ${updated.quantity_purchased} de ${updated.quantity}`;
+
+        this.snackBar.show(message, 'Cerrar', { duration: 2000 });
+      },
+      error: () => {
+        this.snackBar.show('Error al actualizar cantidad comprada', 'Cerrar', { duration: 3000 });
+      }
+    });
+  }
+
 }
