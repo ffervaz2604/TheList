@@ -92,6 +92,7 @@
       "title": "Manage products",
       "name": "Name",
       "quantity": "Quantity",
+      "quantity_purchased": "Purchased quantity",
       "purchased": "Purchased",
       "add": "Add",
       "actions": "Actions"
