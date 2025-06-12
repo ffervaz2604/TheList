@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-purchased-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatInputModule,TranslocoModule],
   templateUrl: './purchased-dialog.component.html',
   styleUrls: ['./purchased-dialog.component.scss'],
 })

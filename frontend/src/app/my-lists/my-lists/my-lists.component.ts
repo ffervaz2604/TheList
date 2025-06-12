@@ -17,6 +17,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../interfaces/product';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-my-lists',
@@ -45,7 +46,8 @@ export class MyListsComponent implements OnInit {
     private snack: SnackService,
     private snackBar: SnackService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private transloco: TranslocoService
   ) { }
 
   ngOnInit(): void {
@@ -84,7 +86,6 @@ export class MyListsComponent implements OnInit {
         }
       }
 
-      // Limpia los parámetros para permitir búsquedas repetidas
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: {
@@ -104,8 +105,10 @@ export class MyListsComponent implements OnInit {
   deleteList(id: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Confirmar eliminación',
-        message: '¿Estás seguro de que deseas eliminar esta lista? Esta acción no se puede deshacer.'
+        title: this.transloco.translate('dialog.delete_title'),
+        message: this.transloco.translate('dialog.delete_message'),
+        confirmText: 'dialog.confirm',
+        cancelText: 'dialog.cancel'
       }
     });
 
@@ -115,12 +118,14 @@ export class MyListsComponent implements OnInit {
           next: () => {
             this.lists = this.lists.filter(list => list.id !== id);
             this.expanded = new Array(this.lists.length).fill(false);
-            this.snack.show('Lista eliminada correctamente');
+            this.snack.show(this.transloco.translate('messages.list_deleted'));
           },
           error: () => {
-            this.snack.show('Error al eliminar la lista', 'Cerrar', {
-              panelClass: 'custom-snackbar-error'
-            });
+            this.snack.show(
+              this.transloco.translate('errors.delete_list'),
+              this.transloco.translate('actions.close'),
+              { panelClass: 'custom-snackbar-error' }
+            );
           }
         });
       }

@@ -36,13 +36,16 @@
     "title": "Lista Compartida",
     "theme_toggle_light": "Modo claro",
     "theme_toggle_dark": "Modo oscuro",
+    "theme_toggle_language": "Cambiar idioma",
+    "profile_toggle": "Perfil",
     "menu": {
       "home": "Inicio",
       "profile": "Mi perfil",
       "shared_lists": "Listas compartidas",
       "view_lists": "Ver Listas",
       "archived_lists": "Listas Archivadas",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "change_password": "Cambiar contraseña"
     },
     "welcome": {
     "title": "Bienvenido a tu lista compartida 👋",
@@ -127,5 +130,29 @@
   "global_search": {
     "placeholder": "Buscar listas o productos...",
     "no_results": "No se encontraron resultados"
+  },
+  "dialog": {
+    "delete_title": "Confirmar eliminación",
+    "delete_message": "¿Estás seguro de que deseas eliminar esta lista? Esta acción no se puede deshacer.",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
+  "messages": {
+    "list_deleted": "Lista eliminada correctamente"
+  },
+  "errors": {
+    "delete_list": "Error al eliminar la lista"
+  },
+  "actions": {
+    "close": "Cerrar"
+  },
+  "product_dialog": {
+    "title": "¿Cuántas unidades has comprado ahora?",
+    "summary": "Ya has comprado {{current}} de {{max}} unidades. Te quedan {{remaining}}.",
+    "label": "Unidades compradas",
+    "dialog": {
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    }
   }
 }

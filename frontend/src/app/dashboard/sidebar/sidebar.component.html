@@ -1,18 +1,57 @@
 <mat-nav-list>
-  <a mat-list-item class="sidebar-item" routerLink="/dashboard">
+  <a
+    mat-list-item
+    class="sidebar-item"
+    routerLink="/dashboard"
+    routerLinkActive="active"
+    [matTooltip]="collapsed ? ('dashboard.menu.home' | transloco) : ''"
+    matTooltipPosition="right"
+  >
     <mat-icon>home</mat-icon>
-    <span *ngIf="!collapsed">Inicio</span>
+    <span *ngIf="!collapsed">{{ "dashboard.menu.home" | transloco }}</span>
   </a>
-  <a mat-list-item class="sidebar-item" routerLink="/dashboard/shared-lists">
+
+  <a
+    mat-list-item
+    class="sidebar-item"
+    routerLink="/dashboard/shared-lists"
+    routerLinkActive="active"
+    [matTooltip]="collapsed ? ('dashboard.menu.shared_lists' | transloco) : ''"
+    matTooltipPosition="right"
+  >
     <mat-icon>people</mat-icon>
-    <span *ngIf="!collapsed">Listas compartidas</span>
+    <span *ngIf="!collapsed">{{
+      "dashboard.menu.shared_lists" | transloco
+    }}</span>
   </a>
-  <a mat-list-item class="sidebar-item" routerLink="/dashboard/lists">
+
+  <a
+    mat-list-item
+    class="sidebar-item"
+    routerLink="/dashboard/lists"
+    routerLinkActive="active"
+    [matTooltip]="collapsed ? ('dashboard.menu.view_lists' | transloco) : ''"
+    matTooltipPosition="right"
+  >
     <mat-icon>list</mat-icon>
-    <span *ngIf="!collapsed">Ver Listas</span>
+    <span *ngIf="!collapsed">{{
+      "dashboard.menu.view_lists" | transloco
+    }}</span>
   </a>
-  <a mat-list-item class="sidebar-item" routerLink="/dashboard/archived-lists">
+
+  <a
+    mat-list-item
+    class="sidebar-item"
+    routerLink="/dashboard/archived-lists"
+    routerLinkActive="active"
+    [matTooltip]="
+      collapsed ? ('dashboard.menu.archived_lists' | transloco) : ''
+    "
+    matTooltipPosition="right"
+  >
     <mat-icon>archive</mat-icon>
-    <span *ngIf="!collapsed">Listas Archivadas</span>
+    <span *ngIf="!collapsed">{{
+      "dashboard.menu.archived_lists" | transloco
+    }}</span>
   </a>
 </mat-nav-list>

@@ -32,7 +32,7 @@
       <button
         mat-icon-button
         (click)="toggleLang()"
-        matTooltip="Cambiar idioma"
+        [matTooltip]="'dashboard.theme_toggle_language' | transloco"
       >
         <mat-icon>language</mat-icon>
       </button>
@@ -41,6 +41,7 @@
         mat-icon-button
         [matMenuTriggerFor]="userMenu"
         class="user-avatar"
+        [matTooltip]="'dashboard.profile_toggle' | transloco"
       >
         <mat-icon>account_circle</mat-icon>
       </button>
@@ -52,7 +53,7 @@
         </button>
         <button mat-menu-item routerLink="/dashboard/change-password">
           <mat-icon>lock</mat-icon>
-          Cambiar contraseña
+          {{ "dashboard.menu.change_password" | transloco }}
         </button>
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
