@@ -1,4 +1,6 @@
-<h2 mat-dialog-title>¿Cuántas unidades has comprado ahora?</h2>
+<h2 mat-dialog-title>
+  {{ "product_dialog.title" | transloco }}
+</h2>
 
 <form
   [formGroup]="form"
@@ -7,14 +9,19 @@
   class="content-wrapper"
 >
   <p>
-    Ya has comprado <strong>{{ data.current }}</strong> de
-    <strong>{{ data.max }}</strong> unidades. Te quedan
-    <strong>{{ data.max - data.current }}</strong
-    >.
+    {{
+      "product_dialog.summary"
+        | transloco
+          : {
+              current: data.current,
+              max: data.max,
+              remaining: data.max - data.current
+            }
+    }}
   </p>
 
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Unidades compradas</mat-label>
+    <mat-label>{{ "product_dialog.label" | transloco }}</mat-label>
     <input
       matInput
       type="number"
@@ -27,10 +34,10 @@
 
   <div mat-dialog-actions class="actions">
     <button mat-button type="button" (click)="dialogRef.close()">
-      Cancelar
+      {{ "product_dialog.dialog.cancel" | transloco }}
     </button>
     <button mat-button color="primary" type="submit" [disabled]="form.invalid">
-      Confirmar
+      {{ "product_dialog.dialog.confirm" | transloco }}
     </button>
   </div>
 </form>
