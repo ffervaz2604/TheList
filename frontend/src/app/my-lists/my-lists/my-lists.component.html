@@ -67,11 +67,21 @@
     </ul>
 
     <div class="actions">
-      <button mat-icon-button color="warn" (click)="deleteList(list.id)">
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deleteList(list.id)"
+        matTooltip="{{ 'lists.buttons.delete' | transloco }}"
+      >
         <mat-icon>delete</mat-icon>
       </button>
 
-      <button mat-icon-button color="accent" (click)="editList(list)">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="editList(list)"
+        matTooltip="{{ 'lists.buttons.edit' | transloco }}"
+      >
         <mat-icon>edit</mat-icon>
       </button>
 
