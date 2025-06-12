@@ -35,13 +35,16 @@
     "title": "Shared List",
     "theme_toggle_light": "Light mode",
     "theme_toggle_dark": "Dark mode",
+    "theme_toggle_language": "Change language",
+    "profile_toggle": "Profile",
     "menu": {
       "home": "Home",
       "profile": "My profile",
       "shared_lists": "Shared lists",
       "view_lists": "View lists",
       "archived_lists": "Archived lists",
-      "logout": "Log out"
+      "logout": "Log out",
+      "change_password": "Change password"
     },
     "welcome": {
     "title": "Welcome to your shared list 👋",
@@ -126,5 +129,29 @@
   "global_search": {
     "placeholder": "Search for lists or products...",
     "no_results": "No results found"
+  },
+  "dialog": {
+    "delete_title": "Confirm deletion",
+    "delete_message": "Are you sure you want to delete this list? This action cannot be undone.",
+    "confirm": "Confirm",
+    "cancel": "Cancelar"
+  },
+  "messages": {
+    "list_deleted": "List deleted successfully"
+  },
+  "errors": {
+    "delete_list": "Error deleting list"
+  },
+  "actions": {
+    "close": "Close"
+  },
+  "product_dialog": {
+    "title": "How many units have you purchased now?",
+    "summary": "You have already bought {{current}}out of {{max}} units. You have {{remaining}} left.",
+    "label": "Units purchased",
+    "dialog": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   }
 }
