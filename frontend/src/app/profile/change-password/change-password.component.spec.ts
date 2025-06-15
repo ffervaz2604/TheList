@@ -54,7 +54,7 @@ describe('ChangePasswordComponent', () => {
 
         expect(component.successMessage).toContain('Contraseña actualizada correctamente');
 
-        tick(2000); // Simula delay
+        tick(2000);
         expect(localStorage.removeItem).toHaveBeenCalledWith('token');
         expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
     }));

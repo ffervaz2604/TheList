@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../interfaces/api-response';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ListService {
-  private apiUrl = 'http://localhost:8000/api/lists';
+  private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -18,24 +19,24 @@ export class ListService {
   }
 
   getAll(): Observable<ApiResponse<any[]>> {
-    return this.http.get<ApiResponse<any[]>>(this.apiUrl, this.getHeaders());
+    return this.http.get<ApiResponse<any[]>>(this.baseUrl, this.getHeaders());
   }
 
   create(data: { name: string }): Observable<any> {
-    return this.http.post(this.apiUrl, data, this.getHeaders());
+    return this.http.post(this.baseUrl, data, this.getHeaders());
   }
 
   update(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data, this.getHeaders());
+    return this.http.put(`${this.baseUrl}/${id}`, data, this.getHeaders());
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders());
+    return this.http.delete(`${this.baseUrl}/${id}`, this.getHeaders());
   }
 
   addProduct(listId: number, product: { name: string; quantity: number; purchased?: boolean }) {
     return this.http.post<{ data: any }>(
-      `http://localhost:8000/api/lists/${listId}/products`,
+      `${this.baseUrl}/lists/${listId}/products`,
       product,
       this.getHeaders()
     );
@@ -43,7 +44,7 @@ export class ListService {
 
   updateProduct(productId: number, data: { name?: string; quantity?: number; purchased?: boolean }) {
     return this.http.put<{ data: any }>(
-      `http://localhost:8000/api/products/${productId}`,
+      `${this.baseUrl}/products/${productId}`,
       data,
       this.getHeaders()
     );
@@ -51,21 +52,21 @@ export class ListService {
 
   deleteProduct(productId: number) {
     return this.http.delete<{ message: string }>(
-      `http://localhost:8000/api/products/${productId}`,
+      `${this.baseUrl}/products/${productId}`,
       this.getHeaders()
     );
   }
 
   getArchived(): Observable<ApiResponse<any[]>> {
     return this.http.get<ApiResponse<any[]>>(
-      'http://localhost:8000/api/lists/archived',
+      '${this.baseUrl}/lists/archived',
       this.getHeaders()
     );
   }
 
   unarchiveList(id: number) {
     return this.http.put<{ data: any }>(
-      `http://localhost:8000/api/lists/${id}`,
+      `${this.baseUrl}/lists/${id}`,
       { archived: false },
       this.getHeaders()
     );
@@ -73,7 +74,7 @@ export class ListService {
 
   shareList(listId: number, email: string) {
     return this.http.post<{ message: string }>(
-      `http://localhost:8000/api/lists/${listId}/share`,
+      `${this.baseUrl}/lists/${listId}/share`,
       { email },
       this.getHeaders()
     );
@@ -81,21 +82,21 @@ export class ListService {
 
   revokeShare(listId: number, userId: number) {
     return this.http.delete<{ message: string }>(
-      `http://localhost:8000/api/lists/${listId}/shared-users/${userId}`,
+      `${this.baseUrl}/lists/${listId}/shared-users/${userId}`,
       this.getHeaders()
     );
   }
 
   getSharedUsers(listId: number) {
     return this.http.get<{ data: any[] }>(
-      `http://localhost:8000/api/lists/${listId}/shared-users`,
+      `${this.baseUrl}/lists/${listId}/shared-users`,
       this.getHeaders()
     );
   }
 
   updateQuantityPurchased(listId: number, productId: number, quantityPurchased: number) {
     return this.http.put<any>(
-      `${this.apiUrl}/${listId}/products/${productId}/quantity-purchased`,
+      `${this.baseUrl}/${listId}/products/${productId}/quantity-purchased`,
       { quantity_purchased: quantityPurchased }
     );
   }

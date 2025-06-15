@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/api';
+  private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials, {
+    return this.http.post(`${this.baseUrl}/login`, credentials, {
       headers: {
         Accept: 'application/json'
       }
@@ -18,7 +19,7 @@ export class AuthService {
   }
 
   getProfile(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/profile`, {
+    return this.http.get<User>(`${this.baseUrl}/profile`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token') || ''}`
       }
@@ -26,7 +27,7 @@ export class AuthService {
   }
 
   register(data: { name: string; email: string; password: string; password_confirmation: string; role: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data, {
+    return this.http.post(`${this.baseUrl}/register`, data, {
       headers: {
         Accept: 'application/json'
       }
@@ -34,7 +35,7 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {}, {
+    return this.http.post(`${this.baseUrl}/logout`, {}, {
       headers: {
         Accept: 'application/json'
       }
@@ -42,7 +43,7 @@ export class AuthService {
   }
 
   forgot(data: { email: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgot-password`, data, {
+    return this.http.post(`${this.baseUrl}/forgot-password`, data, {
       headers: {
         Accept: 'application/json'
       }
@@ -55,7 +56,7 @@ export class AuthService {
     password: string;
     password_confirmation: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/reset-password`, payload, {
+    return this.http.post(`${this.baseUrl}/reset-password`, payload, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }

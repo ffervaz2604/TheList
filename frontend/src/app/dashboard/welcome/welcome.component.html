@@ -12,7 +12,6 @@
   </mat-card>
 </div>
 
-<!-- Spinner de carga -->
 <div class="spinner-container" *ngIf="loading">
   <mat-progress-spinner
     diameter="40"
@@ -21,7 +20,6 @@
   ></mat-progress-spinner>
 </div>
 
-<!-- Tarjetas resumen -->
 <div class="summary-cards" *ngIf="summary && !loading">
   <ng-container *ngIf="hasAnyData; else noData">
     <mat-card
