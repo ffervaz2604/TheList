@@ -10,7 +10,7 @@ export class SharedListService {
 
   getSharedLists(): Observable<{ data: any[] }> {
     return this.http.get<{ data: any[] }>(
-      'http://localhost:8000/api/shared-lists'
+      this.apiUrl
     );
   }
 

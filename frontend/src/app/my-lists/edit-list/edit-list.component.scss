@@ -1,6 +1,6 @@
 .full-width {
     width: 100%;
-    margin-top: 1.5rem; // separa del título
+    margin-top: 1.5rem;
     margin-bottom: 1.25rem;
 }
 
@@ -22,7 +22,6 @@ mat-checkbox {
     display: block;
 }
 
-/* Botones distribuidos */
 .dialog-actions {
     display: flex;
     justify-content: space-between;
@@ -43,7 +42,7 @@ mat-form-field {
     }
 }
 
-/* 🌙 Modo oscuro */
+/* Modo oscuro */
 body.dark-theme {
     mat-form-field {
         .mat-form-field-label {
