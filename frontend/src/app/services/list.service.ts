@@ -19,19 +19,19 @@ export class ListService {
   }
 
   getAll(): Observable<ApiResponse<any[]>> {
-    return this.http.get<ApiResponse<any[]>>(this.baseUrl, this.getHeaders());
+    return this.http.get<ApiResponse<any[]>>(`${this.baseUrl}/lists`, this.getHeaders());
   }
 
   create(data: { name: string }): Observable<any> {
-    return this.http.post(this.baseUrl, data, this.getHeaders());
+    return this.http.post(`${this.baseUrl}/lists`, data, this.getHeaders());
   }
 
   update(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, data, this.getHeaders());
+    return this.http.put(`${this.baseUrl}/lists/${id}`, data, this.getHeaders());
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, this.getHeaders());
+    return this.http.delete(`${this.baseUrl}/lists/${id}`, this.getHeaders());
   }
 
   addProduct(listId: number, product: { name: string; quantity: number; purchased?: boolean }) {
@@ -59,7 +59,7 @@ export class ListService {
 
   getArchived(): Observable<ApiResponse<any[]>> {
     return this.http.get<ApiResponse<any[]>>(
-      '${this.baseUrl}/lists/archived',
+      `${this.baseUrl}/lists/archived`,
       this.getHeaders()
     );
   }
@@ -96,7 +96,7 @@ export class ListService {
 
   updateQuantityPurchased(listId: number, productId: number, quantityPurchased: number) {
     return this.http.put<any>(
-      `${this.baseUrl}/${listId}/products/${productId}/quantity-purchased`,
+      `${this.baseUrl}/lists/${listId}/products/${productId}/quantity-purchased`,
       { quantity_purchased: quantityPurchased }
     );
   }
