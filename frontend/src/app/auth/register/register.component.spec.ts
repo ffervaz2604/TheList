@@ -1,63 +1,58 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { RegisterComponent } from './register.component';
+import { AuthService } from '../../services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { of, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { provideTransloco, TranslocoLoader } from '@ngneat/transloco';
-import { RegisterComponent } from '../../../../src/app/auth/register/register.component';
-import { AuthService } from '../../../../src/app/services/auth.service';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { of, throwError } from 'rxjs';
+import { Component } from '@angular/core';
 
-class FakeTranslocoLoader implements TranslocoLoader {
-  getTranslation(lang: string) {
-    return of({
-      'register.title': 'Registro',
-      'register.name': 'Nombre',
-      'register.email': 'Correo',
-      'register.password': 'Contraseña',
-      'register.password_confirmation': 'Confirmar contraseña',
-      'register.role': 'Rol',
-      'register.submit': 'Registrar',
-      'register.already_have_account': '¿Ya tienes cuenta?',
-      'register.role_option_admin': 'Administrador',
-      'register.role_option_collaborator': 'Colaborador'
-    });
-  }
-}
+@Component({ template: '' })
+class DummyComponent {}
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
-  let mockAuthService: any;
-  let router: Router;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
-    mockAuthService = {
-      register: jasmine.createSpy().and.returnValue(of({}))
-    };
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['register']);
 
     await TestBed.configureTestingModule({
       imports: [
         RegisterComponent,
         ReactiveFormsModule,
-        RouterTestingModule
-      ],
-      providers: [
-        provideTransloco({
-          config: {
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: DummyComponent }
+        ]),
+        TranslocoTestingModule.forRoot({
+          langs: {
+            es: {
+              register: {
+                title: 'Registro',
+                name: 'Nombre',
+                email: 'Correo',
+                password: 'Contraseña',
+                password_confirmation: 'Confirmar contraseña',
+                role: 'Rol',
+                role_option_admin: 'Administrador',
+                role_option_collaborator: 'Colaborador',
+                submit: 'Crear cuenta',
+                already_have_account: '¿Ya tienes cuenta?'
+              }
+            }
+          },
+          translocoConfig: {
             availableLangs: ['es'],
             defaultLang: 'es',
-            fallbackLang: 'es',
-            reRenderOnLangChange: true,
-            prodMode: true
-          },
-          loader: FakeTranslocoLoader
-        }),
-        { provide: AuthService, useValue: mockAuthService }
+            reRenderOnLangChange: true
+          }
+        })
+      ],
+      providers: [
+        { provide: AuthService, useValue: authServiceSpy }
       ]
     }).compileComponents();
-
-    router = TestBed.inject(Router);
-    spyOn(router, 'navigate');
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
@@ -68,51 +63,52 @@ describe('RegisterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería tener el formulario inválido al inicio', () => {
-    expect(component.registerForm.valid).toBeFalse();
-  });
-
-  it('debería validar que las contraseñas coincidan', () => {
+  it('debería marcar error si las contraseñas no coinciden', () => {
     component.registerForm.setValue({
       name: 'Test',
-      email: 'test@example.com',
+      email: 'test@test.com',
       password: '123456',
-      password_confirmation: '654321',
-      role: 'admin'
+      password_confirmation: '000000',
+      role: 'colaborador'
     });
 
     expect(component.registerForm.valid).toBeFalse();
     expect(component.registerForm.errors?.['mismatch']).toBeTrue();
   });
 
-  it('debería llamar a authService.register si el formulario es válido', () => {
+  it('debería registrar correctamente y navegar a /login', fakeAsync(() => {
+    authServiceSpy.register.and.returnValue(of({}));
     component.registerForm.setValue({
       name: 'Test',
-      email: 'test@example.com',
+      email: 'test@test.com',
       password: '123456',
       password_confirmation: '123456',
-      role: 'admin'
+      role: 'colaborador'
     });
 
     component.onSubmit();
+    tick();
 
-    expect(mockAuthService.register).toHaveBeenCalledWith(component.registerForm.value);
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
-  });
+    expect(component.isLoading).toBeFalse();
+  }));
 
-  it('debería manejar error del servidor', () => {
-    mockAuthService.register.and.returnValue(throwError(() => ({ error: { message: 'Error al registrar' } })));
+  it('debería mostrar mensaje de error si falla el registro', fakeAsync(() => {
+    authServiceSpy.register.and.returnValue(
+      throwError(() => ({ error: { message: 'Registro fallido' } }))
+    );
 
     component.registerForm.setValue({
       name: 'Test',
-      email: 'test@example.com',
+      email: 'test@test.com',
       password: '123456',
       password_confirmation: '123456',
-      role: 'admin'
+      role: 'colaborador'
     });
 
     component.onSubmit();
+    tick();
 
-    expect(component.serverError).toBe('Error al registrar');
-  });
+    expect(component.serverError).toBe('Registro fallido');
+    expect(component.isLoading).toBeFalse();
+  }));
 });

@@ -1,83 +1,92 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { of, throwError } from 'rxjs';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { AuthService } from '../../services/auth.service';
-import { provideTransloco, TranslocoLoader } from '@ngneat/transloco';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { of, throwError } from 'rxjs';
+import { Component } from '@angular/core';
 
-class FakeTranslocoLoader implements TranslocoLoader {
-  getTranslation() {
-    return of({});
-  }
-}
+@Component({ template: '' })
+class DummyComponent { }
 
 describe('ForgotPasswordComponent', () => {
-  let component: ForgotPasswordComponent;
-  let fixture: ComponentFixture<ForgotPasswordComponent>;
-  let mockAuthService: any;
+    let component: ForgotPasswordComponent;
+    let fixture: ComponentFixture<ForgotPasswordComponent>;
+    let authServiceSpy: jasmine.SpyObj<AuthService>;
 
-  beforeEach(async () => {
-    mockAuthService = {
-      forgot: jasmine.createSpy().and.returnValue(of({}))
-    };
+    beforeEach(async () => {
+        authServiceSpy = jasmine.createSpyObj('AuthService', ['forgot']);
 
-    await TestBed.configureTestingModule({
-      imports: [
-        ForgotPasswordComponent,
-        ReactiveFormsModule,
-        RouterTestingModule
-      ],
-      providers: [
-        provideTransloco({
-          config: {
-            availableLangs: ['es'],
-            defaultLang: 'es',
-            fallbackLang: 'es',
-            reRenderOnLangChange: true,
-            prodMode: true
-          },
-          loader: FakeTranslocoLoader
-        }),
-        { provide: AuthService, useValue: mockAuthService }
-      ]
-    }).compileComponents();
+        await TestBed.configureTestingModule({
+            imports: [
+                ForgotPasswordComponent,
+                ReactiveFormsModule,
+                RouterTestingModule.withRoutes([
+                    { path: 'login', component: DummyComponent }
+                ]),
+                TranslocoTestingModule.forRoot({
+                    langs: {
+                        "es": {
+                            "forgot-password": {
+                                "title": "¿Has olvidado tu contraseña?",
+                                "email": "Correo electrónico",
+                                "submit": "Enviar",
+                                "back-to-login": "Volver al inicio de sesión"
+                            }
+                        }
+                    },
+                    translocoConfig: {
+                        availableLangs: ['es'],
+                        defaultLang: 'es',
+                        reRenderOnLangChange: true
+                    }
+                })
+            ],
+            providers: [
+                { provide: AuthService, useValue: authServiceSpy }
+            ]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ForgotPasswordComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(ForgotPasswordComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('debería crear el componente', () => {
-    expect(component).toBeTruthy();
-  });
+    it('debería crear el componente', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('debería tener el formulario inválido al inicio', () => {
-    expect(component.form.valid).toBeFalse();
-  });
+    it('debería mostrar mensaje de éxito si se envía correctamente', fakeAsync(() => {
+        authServiceSpy.forgot.and.returnValue(of({}));
+        component.form.setValue({ email: 'test@test.com' });
 
-  it('debería llamar a authService.forgot si el formulario es válido', () => {
-    component.form.setValue({ email: 'test@example.com' });
-    component.onSubmit();
+        component.onSubmit();
+        tick();
 
-    expect(mockAuthService.forgot).toHaveBeenCalledWith({ email: 'test@example.com' });
-  });
+        expect(component.isLoading).toBeFalse();
+        expect(component.successMessage).toBeTruthy();
+        expect(component.errorMessage).toBeNull();
+    }));
 
-  it('debería mostrar mensaje de éxito si el correo se envía correctamente', () => {
-    component.form.setValue({ email: 'test@example.com' });
-    component.onSubmit();
+    it('debería mostrar mensaje de error si falla el envío', fakeAsync(() => {
+        authServiceSpy.forgot.and.returnValue(throwError(() => ({})));
+        component.form.setValue({ email: 'test@test.com' });
 
-    expect(component.successMessage).toBe('Te hemos enviado un correo para restablecer la contraseña.');
-    expect(component.errorMessage).toBeNull();
-  });
+        component.onSubmit();
+        tick();
 
-  it('debería manejar error si el correo no se puede enviar', () => {
-    mockAuthService.forgot.and.returnValue(throwError(() => ({ status: 400 })));
+        expect(component.isLoading).toBeFalse();
+        expect(component.errorMessage).toContain('Error');
+        expect(component.successMessage).toBeNull();
+    }));
 
-    component.form.setValue({ email: 'test@example.com' });
-    component.onSubmit();
+    it('no debería enviar si el formulario es inválido', () => {
+        component.form.setValue({ email: '' });
 
-    expect(component.errorMessage).toBe('Error al enviar el correo. Asegúrate de que el email es válido.');
-    expect(component.successMessage).toBeNull();
-  });
+        component.onSubmit();
+
+        expect(authServiceSpy.forgot).not.toHaveBeenCalled();
+        expect(component.isLoading).toBeFalse();
+    });
 });

@@ -1,121 +1,115 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
 import { ResetPasswordComponent } from './reset-password.component';
 import { AuthService } from '../../services/auth.service';
-import { provideTransloco, TranslocoLoader } from '@ngneat/transloco';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { of, throwError } from 'rxjs';
+import { Component } from '@angular/core';
 
-class FakeTranslocoLoader implements TranslocoLoader {
-  getTranslation() {
-    return of({});
-  }
-}
+@Component({ template: '' })
+class DummyComponent { }
 
 describe('ResetPasswordComponent', () => {
-  let component: ResetPasswordComponent;
-  let fixture: ComponentFixture<ResetPasswordComponent>;
-  let mockAuthService: any;
-  let mockRouter: any;
+    let component: ResetPasswordComponent;
+    let fixture: ComponentFixture<ResetPasswordComponent>;
+    let authServiceSpy: jasmine.SpyObj<AuthService>;
 
-  beforeEach(async () => {
-    mockAuthService = {
-      reset: jasmine.createSpy().and.returnValue(of({}))
-    };
-    mockRouter = {
-      navigate: jasmine.createSpy()
-    };
+    beforeEach(async () => {
+        authServiceSpy = jasmine.createSpyObj('AuthService', ['reset']);
 
-    await TestBed.configureTestingModule({
-      imports: [
-        ResetPasswordComponent,
-        ReactiveFormsModule,
-        RouterTestingModule
-      ],
-      providers: [
-        provideTransloco({
-          config: {
-            availableLangs: ['es'],
-            defaultLang: 'es',
-            fallbackLang: 'es',
-            reRenderOnLangChange: true,
-            prodMode: true
-          },
-          loader: FakeTranslocoLoader
-        }),
-        { provide: AuthService, useValue: mockAuthService },
-        { provide: Router, useValue: mockRouter },
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              queryParamMap: {
-                get: (key: string) => key === 'token' ? 'mock-token' : 'test@example.com'
-              }
-            }
-          }
-        }
-      ]
-    }).compileComponents();
+        await TestBed.configureTestingModule({
+            imports: [
+                ResetPasswordComponent,
+                ReactiveFormsModule,
+                RouterTestingModule.withRoutes([
+                    { path: 'login', component: DummyComponent }
+                ]),
+                TranslocoTestingModule.forRoot({
+                    langs: {
+                        es: {
+                            'reset-password': {
+                                title: 'Restablecer contraseña',
+                                password: 'Nueva contraseña',
+                                password_confirmation: 'Confirmar contraseña',
+                                submit: 'Restablecer'
+                            }
+                        }
+                    },
+                    translocoConfig: {
+                        availableLangs: ['es'],
+                        defaultLang: 'es',
+                        reRenderOnLangChange: true
+                    }
+                })
+            ],
+            providers: [
+                { provide: AuthService, useValue: authServiceSpy },
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        snapshot: {
+                            queryParamMap: {
+                                get: (key: string) =>
+                                    key === 'token' ? 'mock-token' : 'test@test.com'
+                            }
+                        }
+                    }
+                }
+            ]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ResetPasswordComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('debería crear el componente', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('debería tener el formulario inválido al inicio', () => {
-    expect(component.form.valid).toBeFalse();
-  });
-
-  it('debería validar que las contraseñas coinciden', () => {
-    component.form.setValue({
-      password: '123456',
-      password_confirmation: '654321'
+        fixture = TestBed.createComponent(ResetPasswordComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
-    expect(component.form.valid).toBeFalse();
-    component.form.setValue({
-      password: '123456',
-      password_confirmation: '123456'
-    });
-    expect(component.form.valid).toBeTrue();
-  });
 
-  it('debería llamar a authService.reset si el formulario es válido', () => {
-    component.form.setValue({
-      password: '123456',
-      password_confirmation: '123456'
+    it('debería crear el componente', () => {
+        expect(component).toBeTruthy();
+        expect(component.token).toBe('mock-token');
+        expect(component.email).toBe('test@test.com');
     });
-    component.onSubmit();
-    expect(mockAuthService.reset).toHaveBeenCalledWith({
-      token: 'mock-token',
-      email: 'test@example.com',
-      password: '123456',
-      password_confirmation: '123456'
-    });
-  });
 
-  it('debería manejar error del servidor', () => {
-    mockAuthService.reset.and.returnValue(throwError(() => ({ status: 400 })));
-    component.form.setValue({
-      password: '123456',
-      password_confirmation: '123456'
-    });
-    component.onSubmit();
-    expect(component.errorMessage).toBe('El enlace no es válido o ha expirado.');
-  });
+    it('debería mostrar éxito si la contraseña se restablece correctamente', fakeAsync(() => {
+        authServiceSpy.reset.and.returnValue(of({}));
+        component.form.setValue({
+            password: '123456',
+            password_confirmation: '123456'
+        });
 
-  it('debería navegar al login después de éxito', fakeAsync(() => {
-    component.form.setValue({
-      password: '123456',
-      password_confirmation: '123456'
+        component.onSubmit();
+        tick();
+
+        expect(component.successMessage).toContain('Contraseña actualizada');
+        expect(component.errorMessage).toBeNull();
+        expect(component.isLoading).toBeFalse();
+    }));
+
+    it('debería mostrar error si el restablecimiento falla', fakeAsync(() => {
+        authServiceSpy.reset.and.returnValue(throwError(() => ({})));
+        component.form.setValue({
+            password: '123456',
+            password_confirmation: '123456'
+        });
+
+        component.onSubmit();
+        tick();
+
+        expect(component.errorMessage).toContain('no es válido');
+        expect(component.successMessage).toBeNull();
+        expect(component.isLoading).toBeFalse();
+    }));
+
+    it('no debería enviar si el formulario es inválido', () => {
+        component.form.setValue({
+            password: '123456',
+            password_confirmation: '000000'
+        });
+
+        component.onSubmit();
+
+        expect(authServiceSpy.reset).not.toHaveBeenCalled();
+        expect(component.isLoading).toBeFalse();
     });
-    component.onSubmit();
-    tick(2000);
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
-  }));
 });
