@@ -76,7 +76,14 @@
     "no_lists_subtitle": "Ask your teammates to share a list with you 😉",
     "product_unit": "product",
     "product_plural": "products",
-    "no_products": "This list has no products yet"
+    "no_products": "This list has no products yet",
+    "duplicate": {
+      "title": "Duplicate List",
+      "confirm": "Do you want to duplicate the list as '{{name}}'?",
+      "confirmButton": "Duplicate",
+      "success": "List duplicated successfully",
+      "error": "Could not duplicate the list"
+    }
   },
   "lists": {
     "my_lists": "My lists",
@@ -126,6 +133,7 @@
     },
     "buttons": {
       "unarchive": "Unarchive",
+      "duplicate": "Duplicate",
       "delete": "Delete",
       "edit": "Edit",
       "manage_products": "Manage products",
