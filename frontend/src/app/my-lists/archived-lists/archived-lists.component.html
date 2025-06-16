@@ -47,7 +47,11 @@
           : ("shared-lists.product_plural" | transloco)
       }}
     </mat-card-content>
-    <mat-card-actions align="end">
+    <mat-card-actions class="card-buttons">
+      <button mat-stroked-button color="accent" (click)="duplicateList(list)">
+        {{ "lists.buttons.duplicate" | transloco }}
+      </button>
+
       <button
         mat-stroked-button
         color="primary"
