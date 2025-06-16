@@ -32,10 +32,14 @@ h2 {
         color: #374151;
     }
 
-    mat-card-actions {
+    mat-card-actions.card-buttons {
+        display: flex;
+        justify-content: space-between;
         margin-top: 1rem;
+        padding: 0 0.5rem;
 
         button {
+            min-width: 100px;
             font-weight: 500;
             text-transform: none;
         }
@@ -82,7 +86,6 @@ h2 {
         font-size: 0.95rem;
     }
 }
-
 
 body.dark-theme {
     .archived-list-card {
@@ -132,8 +135,10 @@ body.dark-theme {
             font-size: 0.9rem;
         }
 
-        mat-card-actions {
-            justify-content: center;
+        mat-card-actions.card-buttons {
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0;
 
             button {
                 width: 100%;
