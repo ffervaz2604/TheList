@@ -7,6 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { SnackService } from '../../services/snack.service';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { forkJoin, of } from 'rxjs';
+import { switchMap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-archived-lists',
@@ -27,7 +31,10 @@ export class ArchivedListsComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
 
-  constructor(private listService: ListService, private snackbar: SnackService, private snackBar: SnackService,
+  constructor(private listService: ListService,
+    private snackbar: SnackService,
+    private dialog: MatDialog,
+    private transloco: TranslocoService,
   ) { }
 
   ngOnInit(): void {
@@ -67,6 +74,43 @@ export class ArchivedListsComponent implements OnInit {
       error: () => {
         this.errorMessage = 'No se pudieron recargar las listas.';
         this.isLoading = false;
+      }
+    });
+  }
+
+  duplicateList(list: any): void {
+    const newName = `${list.name} (copia)`;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: this.transloco.translate('shared-lists.duplicate.title'),
+        message: this.transloco.translate('shared-lists.duplicate.confirm', { name: newName }),
+        confirmText: this.transloco.translate('shared-lists.duplicate.confirmButton')
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.listService.create({ name: newName }).pipe(
+          switchMap((res) => {
+            const newListId = res.data.id;
+            const requests = list.products.map((p: any) =>
+              this.listService.addProduct(newListId, {
+                name: p.name,
+                quantity: p.quantity,
+                purchased: false
+              }).pipe(catchError(() => of(null)))
+            );
+            return forkJoin(requests);
+          })
+        ).subscribe({
+          next: () => {
+            this.snackbar.show(this.transloco.translate('shared-lists.duplicate.success'));
+          },
+          error: () => {
+            this.snackbar.show(this.transloco.translate('shared-lists.duplicate.error'));
+          }
+        });
       }
     });
   }
