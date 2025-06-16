@@ -112,11 +112,18 @@
       "title": "Nueva Lista"
     },
     "share": {
-    "title": "Compartir lista",
-    "email": "Correo electrónico del usuario",
-    "submit": "Compartir",
-    "shared_with": "Compartido con:",
-    "remove_access": "Eliminar acceso"
+      "title": "Compartir lista",
+      "email": "Correo electrónico del usuario",
+      "submit": "Compartir",
+      "shared_with": "Compartido con:",
+      "remove_access": "Eliminar acceso",
+      "confirm": {
+        "revoke": {
+          "title": "Eliminar acceso",
+          "message": "¿Estás seguro de que deseas eliminar el acceso de este usuario?",
+          "confirmText": "Eliminar"
+        }
+      }
     },
     "buttons": {
       "unarchive": "Desarchivar",
