@@ -30,3 +30,26 @@ Aplicación web que permite crear y gestionar listas de la compra de forma colab
 ```bash
 git clone https://github.com/ffervaz2604/TFG-Lista.git
 cd TFG-Lista
+
+### 2. Backend – Laravel
+
+```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+
+### 3. Base de datos – Docker
+
+```bash
+docker-compose up -d
+
+### 4. Frontend – Angular
+
+```bash
+cd frontend
+npm install
+ng serve
+---
