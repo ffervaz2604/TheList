@@ -115,7 +115,14 @@
     "email": "User email address",
     "submit": "Share",
     "shared_with": "Shared with:",
-    "remove_access": "Remove access"
+    "remove_access": "Remove access",
+    "confirm": {
+      "revoke": {
+        "title": "Remove Access",
+        "message": "Are you sure you want to remove this user's access?",
+        "confirmText": "Remove"
+      }
+    }
     },
     "buttons": {
       "unarchive": "Unarchive",

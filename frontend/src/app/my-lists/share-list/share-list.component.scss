@@ -4,32 +4,54 @@
 }
 
 .dialog-content {
-    height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    height: 100%;
     padding: 0 1.5rem;
 }
 
 .dialog-form {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
+    justify-content: flex-start;
 }
 
 .full-width {
     width: 100%;
-    margin-bottom: auto; 
     margin-top: 1.5rem;
+}
+
+.shared-users {
+    margin-top: 1.5rem;
+    flex-grow: 1;
+    overflow-y: auto;
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    mat-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+            font-size: 0.95rem;
+        }
+
+        button {
+            margin-left: 1rem;
+        }
+    }
 }
 
 .dialog-actions {
     display: flex;
     align-items: center;
-    margin-top: 1rem;
-    padding: 0 1.5rem;
+    padding: 1rem 0;
 
     .left {
         margin-right: auto;
@@ -39,7 +61,6 @@
         margin-left: auto;
     }
 }
-
 
 body.dark-theme {
     mat-form-field {
@@ -65,7 +86,6 @@ body.dark-theme {
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
-        padding: 1rem 1rem;
 
         .left,
         .right {

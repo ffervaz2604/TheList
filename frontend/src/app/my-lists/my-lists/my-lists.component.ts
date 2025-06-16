@@ -209,8 +209,8 @@ export class MyListsComponent implements OnInit {
 
   shareList(listId: number): void {
     const dialogRef = this.dialog.open(ShareListComponent, {
-      width: '500px',
-      height: '275px',
+      width: '700px',
+      height: '400px',
       maxWidth: '95vw',
       data: { listId }
     });

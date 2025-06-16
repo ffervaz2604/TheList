@@ -1,18 +1,17 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 import { ListService } from '../../services/list.service';
 import { SnackService } from '../../services/snack.service';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
-import { TranslocoModule } from '@ngneat/transloco';
-import { MatTooltip } from '@angular/material/tooltip';
-import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-share-list',
@@ -25,7 +24,9 @@ import { ViewEncapsulation } from '@angular/core';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    TranslocoModule],
+    MatListModule,
+    TranslocoModule
+  ],
   templateUrl: './share-list.component.html',
   styleUrls: ['./share-list.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -40,6 +41,7 @@ export class ShareListComponent {
     private listService: ListService,
     private snackbar: SnackService,
     private dialog: MatDialog,
+    private transloco: TranslocoService,
     @Inject(MAT_DIALOG_DATA) public data: { listId: number }
   ) {
     this.form = this.fb.group({
@@ -76,9 +78,9 @@ export class ShareListComponent {
   revoke(userId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Eliminar acceso',
-        message: '¿Estás seguro de eliminar el acceso de este usuario?',
-        confirmText: 'Eliminar'
+        title: this.transloco.translate('lists.share.confirm.revoke.title'),
+        message: this.transloco.translate('lists.share.confirm.revoke.message'),
+        confirmText: this.transloco.translate('lists.share.confirm.revoke.confirmText')
       }
     });
 
